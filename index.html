@@ -3,35 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Showcase Font Anda</title>
+    <title>Showcase Font Pantai Losari</title> <!-- Updated title -->
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <!-- Removed Google Fonts link as the primary font is local, Lora is a fallback in CSS -->
 </head>
 <body>
     <div class="frame-container">
+        <!-- Ornaments can be added here if they are part of the frame or as separate img/svg tags -->
+        <!-- Example for one ornament, repeat and adjust for others if not part of frame image -->
+        <!-- <img src="assets/ornament_corner.svg" class="ornament-top-left" alt="Ornament"> -->
+
         <div class="content-wrapper">
             <header>
-                <h1><!-- NAMA FONT ANDA DI SINI -->Nama Font Anda</h1>
+                <h1>TYPEFACE PANTAI LOSARI</h1> <!-- Changed title -->
             </header>
 
             <main>
                 <section class="font-preview">
-                    <h2>Preview Font</h2>
+                    <div class="preview-font-label">PREVIEW FONT</div> <!-- Added new label -->
+                    <!-- Original h2 for "Preview Font" is now hidden by CSS -->
                     <div class="preview-box">
                         <p class="preview-text" id="previewText">The quick brown fox jumps over the lazy dog. 1234567890</p>
-                        <textarea id="customText" placeholder="Ketik teks Anda di sini untuk preview..."></textarea>
+                        <textarea id="customText" placeholder="ketik teks anda di sini untuk preview"></textarea> <!-- Matched placeholder to reference image -->
                     </div>
                 </section>
 
                 <section class="font-download">
-                    <h2>Unduh Font</h2>
-                    <!-- GANTI 'nama_font_anda.otf' DENGAN NAMA FILE FONT ANDA -->
-                    <a href="fonts/nama_font_anda.otf" download class="download-button">Unduh Font</a>
-                    <p class="instructions">Klik tombol di atas untuk mengunduh file font. Pastikan Anda telah menempatkan file font Anda (misalnya 'nama_font_anda.otf') di dalam folder 'fonts'.</p>
+                    <!-- Original h2 for "Unduh Font" is now hidden by CSS -->
+                    <a href="fonts/nama_font_anda.otf" download class="download-button">unduh font</a> <!-- Matched text to reference image -->
+                    <p class="instructions">Klik tombol di atas untuk mengunduh file font. Pastikan Anda telah menempatkan file font Anda (misalnya FontPantaiLosari.otf) di dalam folder 'fonts'.</p>
                 </section>
             </main>
 
             <footer>
+                <!-- Footer is hidden by CSS as per new design based on reference image -->
                 <p>Website Showcase Font</p>
             </footer>
         </div>
@@ -40,14 +45,17 @@
     <script>
         const customTextInput = document.getElementById('customText');
         const previewTextDisplay = document.getElementById('previewText');
+        const defaultPreview = 'The quick brown fox jumps over the lazy dog. 1234567890';
 
         customTextInput.addEventListener('input', function() {
             if (this.value.trim() !== '') {
                 previewTextDisplay.textContent = this.value;
             } else {
-                previewTextDisplay.textContent = 'The quick brown fox jumps over the lazy dog. 1234567890';
+                previewTextDisplay.textContent = defaultPreview;
             }
         });
+        // Set initial placeholder based on reference if needed, or keep as is.
+        // The CSS already styles the placeholder text if the textarea is empty.
     </script>
 </body>
 </html>

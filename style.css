@@ -1,11 +1,11 @@
 /* style.css - Revisi Desain dengan Aset Gambar Frame dari User */
 body {
-    font-family: 'Lora', serif;
+    font-family: 'Lora', serif; /* Fallback font */
     line-height: 1.6;
     margin: 0;
-    padding: 0; /* Hapus padding body, akan diatur oleh frame-container */
-    background-color: #2A3F3F; /* Warna fallback jika gambar tidak termuat */
-    color: #333;
+    padding: 0;
+    background-color: #203737; /* Dark teal from reference image background */
+    color: #E0D6C1; /* Light beige for text, similar to reference */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,193 +13,214 @@ body {
     box-sizing: border-box;
 }
 
-/* GANTI 'NamaFontAnda' dengan nama font yang Anda definisikan di @font-face */
-/* GANTI 'nama_font_anda.otf' dengan nama file font Anda di folder /fonts */
+/* Define the custom font from user's .otf file */
 @font-face {
-    font-family: 'NamaFontAnda'; /* Ganti dengan nama font Anda, contoh: 'MyAwesomeFont' */
-    src: url('fonts/nama_font_anda.otf') format('opentype'); /* Sesuaikan path dan format jika perlu (.ttf, .woff, .woff2) */
+    font-family: 'PantaiLosari'; /* Name for the font, as in reference */
+    src: url('fonts/nama_font_anda.otf') format('opentype'); /* User needs to replace 'nama_font_anda.otf' */
 }
 
 .frame-container {
-    background-image: url('assets/frame_desktop.png'); /* Default frame untuk desktop */
-    background-size: contain; /* Atau 'cover', tergantung preferensi scaling */
+    /* Mobile first: uses PORTRAIT frame (frame_landscape.png) by default */
+    background-image: url('assets/frame_landscape.png'); /* CORRECTED: Was frame_desktop.png (landscape) */
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
-    width: 600px; /* Sesuaikan dengan rasio gambar portrait Anda */
-    max-width: 90vw; /* Agar tidak terlalu lebar di layar besar */
-    aspect-ratio: 600 / 800; /* Sesuaikan dengan rasio gambar portrait Anda (lebar / tinggi) */
-    padding: 10% 12%; /* Perkiraan padding agar konten masuk ke area tengah frame, sesuaikan! */
+    width: 90vw; /* Responsive width for mobile */
+    max-width: 450px; /* Max width for mobile portrait view */
+    aspect-ratio: 3 / 4; /* Approximate aspect ratio for portrait frame */
+    padding: 15% 12%; /* Adjusted padding to fit content within the frame, may need tweaking */
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start; /* Align content to the top of the frame */
     align-items: center;
+    position: relative; /* For potential absolute positioning of ornaments if needed */
 }
 
 .content-wrapper {
     text-align: center;
     width: 100%;
     max-height: 100%;
-    overflow-y: auto; /* Jika konten lebih panjang dari area frame */
+    overflow-y: auto; /* Scroll if content overflows */
+    padding: 10px; /* Inner padding for content */
 }
 
 header h1 {
-    font-family: 'Merriweather', serif;
-    font-size: 2em; /* Sesuaikan agar pas di frame */
-    color: #3A2D22;
-    margin: 0 0 10px 0;
+    font-family: 'PantaiLosari', 'Merriweather', serif; /* Custom font first */
+    font-size: 2.2em; /* Adjusted for reference image */
+    color: #D4AC6F; /* Gold color from reference image title */
+    margin: 0 0 15px 0;
+    text-transform: uppercase;
+    line-height: 1.2;
+}
+
+/* Styling for "PREVIEW FONT" label */
+.preview-font-label {
+    font-family: 'PantaiLosari', 'Merriweather', serif;
+    font-size: 1.3em;
+    color: #203737; /* Dark teal text on light background */
+    background-color: #D4AC6F; /* Gold background */
+    padding: 5px 15px;
+    border-radius: 20px; /* Rounded corners like reference */
+    display: inline-block;
+    margin-bottom: 15px;
+    border: 2px solid #203737; /* Dark border */
 }
 
 main h2 {
-    font-family: 'Merriweather', serif;
-    font-size: 1.2em; /* Sesuaikan agar pas di frame */
-    color: #3A2D22;
-    border-bottom: 1px solid #B8860B;
-    padding-bottom: 5px;
-    margin-top: 0;
-    margin-bottom: 8px;
+    display: none; 
 }
 
 .font-preview {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .preview-box {
-    background-color: rgba(250, 240, 230, 0.8); /* Beige dengan sedikit transparansi agar tekstur frame terlihat */
-    border: 1px solid #D2B48C;
-    padding: 8px;
+    background-color: #F5EFE0; /* Light beige background for preview area */
+    border: none; /* Remove border, frame provides visual separation */
+    padding: 15px;
     text-align: left;
+    border-radius: 10px; /* Slightly rounded corners for the box */
 }
 
 .preview-text {
-    font-family: 'NamaFontAnda', 'Lora', serif;
-    font-size: 18px; /* Sesuaikan agar pas di frame */
-    color: #000000;
-    min-height: 35px;
+    font-family: 'PantaiLosari', 'Lora', serif; /* Custom font for preview */
+    font-size: 1.5em; /* Larger preview text */
+    color: #3A2D22; /* Dark brown text */
+    min-height: 60px;
     word-wrap: break-word;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
+    line-height: 1.3;
 }
 
 textarea#customText {
-    width: calc(100% - 16px);
-    min-height: 40px;
-    margin-top: 8px;
-    padding: 6px;
-    border: 1px solid #D2B48C;
-    font-size: 13px;
-    font-family: 'NamaFontAnda', 'Lora', serif;
-    background-color: rgba(255, 248, 220, 0.8); /* Cornsilk dengan sedikit transparansi */
-    color: #333;
+    width: calc(100% - 20px); /* Full width with padding */
+    min-height: 80px;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #D4AC6F; /* Gold border */
+    border-radius: 8px;
+    font-size: 1em;
+    font-family: 'PantaiLosari', 'Lora', serif; /* Custom font for textarea */
+    background-color: #FFFBF2; /* Very light beige */
+    color: #3A2D22;
     box-sizing: border-box;
 }
 
 .font-download {
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .download-button {
     display: inline-block;
-    background-color: #6B4F34;
-    color: #F5F5DC;
-    padding: 7px 15px;
+    background-color: #D4AC6F; /* Gold color from reference */
+    color: #203737; /* Dark teal text */
+    padding: 12px 25px;
     text-decoration: none;
-    border-radius: 0px;
-    font-family: 'Merriweather', serif;
-    font-size: 1em; /* Sesuaikan agar pas di frame */
-    border: 1px solid #B8860B;
+    border-radius: 8px; /* Rounded corners */
+    font-family: 'PantaiLosari', 'Merriweather', serif;
+    font-size: 1.2em;
+    border: 2px solid #203737; /* Dark border */
     transition: background-color 0.3s ease, color 0.3s ease;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
 }
 
 .download-button:hover {
-    background-color: #B8860B;
-    color: #2A3F3F;
+    background-color: #B8860B; /* Darker gold on hover */
+    color: #FFFFFF;
 }
 
 .instructions {
-    font-size: 0.75em;
-    color: #3A2D22;
+    font-size: 0.8em;
+    color: #E0D6C1; /* Light beige text */
     margin-top: 5px;
 }
 
 footer {
-    margin-top: 15px;
-    padding-top: 8px;
-    border-top: 1px solid #B8860B;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #D4AC6F; /* Gold border */
+    display: none; /* Footer not visible in reference image, hiding for now */
 }
 
 footer p {
-    font-size: 0.7em;
-    color: #3A2D22;
+    font-size: 0.8em;
+    color: #E0D6C1;
     margin: 0;
 }
 
-/* Media Queries untuk Responsivitas Mobile */
-@media (max-width: 768px) { /* Titik breakpoint bisa disesuaikan */
+/* Media Queries for Desktop (Landscape Frame) */
+@media (min-width: 769px) {
     .frame-container {
-        background-image: url('assets/frame_landscape.png');
-        width: 95vw; /* Lebar untuk tampilan landscape */
-        max-width: 800px; /* Batas maksimal untuk landscape */
-        aspect-ratio: 800 / 600; /* Sesuaikan dengan rasio gambar landscape Anda (lebar / tinggi) */
-        padding: 8% 10%; /* Sesuaikan padding untuk frame landscape */
+        background-image: url('assets/frame_desktop.png'); /* CORRECTED: Was frame_landscape.png (portrait) */
+        width: 80vw;
+        max-width: 900px; /* Max width for desktop landscape view */
+        aspect-ratio: 4 / 3; /* Approximate aspect ratio for landscape frame */
+        padding: 10% 12%; /* Adjust padding for landscape frame */
+        justify-content: center; /* Center content vertically in landscape */
     }
 
     header h1 {
-        font-size: 1.7em;
+        font-size: 3em; /* Larger title for desktop */
+        margin-bottom: 20px;
     }
 
-    main h2 {
-        font-size: 1.1em;
+    .preview-font-label {
+        font-size: 1.5em;
+        padding: 8px 20px;
+        margin-bottom: 20px;
     }
 
     .preview-text {
-        font-size: 16px;
+        font-size: 1.8em;
+        min-height: 70px;
     }
 
     textarea#customText {
-        font-size: 12px;
-        min-height: 35px;
+        font-size: 1.1em;
+        min-height: 90px;
     }
 
     .download-button {
-        font-size: 0.9em;
-        padding: 6px 12px;
-    }
-}
-
-@media (max-width: 480px) {
-    .frame-container {
-        padding: 10% 8%; /* Padding lebih besar di mobile sangat kecil untuk konten */
-        width: 98vw;
-        aspect-ratio: 600 / 800; /* Kembali ke portrait jika layar sangat sempit, atau tetap landscape jika diinginkan */
-        /* Jika ingin tetap landscape di layar sangat kecil, sesuaikan aspect-ratio di atas */
-        /* Jika ingin kembali ke portrait di layar sangat kecil: */
-        /* background-image: url('assets/frame_desktop.png'); */ 
-        /* aspect-ratio: 600 / 800; */
-    }
-
-    header h1 {
         font-size: 1.4em;
-    }
-
-    main h2 {
-        font-size: 1em;
-    }
-
-    .preview-text {
-        font-size: 14px;
-    }
-    .instructions {
-        font-size: 0.7em;
+        padding: 15px 30px;
     }
 }
 
-/* Komentar untuk pengguna:
-1. Ganti 'NamaFontAnda' di @font-face dan di mana pun ia digunakan (misalnya .preview-text, textarea#customText) dengan nama yang Anda inginkan untuk font Anda.
-2. Ganti 'fonts/nama_font_anda.otf' di @font-face dengan path yang benar ke file font Anda di dalam folder 'fonts'.
-3. Di index.html, ganti '<!-- NAMA FONT ANDA DI SINI -->Nama Font Anda' dengan nama font Anda.
-4. Di index.html, ganti 'fonts/nama_font_anda.otf' pada link unduhan dengan path yang benar ke file font Anda.
-5. Pastikan rasio aspek pada .frame-container dan padding disesuaikan dengan gambar frame Anda agar konten pas.
-6. Jika gambar frame memiliki area transparan di tengah, Anda mungkin tidak memerlukan background-color pada .preview-box dan textarea, atau bisa disesuaikan.
-*/
+.ornament-top-left {
+    position: absolute;
+    top: 20px; 
+    left: 20px; 
+    width: 80px; 
+    height: auto;
+    transform: rotate(0deg);
+}
+
+.ornament-top-right {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 80px;
+    height: auto;
+    transform: scaleX(-1); 
+}
+
+.ornament-bottom-left {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    width: 80px;
+    height: auto;
+    transform: scaleY(-1); 
+}
+
+.ornament-bottom-right {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 80px;
+    height: auto;
+    transform: scaleX(-1) scaleY(-1); 
+}
 
