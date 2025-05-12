@@ -1,4 +1,4 @@
-/* style.css - REVISION 3: Full frame, no scroll, ORIGINAL SCRIPT colors, layout from ref image */
+/* style.css - REVISION 4: Full frame, no scroll, ORIGINAL SCRIPT colors, layout from ref image, 2-line title, proportional scaling */
 html, body {
     margin: 0;
     padding: 0;
@@ -38,37 +38,40 @@ html, body {
 
 .content-wrapper {
     position: relative;
-    width: 60%; 
-    height: 70%; 
-    max-width: 400px; 
+    /* REMOVED fixed width/height percentages of parent */
+    /* NEW: Use vmin for max dimensions to ensure content scales with the frame */
+    max-width: 75vmin; /* Max width relative to smaller viewport edge */
+    max-height: 85vmin; /* Max height relative to smaller viewport edge, for portrait content */
+    
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center; 
     align-items: center;
-    padding: 20px; 
+    padding: 3vmin; /* Responsive padding */
     box-sizing: border-box;
+    /* background-color: rgba(255,0,0,0.1); /* For debugging layout */
 }
 
 header h1 {
     font-family: 'PantaiLosari', 'Merriweather', serif;
     font-size: clamp(1.8em, 5vw, 2.5em); 
-    color: #3A2D22; /* From original script (was #D4AC6F from ref image) */
+    color: #3A2D22; 
     margin: 0 0 10px 0;
     text-transform: uppercase;
-    line-height: 1.1;
+    line-height: 1.1; /* Should accommodate two lines */
 }
 
 .preview-font-label {
     font-family: 'PantaiLosari', 'Merriweather', serif;
     font-size: clamp(1em, 3vw, 1.3em);
-    color: #3A2D22; /* Dark text, consistent with H1 color from original script */
-    background-color: #D4AC6F; /* Gold background from reference image 20250513_025219.jpg */
+    color: #3A2D22; 
+    background-color: #D4AC6F; 
     padding: 5px 15px;
     border-radius: 15px; 
     display: inline-block;
     margin-bottom: 10px;
-    border: 1px solid #B8860B; /* Dark gold border, consistent with original button borders */
+    border: 1px solid #B8860B; 
 }
 
 main h2 {
@@ -81,7 +84,7 @@ main h2 {
 }
 
 .preview-box {
-    background-color: rgba(250, 240, 230, 0.8); /* From original script */
+    background-color: rgba(250, 240, 230, 0.8); 
     border: none; 
     padding: 10px;
     text-align: center; 
@@ -93,7 +96,7 @@ main h2 {
 .preview-text {
     font-family: 'PantaiLosari', 'Lora', serif;
     font-size: clamp(1.2em, 4vw, 1.6em);
-    color: #000000; /* From original script */
+    color: #000000; 
     min-height: 40px; 
     word-wrap: break-word;
     margin-bottom: 8px;
@@ -105,12 +108,12 @@ textarea#customText {
     min-height: 50px;
     margin-top: 8px;
     padding: 8px;
-    border: 1px solid #D2B48C; /* From original script */
+    border: 1px solid #D2B48C; 
     border-radius: 8px;
     font-size: clamp(0.9em, 2.5vw, 1.1em);
     font-family: 'PantaiLosari', 'Lora', serif;
-    background-color: rgba(255, 248, 220, 0.8); /* From original script */
-    color: #333; /* From original script */
+    background-color: rgba(255, 248, 220, 0.8); 
+    color: #333; 
     box-sizing: border-box;
 }
 
@@ -121,14 +124,14 @@ textarea#customText {
 
 .download-button {
     display: inline-block;
-    background-color: #6B4F34; /* From original script */
-    color: #F5F5DC; /* From original script */
+    background-color: #6B4F34; 
+    color: #F5F5DC; 
     padding: 10px 20px;
     text-decoration: none;
     border-radius: 8px; 
     font-family: 'PantaiLosari', 'Merriweather', serif; 
     font-size: clamp(1em, 3.5vw, 1.3em);
-    border: 1px solid #B8860B; /* From original script */
+    border: 1px solid #B8860B; 
     transition: background-color 0.3s ease, color 0.3s ease;
     margin-bottom: 5px;
     text-transform: uppercase;
@@ -137,13 +140,13 @@ textarea#customText {
 }
 
 .download-button:hover {
-    background-color: #B8860B; /* From original script */
-    color: #2A3F3F; /* From original script */
+    background-color: #B8860B; 
+    color: #2A3F3F; 
 }
 
 .instructions {
     font-size: clamp(0.6em, 2vw, 0.8em);
-    color: #3A2D22; /* From original script */
+    color: #3A2D22; 
     margin-top: 5px;
     display: none; 
 }
@@ -158,9 +161,9 @@ footer {
         background-image: url('assets/frame_desktop.png');
     }
     .content-wrapper {
-        width: 65%; 
-        height: 60%;
-        max-width: 700px; 
+        max-width: 85vmin; /* Adjusted for landscape content area */
+        max-height: 75vmin;
+        padding: 3vmin; /* Consistent responsive padding */
     }
 
     header h1 {
