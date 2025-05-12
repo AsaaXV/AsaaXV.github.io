@@ -1,13 +1,14 @@
-/* style.css */
+/* style.css - Revisi Desain Dekoratif */
 body {
-    font-family: sans-serif; /* Font default sebelum font kustom dimuat */
+    font-family: 'Lora', serif; /* Font serif default */
     line-height: 1.6;
     margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
+    padding: 20px; /* Padding untuk memberi ruang pada border terluar */
+    background-color: #2A3F3F; /* Dark Teal - Perkiraan dari gambar */
     color: #333;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     min-height: 100vh;
 }
 
@@ -15,104 +16,158 @@ body {
 /* GANTI 'nama_font_anda.otf' dengan nama file font Anda di folder /fonts */
 @font-face {
     font-family: 'NamaFontAnda'; /* Ganti dengan nama font Anda, contoh: 'MyAwesomeFont' */
-    src: url('fonts/Prototipe2FontLosari-Regular.ttf.otf') format('opentype'); /* Sesuaikan path dan format jika perlu (.ttf, .woff, .woff2) */
-    /* Anda bisa menambahkan variasi berat dan gaya font di sini jika ada file terpisah */
-    /* contoh: */
-    /* src: url('fonts/nama_font_anda-bold.otf') format('opentype'); */
-    /* font-weight: bold; */
+    src: url('fonts/nama_font_anda.otf') format('opentype'); /* Sesuaikan path dan format jika perlu (.ttf, .woff, .woff2) */
 }
 
-header {
-    background: #333;
-    color: #fff;
-    padding: 1rem 0;
+.outer-border {
+    border: 8px solid #6B4F34; /* Coklat tua untuk border terluar */
+    padding: 8px;
+    background-color: transparent; /* Atau bisa sama dengan body jika efeknya lebih baik */
+    max-width: 600px; /* Lebar maksimum konten */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.middle-border {
+    border: 2px solid #B8860B; /* Emas/Coklat muda untuk border tengah */
+    padding: 15px;
+    background-color: #2A3F3F; /* Sama dengan background body */
+    box-sizing: border-box;
+}
+
+.inner-border {
+    border: 1px solid #6B4F34; /* Coklat tua tipis untuk border dalam */
+    padding: 20px;
+    background-color: #F5F5DC; /* Beige untuk area konten utama */
+    box-sizing: border-box;
+    position: relative; /* Untuk ornamen jika ditambahkan */
+}
+
+/* Ornamen sudut - Implementasi sederhana dengan pseudo-elements */
+/* Ini mungkin tidak persis seperti gambar, tapi memberikan efek dekoratif */
+.inner-border::before, .inner-border::after {
+    content: '';
+    position: absolute;
+    width: 20px; /* Ukuran ornamen */
+    height: 20px; /* Ukuran ornamen */
+    background-color: #B8860B; /* Warna ornamen (emas/coklat muda) */
+    /* Bentuk sederhana, bisa diganti dengan SVG atau gambar jika lebih kompleks */
+    clip-path: polygon(0 0, 100% 0, 50% 100%); /* Segitiga sebagai contoh */
+}
+
+.inner-border::before {
+    top: -10px; /* Sesuaikan posisi */
+    left: -10px;
+    transform: rotate(-45deg);
+}
+
+.inner-border::after {
+    bottom: -10px; /* Sesuaikan posisi */
+    right: -10px;
+    transform: rotate(135deg);
+}
+
+/* Styling untuk elemen konten di dalam .content-wrapper */
+.content-wrapper {
     text-align: center;
 }
 
 header h1 {
-    margin: 0;
-    /* Terapkan font kustom ke judul utama jika diinginkan, setelah @font-face didefinisikan */
-    /* font-family: 'NamaFontAnda', sans-serif; */
+    font-family: 'Merriweather', serif; /* Font serif yang lebih tegas untuk judul */
+    font-size: 2.5em; /* Ukuran font judul */
+    color: #3A2D22; /* Warna coklat tua untuk teks judul */
+    margin: 0 0 20px 0;
+    /* font-family: 'NamaFontAnda', 'Merriweather', serif; */ /* Aktifkan jika ingin judul utama menggunakan font showcase */
 }
 
-main {
-    flex: 1;
-    padding: 20px;
-    max-width: 800px;
-    margin: 20px auto;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-.font-preview h2,
-.font-download h2 {
-    border-bottom: 2px solid #333;
-    padding-bottom: 10px;
+main h2 {
+    font-family: 'Merriweather', serif;
+    font-size: 1.5em;
+    color: #3A2D22;
+    border-bottom: 1px solid #B8860B; /* Garis bawah emas/coklat muda */
+    padding-bottom: 5px;
     margin-top: 0;
+    margin-bottom: 15px;
 }
 
 .font-preview {
     margin-bottom: 30px;
 }
 
-.preview-text {
-    font-size: 24px; /* Ukuran font default untuk preview */
-    /* Terapkan font kustom ke teks preview */
-    font-family: 'NamaFontAnda', sans-serif; /* Pastikan 'NamaFontAnda' sesuai dengan yang di @font-face */
+.preview-box {
+    background-color: #FAF0E6; /* Warna krem lebih muda untuk kotak preview */
+    border: 1px solid #D2B48C; /* Border coklat muda untuk kotak preview */
     padding: 15px;
-    border: 1px solid #ddd;
-    background-color: #f9f9f9;
-    min-height: 50px; /* Tinggi minimum untuk area preview */
+    text-align: left;
+}
+
+.preview-text {
+    font-family: 'NamaFontAnda', 'Lora', serif; /* Terapkan font kustom ke teks preview */
+    font-size: 22px; /* Ukuran font default untuk preview */
+    color: #000000; /* Teks hitam agar kontras */
+    min-height: 50px;
     word-wrap: break-word;
+    margin-bottom: 10px;
 }
 
 textarea#customText {
-    width: calc(100% - 22px); /* Sesuaikan padding dan border */
-    min-height: 80px;
+    width: calc(100% - 22px);
+    min-height: 60px;
     margin-top: 10px;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #D2B48C;
     font-size: 16px;
-    font-family: 'NamaFontAnda', sans-serif; /* Terapkan font kustom juga ke textarea jika diinginkan */
+    font-family: 'NamaFontAnda', 'Lora', serif;
+    background-color: #FFF8DC; /* Cornsilk - sedikit berbeda untuk input */
+    color: #333;
 }
 
 .font-download {
-    text-align: center;
+    margin-top: 20px;
 }
 
 .download-button {
     display: inline-block;
-    background-color: #5cb85c;
-    color: white;
-    padding: 12px 25px;
+    background-color: #6B4F34; /* Coklat tua untuk tombol */
+    color: #F5F5DC; /* Teks beige untuk tombol */
+    padding: 10px 20px;
     text-decoration: none;
-    border-radius: 5px;
-    font-size: 18px;
-    transition: background-color 0.3s ease;
+    border-radius: 0px; /* Tombol tanpa radius, sesuai gambar */
+    font-family: 'Merriweather', serif;
+    font-size: 1.2em;
+    border: 1px solid #B8860B; /* Border emas/coklat muda */
+    transition: background-color 0.3s ease, color 0.3s ease;
     margin-bottom: 10px;
 }
 
 .download-button:hover {
-    background-color: #4cae4c;
+    background-color: #B8860B; /* Emas/Coklat muda saat hover */
+    color: #2A3F3F; /* Teks dark teal saat hover */
 }
 
 .instructions {
     font-size: 0.9em;
-    color: #666;
+    color: #3A2D22; /* Warna coklat tua untuk teks instruksi */
+    margin-top: 5px;
 }
 
 footer {
-    text-align: center;
-    padding: 1rem 0;
-    background: #333;
-    color: #fff;
-    margin-top: auto; /* Mendorong footer ke bagian bawah */
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #B8860B;
+}
+
+footer p {
+    font-size: 0.8em;
+    color: #3A2D22;
+    margin: 0;
 }
 
 /* Komentar untuk pengguna:
-1. Ganti 'NamaFontAnda' di @font-face dan di mana pun ia digunakan (misalnya .preview-text, header h1, textarea#customText) dengan nama yang Anda inginkan untuk font Anda.
-2. Ganti 'fonts/nama_font_anda.otf' di @font-face dengan path yang benar ke file font Anda di dalam folder 'fonts'. Pastikan formatnya ('opentype', 'truetype', dll.) juga benar.
+1. Ganti 'NamaFontAnda' di @font-face dan di mana pun ia digunakan (misalnya .preview-text, textarea#customText) dengan nama yang Anda inginkan untuk font Anda.
+2. Ganti 'fonts/nama_font_anda.otf' di @font-face dengan path yang benar ke file font Anda di dalam folder 'fonts'.
 3. Di index.html, ganti '<!-- NAMA FONT ANDA DI SINI -->Nama Font Anda' dengan nama font Anda.
 4. Di index.html, ganti 'fonts/nama_font_anda.otf' pada link unduhan dengan path yang benar ke file font Anda.
+5. Ornamen sudut adalah implementasi CSS sederhana dan mungkin tidak persis seperti gambar. Untuk replikasi yang lebih akurat, penggunaan gambar SVG untuk ornamen akan lebih baik.
 */
 
