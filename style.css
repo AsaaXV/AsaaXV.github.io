@@ -1,0 +1,118 @@
+/* style.css */
+body {
+    font-family: sans-serif; /* Font default sebelum font kustom dimuat */
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* GANTI 'NamaFontAnda' dengan nama font yang Anda definisikan di @font-face */
+/* GANTI 'nama_font_anda.otf' dengan nama file font Anda di folder /fonts */
+@font-face {
+    font-family: 'NamaFontAnda'; /* Ganti dengan nama font Anda, contoh: 'MyAwesomeFont' */
+    src: url('fonts/nama_font_anda.otf') format('opentype'); /* Sesuaikan path dan format jika perlu (.ttf, .woff, .woff2) */
+    /* Anda bisa menambahkan variasi berat dan gaya font di sini jika ada file terpisah */
+    /* contoh: */
+    /* src: url('fonts/nama_font_anda-bold.otf') format('opentype'); */
+    /* font-weight: bold; */
+}
+
+header {
+    background: #333;
+    color: #fff;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    /* Terapkan font kustom ke judul utama jika diinginkan, setelah @font-face didefinisikan */
+    /* font-family: 'NamaFontAnda', sans-serif; */
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.font-preview h2,
+.font-download h2 {
+    border-bottom: 2px solid #333;
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+.font-preview {
+    margin-bottom: 30px;
+}
+
+.preview-text {
+    font-size: 24px; /* Ukuran font default untuk preview */
+    /* Terapkan font kustom ke teks preview */
+    font-family: 'NamaFontAnda', sans-serif; /* Pastikan 'NamaFontAnda' sesuai dengan yang di @font-face */
+    padding: 15px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    min-height: 50px; /* Tinggi minimum untuk area preview */
+    word-wrap: break-word;
+}
+
+textarea#customText {
+    width: calc(100% - 22px); /* Sesuaikan padding dan border */
+    min-height: 80px;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    font-family: 'NamaFontAnda', sans-serif; /* Terapkan font kustom juga ke textarea jika diinginkan */
+}
+
+.font-download {
+    text-align: center;
+}
+
+.download-button {
+    display: inline-block;
+    background-color: #5cb85c;
+    color: white;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+}
+
+.download-button:hover {
+    background-color: #4cae4c;
+}
+
+.instructions {
+    font-size: 0.9em;
+    color: #666;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem 0;
+    background: #333;
+    color: #fff;
+    margin-top: auto; /* Mendorong footer ke bagian bawah */
+}
+
+/* Komentar untuk pengguna:
+1. Ganti 'NamaFontAnda' di @font-face dan di mana pun ia digunakan (misalnya .preview-text, header h1, textarea#customText) dengan nama yang Anda inginkan untuk font Anda.
+2. Ganti 'fonts/nama_font_anda.otf' di @font-face dengan path yang benar ke file font Anda di dalam folder 'fonts'. Pastikan formatnya ('opentype', 'truetype', dll.) juga benar.
+3. Di index.html, ganti '<!-- NAMA FONT ANDA DI SINI -->Nama Font Anda' dengan nama font Anda.
+4. Di index.html, ganti 'fonts/nama_font_anda.otf' pada link unduhan dengan path yang benar ke file font Anda.
+*/
+

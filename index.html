@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Showcase Font Anda</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1><!-- NAMA FONT ANDA DI SINI -->Nama Font Anda</h1>
+    </header>
+
+    <main>
+        <section class="font-preview">
+            <h2>Preview Font</h2>
+            <p class="preview-text" id="previewText">The quick brown fox jumps over the lazy dog. 1234567890</p>
+            <textarea id="customText" placeholder="Ketik teks Anda di sini untuk preview..."></textarea>
+        </section>
+
+        <section class="font-download">
+            <h2>Unduh Font</h2>
+            <!-- GANTI 'nama_font_anda.otf' DENGAN NAMA FILE FONT ANDA -->
+            <a href="fonts/nama_font_anda.otf" download class="download-button">Unduh Font (.otf)</a>
+            <p class="instructions">Klik tombol di atas untuk mengunduh file font. Pastikan Anda telah menempatkan file font Anda (misalnya 'nama_font_anda.otf') di dalam folder 'fonts'.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Website Showcase Font Sederhana</p>
+    </footer>
+
+    <script>
+        const customTextInput = document.getElementById('customText');
+        const previewTextDisplay = document.getElementById('previewText');
+
+        customTextInput.addEventListener('input', function() {
+            if (this.value.trim() !== '') {
+                previewTextDisplay.textContent = this.value;
+            } else {
+                previewTextDisplay.textContent = 'The quick brown fox jumps over the lazy dog. 1234567890';
+            }
+        });
+    </script>
+</body>
+</html>
