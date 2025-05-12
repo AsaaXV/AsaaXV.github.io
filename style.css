@@ -15,7 +15,7 @@ body {
 /* GANTI 'nama_font_anda.otf' dengan nama file font Anda di folder /fonts */
 @font-face {
     font-family: 'NamaFontAnda'; /* Ganti dengan nama font Anda, contoh: 'MyAwesomeFont' */
-    src: url('fonts/nama_font_anda.otf') format('opentype'); /* Sesuaikan path dan format jika perlu (.ttf, .woff, .woff2) */
+    src: url('fonts/Prototipe2FontLosari-Regular.ttf.otf') format('opentype'); /* Sesuaikan path dan format jika perlu (.ttf, .woff, .woff2) */
     /* Anda bisa menambahkan variasi berat dan gaya font di sini jika ada file terpisah */
     /* contoh: */
     /* src: url('fonts/nama_font_anda-bold.otf') format('opentype'); */
