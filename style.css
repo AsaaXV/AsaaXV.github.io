@@ -1,70 +1,74 @@
-/* style.css - Revisi Desain dengan Aset Gambar Frame dari User */
-body {
-    font-family: 'Lora', serif; /* Fallback font */
-    line-height: 1.6;
+/* style.css - REVISION 3: Full frame, no scroll, ORIGINAL SCRIPT colors, layout from ref image */
+html, body {
     margin: 0;
     padding: 0;
-    background-color: #203737; /* Dark teal from reference image background */
-    color: #E0D6C1; /* Light beige for text, similar to reference */
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Prevent scrolling on the entire page */
+    background-color: #2A3F3F; /* From original script */
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    box-sizing: border-box;
+    font-family: 'Lora', serif; /* Fallback font */
+    color: #333; /* Default text color from original script */
 }
 
-/* Define the custom font from user's .otf file */
 @font-face {
-    font-family: 'PantaiLosari'; /* Name for the font, as in reference */
-    src: url('fonts/nama_font_anda.otf') format('opentype'); /* User needs to replace 'nama_font_anda.otf' */
+    font-family: 'PantaiLosari';
+    src: url('fonts/Prototipe2FontLosari-Regular.otf') format('opentype'); /* UPDATED FONT FILE */
 }
 
 .frame-container {
-    /* Mobile first: uses PORTRAIT frame (frame_landscape.png) by default */
-    background-image: url('assets/frame_landscape.png'); /* CORRECTED: Was frame_desktop.png (landscape) */
-    background-size: contain;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
     background-repeat: no-repeat;
     background-position: center center;
-    width: 90vw; /* Responsive width for mobile */
-    max-width: 450px; /* Max width for mobile portrait view */
-    aspect-ratio: 3 / 4; /* Approximate aspect ratio for portrait frame */
-    padding: 15% 12%; /* Adjusted padding to fit content within the frame, may need tweaking */
-    box-sizing: border-box;
+    background-size: contain;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* Align content to the top of the frame */
+    justify-content: center;
     align-items: center;
-    position: relative; /* For potential absolute positioning of ornaments if needed */
+    box-sizing: border-box;
+}
+
+/* Mobile first: uses portrait frame (frame_landscape.png from assets, which is portrait) */
+.frame-container {
+    background-image: url('assets/frame_landscape.png'); 
 }
 
 .content-wrapper {
+    position: relative;
+    width: 60%; 
+    height: 70%; 
+    max-width: 400px; 
     text-align: center;
-    width: 100%;
-    max-height: 100%;
-    overflow-y: auto; /* Scroll if content overflows */
-    padding: 10px; /* Inner padding for content */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    padding: 20px; 
+    box-sizing: border-box;
 }
 
 header h1 {
-    font-family: 'PantaiLosari', 'Merriweather', serif; /* Custom font first */
-    font-size: 2.2em; /* Adjusted for reference image */
-    color: #D4AC6F; /* Gold color from reference image title */
-    margin: 0 0 15px 0;
+    font-family: 'PantaiLosari', 'Merriweather', serif;
+    font-size: clamp(1.8em, 5vw, 2.5em); 
+    color: #3A2D22; /* From original script (was #D4AC6F from ref image) */
+    margin: 0 0 10px 0;
     text-transform: uppercase;
-    line-height: 1.2;
+    line-height: 1.1;
 }
 
-/* Styling for "PREVIEW FONT" label */
 .preview-font-label {
     font-family: 'PantaiLosari', 'Merriweather', serif;
-    font-size: 1.3em;
-    color: #203737; /* Dark teal text on light background */
-    background-color: #D4AC6F; /* Gold background */
+    font-size: clamp(1em, 3vw, 1.3em);
+    color: #3A2D22; /* Dark text, consistent with H1 color from original script */
+    background-color: #D4AC6F; /* Gold background from reference image 20250513_025219.jpg */
     padding: 5px 15px;
-    border-radius: 20px; /* Rounded corners like reference */
+    border-radius: 15px; 
     display: inline-block;
-    margin-bottom: 15px;
-    border: 2px solid #203737; /* Dark border */
+    margin-bottom: 10px;
+    border: 1px solid #B8860B; /* Dark gold border, consistent with original button borders */
 }
 
 main h2 {
@@ -72,155 +76,116 @@ main h2 {
 }
 
 .font-preview {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    width: 100%;
 }
 
 .preview-box {
-    background-color: #F5EFE0; /* Light beige background for preview area */
-    border: none; /* Remove border, frame provides visual separation */
-    padding: 15px;
-    text-align: left;
-    border-radius: 10px; /* Slightly rounded corners for the box */
+    background-color: rgba(250, 240, 230, 0.8); /* From original script */
+    border: none; 
+    padding: 10px;
+    text-align: center; 
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .preview-text {
-    font-family: 'PantaiLosari', 'Lora', serif; /* Custom font for preview */
-    font-size: 1.5em; /* Larger preview text */
-    color: #3A2D22; /* Dark brown text */
-    min-height: 60px;
+    font-family: 'PantaiLosari', 'Lora', serif;
+    font-size: clamp(1.2em, 4vw, 1.6em);
+    color: #000000; /* From original script */
+    min-height: 40px; 
     word-wrap: break-word;
-    margin-bottom: 10px;
-    line-height: 1.3;
+    margin-bottom: 8px;
+    line-height: 1.2;
 }
 
 textarea#customText {
-    width: calc(100% - 20px); /* Full width with padding */
-    min-height: 80px;
-    margin-top: 10px;
-    padding: 10px;
-    border: 1px solid #D4AC6F; /* Gold border */
+    width: 100%;
+    min-height: 50px;
+    margin-top: 8px;
+    padding: 8px;
+    border: 1px solid #D2B48C; /* From original script */
     border-radius: 8px;
-    font-size: 1em;
-    font-family: 'PantaiLosari', 'Lora', serif; /* Custom font for textarea */
-    background-color: #FFFBF2; /* Very light beige */
-    color: #3A2D22;
+    font-size: clamp(0.9em, 2.5vw, 1.1em);
+    font-family: 'PantaiLosari', 'Lora', serif;
+    background-color: rgba(255, 248, 220, 0.8); /* From original script */
+    color: #333; /* From original script */
     box-sizing: border-box;
 }
 
 .font-download {
-    margin-top: 20px;
+    margin-top: 15px;
+    width: 100%;
 }
 
 .download-button {
     display: inline-block;
-    background-color: #D4AC6F; /* Gold color from reference */
-    color: #203737; /* Dark teal text */
-    padding: 12px 25px;
+    background-color: #6B4F34; /* From original script */
+    color: #F5F5DC; /* From original script */
+    padding: 10px 20px;
     text-decoration: none;
-    border-radius: 8px; /* Rounded corners */
-    font-family: 'PantaiLosari', 'Merriweather', serif;
-    font-size: 1.2em;
-    border: 2px solid #203737; /* Dark border */
+    border-radius: 8px; 
+    font-family: 'PantaiLosari', 'Merriweather', serif; 
+    font-size: clamp(1em, 3.5vw, 1.3em);
+    border: 1px solid #B8860B; /* From original script */
     transition: background-color 0.3s ease, color 0.3s ease;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     text-transform: uppercase;
+    width: auto; 
+    max-width: 80%; 
 }
 
 .download-button:hover {
-    background-color: #B8860B; /* Darker gold on hover */
-    color: #FFFFFF;
+    background-color: #B8860B; /* From original script */
+    color: #2A3F3F; /* From original script */
 }
 
 .instructions {
-    font-size: 0.8em;
-    color: #E0D6C1; /* Light beige text */
+    font-size: clamp(0.6em, 2vw, 0.8em);
+    color: #3A2D22; /* From original script */
     margin-top: 5px;
+    display: none; 
 }
 
 footer {
-    margin-top: 20px;
-    padding-top: 10px;
-    border-top: 1px solid #D4AC6F; /* Gold border */
-    display: none; /* Footer not visible in reference image, hiding for now */
+    display: none; 
 }
 
-footer p {
-    font-size: 0.8em;
-    color: #E0D6C1;
-    margin: 0;
-}
-
-/* Media Queries for Desktop (Landscape Frame) */
-@media (min-width: 769px) {
+/* Media Queries for Desktop (Landscape Frame - frame_desktop.png from assets, which is landscape) */
+@media (min-width: 769px) and (orientation: landscape) {
     .frame-container {
-        background-image: url('assets/frame_desktop.png'); /* CORRECTED: Was frame_landscape.png (portrait) */
-        width: 80vw;
-        max-width: 900px; /* Max width for desktop landscape view */
-        aspect-ratio: 4 / 3; /* Approximate aspect ratio for landscape frame */
-        padding: 10% 12%; /* Adjust padding for landscape frame */
-        justify-content: center; /* Center content vertically in landscape */
+        background-image: url('assets/frame_desktop.png');
+    }
+    .content-wrapper {
+        width: 65%; 
+        height: 60%;
+        max-width: 700px; 
     }
 
     header h1 {
-        font-size: 3em; /* Larger title for desktop */
-        margin-bottom: 20px;
+        font-size: clamp(2.5em, 6vw, 3.5em);
+        margin-bottom: 15px;
     }
 
     .preview-font-label {
-        font-size: 1.5em;
-        padding: 8px 20px;
-        margin-bottom: 20px;
+        font-size: clamp(1.2em, 3.5vw, 1.6em);
+        margin-bottom: 15px;
     }
 
     .preview-text {
-        font-size: 1.8em;
-        min-height: 70px;
+        font-size: clamp(1.5em, 4.5vw, 2em);
+        min-height: 50px;
     }
 
     textarea#customText {
-        font-size: 1.1em;
-        min-height: 90px;
+        font-size: clamp(1em, 3vw, 1.3em);
+        min-height: 60px;
     }
 
     .download-button {
-        font-size: 1.4em;
-        padding: 15px 30px;
+        font-size: clamp(1.2em, 4vw, 1.5em);
+        padding: 12px 25px;
     }
-}
-
-.ornament-top-left {
-    position: absolute;
-    top: 20px; 
-    left: 20px; 
-    width: 80px; 
-    height: auto;
-    transform: rotate(0deg);
-}
-
-.ornament-top-right {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 80px;
-    height: auto;
-    transform: scaleX(-1); 
-}
-
-.ornament-bottom-left {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    width: 80px;
-    height: auto;
-    transform: scaleY(-1); 
-}
-
-.ornament-bottom-right {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    width: 80px;
-    height: auto;
-    transform: scaleX(-1) scaleY(-1); 
 }
 
