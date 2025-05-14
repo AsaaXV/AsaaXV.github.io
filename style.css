@@ -15,7 +15,7 @@ html, body {
 
 @font-face {
     font-family: 'PantaiLosari';
-    src: url('fonts/Prototipe2FontLosari-Regular.otf') format('opentype'); /* UPDATED FONT FILE */
+    src: url('fonts/Losari-Regular.otf') format('opentype'); /* UPDATED FONT FILE */
 }
 
 .frame-container {
