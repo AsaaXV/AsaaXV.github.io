@@ -24,6 +24,17 @@
         <button id="backButton" class="back-button">Kembali</button>
     </div>
     
+    <!-- Love message overlay -->
+    <div class="love-message-overlay" id="loveMessageOverlay">
+        <div class="love-message-container">
+            <div class="love-message">Boleh gak si baper sama kating?</div>
+            <button id="yesButton" class="yes-button">Ya</button>
+        </div>
+    </div>
+    
+    <!-- Love rain container -->
+    <div class="love-rain-container" id="loveRainContainer"></div>
+    
     <!-- Music control button positioned at bottom right -->
     <div id="musicControl" class="music-control">
         <button id="playPauseButton" class="play-pause-button" aria-label="Play/Pause Music">
@@ -36,6 +47,13 @@
     <div id="videoControl" class="video-control">
         <button id="ghostButton" class="ghost-button" aria-label="Play Ghost Video">
             <span class="control-icon">👻</span>
+        </button>
+    </div>
+    
+    <!-- Love button positioned next to ghost button -->
+    <div id="loveControl" class="love-control">
+        <button id="loveButton" class="love-button" aria-label="Show Love Rain">
+            <span class="control-icon">❤️</span>
         </button>
     </div>
     
@@ -198,6 +216,116 @@
         ghostVideo.addEventListener("ended", function() {
             // Optional: automatically close overlay when video ends
             // videoOverlay.style.display = "none";
+        });
+        
+        // Love button and rain effect functionality
+        const loveButton = document.getElementById("loveButton");
+        const loveRainContainer = document.getElementById("loveRainContainer");
+        const loveMessageOverlay = document.getElementById("loveMessageOverlay");
+        const yesButton = document.getElementById("yesButton");
+        
+        // Create and animate love particles
+        function createLoveRain() {
+            loveRainContainer.style.display = "block";
+            
+            // Clear any existing particles
+            loveRainContainer.innerHTML = '';
+            
+            // Create 50 love particles
+            for (let i = 0; i < 50; i++) {
+                createLoveParticle();
+            }
+            
+            // Show love message after 2 seconds
+            setTimeout(() => {
+                loveMessageOverlay.style.display = "flex";
+            }, 2000);
+        }
+        
+        function createLoveParticle() {
+            const particle = document.createElement("div");
+            particle.classList.add("love-particle");
+            
+            // Randomly choose between different heart symbols
+            const hearts = ["❤️", "💖", "💕", "💗", "💓", "💘", "💝"];
+            particle.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+            
+            // Random starting position
+            const startPositionX = Math.random() * window.innerWidth;
+            particle.style.left = startPositionX + "px";
+            particle.style.top = "-50px";
+            
+            // Random size
+            const size = Math.random() * 20 + 15;
+            particle.style.fontSize = size + "px";
+            
+            // Random animation duration
+            const duration = Math.random() * 3 + 2;
+            particle.style.animationDuration = duration + "s";
+            
+            loveRainContainer.appendChild(particle);
+            
+            // Remove particle after animation completes
+            setTimeout(() => {
+                if (particle.parentNode === loveRainContainer) {
+                    loveRainContainer.removeChild(particle);
+                }
+            }, duration * 1000);
+        }
+        
+        // Make the Yes button move away when hovered
+        function setupMovingYesButton() {
+            yesButton.addEventListener("mouseover", function(e) {
+                // Get viewport dimensions
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                
+                // Calculate new random position
+                const newX = Math.random() * (viewportWidth - 100);
+                const newY = Math.random() * (viewportHeight - 100);
+                
+                // Apply new position
+                const messageContainer = yesButton.parentNode;
+                messageContainer.style.position = "absolute";
+                messageContainer.style.left = newX + "px";
+                messageContainer.style.top = newY + "px";
+            });
+            
+            // When finally clicked, celebrate
+            yesButton.addEventListener("click", function() {
+                // Hide message overlay
+                loveMessageOverlay.style.display = "none";
+                
+                // Create more intense love rain
+                loveRainContainer.innerHTML = '';
+                for (let i = 0; i < 100; i++) {
+                    createLoveParticle();
+                }
+                
+                // Hide rain after 5 seconds
+                setTimeout(() => {
+                    loveRainContainer.style.display = "none";
+                }, 5000);
+            });
+        }
+        
+        // Start love rain when love button is clicked
+        loveButton.addEventListener("click", function() {
+            createLoveRain();
+        });
+        
+        // Setup moving yes button
+        setupMovingYesButton();
+        
+        // Close love message when clicking outside
+        loveMessageOverlay.addEventListener("click", function(e) {
+            if (e.target === loveMessageOverlay) {
+                loveMessageOverlay.style.display = "none";
+                // Stop the love rain
+                setTimeout(() => {
+                    loveRainContainer.style.display = "none";
+                }, 1000);
+            }
         });
     </script>
 </body>
