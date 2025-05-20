@@ -229,6 +229,9 @@
         const loveMessageContainer = document.getElementById("loveMessageContainer");
         const yesButton = document.getElementById("yesButton");
         
+        // Check if device is mobile
+        const isMobile = window.innerWidth <= 768;
+        
         // Create and animate love particles
         function createLoveRain() {
             // Clear any existing particles and reset displays
@@ -237,8 +240,11 @@
             pinkGradientOverlay.style.display = "none";
             loveMessageOverlay.style.display = "none";
             
-            // Create 100 love particles (increased from 50 to fill screen)
-            for (let i = 0; i < 100; i++) {
+            // Create fewer particles on mobile devices
+            const particleCount = isMobile ? 50 : 100;
+            
+            // Create love particles
+            for (let i = 0; i < particleCount; i++) {
                 createLoveParticle();
             }
             
@@ -263,13 +269,21 @@
             const hearts = ["❤️", "💖", "💕", "💗", "💓", "💘", "💝"];
             particle.textContent = hearts[Math.floor(Math.random() * hearts.length)];
             
-            // Random starting position across full width
-            const startPositionX = Math.random() * window.innerWidth;
+            // Random starting position with wider distribution on mobile
+            const viewportWidth = window.innerWidth;
+            // Use wider distribution on mobile to prevent clustering
+            const startPositionX = isMobile ? 
+                (Math.random() * viewportWidth * 1.2) - (viewportWidth * 0.1) : // Wider distribution for mobile
+                Math.random() * viewportWidth;
+            
             particle.style.left = startPositionX + "px";
             particle.style.top = "-50px";
             
-            // Random size (increased for more visibility)
-            const size = Math.random() * 25 + 15;
+            // Random size (smaller on mobile)
+            const size = isMobile ? 
+                Math.random() * 15 + 10 : // Smaller size for mobile
+                Math.random() * 25 + 15;
+            
             particle.style.fontSize = size + "px";
             
             // Random animation duration
@@ -286,11 +300,12 @@
             }, duration * 1000);
             
             // Create new particles continuously for rain effect
+            // Slower rate of new particles on mobile
             setTimeout(() => {
                 if (loveRainContainer.style.display === "block") {
                     createLoveParticle();
                 }
-            }, Math.random() * 300);
+            }, isMobile ? Math.random() * 500 : Math.random() * 300);
         }
         
         // Make the Yes button move away when hovered
@@ -319,7 +334,9 @@
                 
                 // Create more intense love rain
                 loveRainContainer.innerHTML = '';
-                for (let i = 0; i < 150; i++) {
+                // Fewer celebration particles on mobile
+                const celebrationCount = isMobile ? 75 : 150;
+                for (let i = 0; i < celebrationCount; i++) {
                     createLoveParticle();
                 }
                 
@@ -349,6 +366,11 @@
                     loveRainContainer.style.display = "none";
                 }, 1000);
             }
+        });
+        
+        // Update mobile detection on resize
+        window.addEventListener('resize', function() {
+            isMobile = window.innerWidth <= 768;
         });
     </script>
 </body>

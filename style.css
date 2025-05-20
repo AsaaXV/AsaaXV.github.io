@@ -1,4 +1,4 @@
-/* style.css - REVISION 6: Full frame, no scroll, ORIGINAL SCRIPT colors, layout from ref image, 2-line title, proportional scaling, mobile title position fix, added music control button */
+/* style.css - REVISION 7: Full frame, no scroll, ORIGINAL SCRIPT colors, layout from ref image, 2-line title, proportional scaling, mobile title position fix, added music control button, mobile love effect optimization */
 
 /* Music Control Button Styles */
 .music-control {
@@ -298,13 +298,25 @@
         padding: 8px 16px;
     }
     
+    /* Reduced font size for love message on mobile */
     .love-message {
-        font-size: 20px;
+        font-size: 18px;
     }
     
     .yes-button {
         font-size: 16px;
         padding: 8px 20px;
+    }
+    
+    /* Smaller love particles for mobile */
+    .love-particle {
+        font-size: 18px;
+    }
+    
+    /* Smaller love message container for mobile */
+    .love-message-container {
+        padding: 20px;
+        max-width: 85%;
     }
 }
 
