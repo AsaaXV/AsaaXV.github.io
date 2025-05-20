@@ -24,6 +24,16 @@
         <button id="backButton" class="back-button">Kembali</button>
     </div>
     
+    <!-- Donation overlay with QR code -->
+    <div class="donation-overlay" id="donationOverlay">
+        <div class="donation-container">
+            <div class="donation-title">DANA</div>
+            <div class="donation-message">Donasi ke saya biar saya semangat berkarya dan soalnya duit sekarat:)</div>
+            <img src="assets/dana-qrcode.jpg" alt="DANA QR Code" class="donation-qrcode">
+            <button id="donationBackButton" class="donation-back-button">Kembali</button>
+        </div>
+    </div>
+    
     <!-- Pink gradient overlay with dramatic effect -->
     <div class="pink-gradient-overlay" id="pinkGradientOverlay"></div>
     
@@ -57,6 +67,13 @@
     <div id="loveControl" class="love-control">
         <button id="loveButton" class="love-button" aria-label="Show Love Rain">
             <span class="control-icon">❤️</span>
+        </button>
+    </div>
+    
+    <!-- Donation button positioned next to love button -->
+    <div id="donationControl" class="donation-control">
+        <button id="donationButton" class="donation-button" aria-label="Show Donation QR Code">
+            <span class="control-icon">💰</span>
         </button>
     </div>
     
@@ -219,6 +236,21 @@
         ghostVideo.addEventListener("ended", function() {
             // Optional: automatically close overlay when video ends
             // videoOverlay.style.display = "none";
+        });
+        
+        // Donation functionality
+        const donationButton = document.getElementById("donationButton");
+        const donationOverlay = document.getElementById("donationOverlay");
+        const donationBackButton = document.getElementById("donationBackButton");
+        
+        // Show donation overlay when donation button is clicked
+        donationButton.addEventListener("click", function() {
+            donationOverlay.style.display = "flex";
+        });
+        
+        // Hide donation overlay when back button is clicked
+        donationBackButton.addEventListener("click", function() {
+            donationOverlay.style.display = "none";
         });
         
         // Love button and rain effect functionality
