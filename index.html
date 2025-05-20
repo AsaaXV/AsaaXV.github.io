@@ -7,11 +7,19 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Audio element for background music - autoplay, loop, and hidden -->
-    <audio autoplay loop hidden>
+    <!-- Audio element for background music - autoplay, loop, and hidden with ID for JavaScript control -->
+    <audio id="backgroundMusic" autoplay loop>
         <source src="audio/Bryant Barnes - I'd Rather Pretend.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
+    
+    <!-- Music control button positioned at bottom right -->
+    <div id="musicControl" class="music-control">
+        <button id="playPauseButton" class="play-pause-button" aria-label="Play/Pause Music">
+            <span id="playIcon" class="control-icon">▶</span>
+            <span id="pauseIcon" class="control-icon" style="display:none;">❚❚</span>
+        </button>
+    </div>
     
     <div class="frame-container">
         <div class="content-wrapper">
@@ -41,6 +49,7 @@
     </div>
 
     <script>
+        // Font preview functionality
         const customTextInput = document.getElementById("customText");
         const previewTextDisplay = document.getElementById("previewText");
         const defaultPreview = "The quick brown fox jumps over the lazy dog. 1234567890";
@@ -51,6 +60,94 @@
             } else {
                 previewTextDisplay.textContent = defaultPreview;
             }
+        });
+
+        // Music control functionality
+        const backgroundMusic = document.getElementById("backgroundMusic");
+        const playPauseButton = document.getElementById("playPauseButton");
+        const playIcon = document.getElementById("playIcon");
+        const pauseIcon = document.getElementById("pauseIcon");
+        
+        // Function to update button appearance based on play state
+        function updatePlayPauseButton(isPlaying) {
+            if (isPlaying) {
+                playIcon.style.display = "none";
+                pauseIcon.style.display = "inline-block";
+            } else {
+                playIcon.style.display = "inline-block";
+                pauseIcon.style.display = "none";
+            }
+        }
+        
+        // Toggle play/pause when button is clicked
+        playPauseButton.addEventListener("click", function() {
+            if (backgroundMusic.paused) {
+                // Try to play and handle any errors
+                const playPromise = backgroundMusic.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.then(_ => {
+                        // Playback started successfully
+                        updatePlayPauseButton(true);
+                    })
+                    .catch(error => {
+                        // Auto-play was prevented
+                        console.log("Playback was prevented:", error);
+                        updatePlayPauseButton(false);
+                    });
+                }
+            } else {
+                backgroundMusic.pause();
+                updatePlayPauseButton(false);
+            }
+        });
+        
+        // Check initial play state and handle autoplay restrictions
+        document.addEventListener("DOMContentLoaded", function() {
+            // Try autoplay first (this might be blocked by browser)
+            const playPromise = backgroundMusic.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    // Autoplay successful
+                    updatePlayPauseButton(true);
+                })
+                .catch(error => {
+                    // Autoplay prevented by browser
+                    console.log("Autoplay prevented:", error);
+                    updatePlayPauseButton(false);
+                });
+            }
+        });
+        
+        // Also try to play on first user interaction with the page
+        document.addEventListener("click", function firstInteraction() {
+            if (backgroundMusic.paused) {
+                backgroundMusic.play()
+                    .then(() => {
+                        updatePlayPauseButton(true);
+                    })
+                    .catch(error => {
+                        console.log("Play on interaction failed:", error);
+                    });
+            }
+            // Remove this listener after first interaction
+            document.removeEventListener("click", firstInteraction);
+        }, { once: true });
+        
+        // Update button state if audio ends
+        backgroundMusic.addEventListener("ended", function() {
+            updatePlayPauseButton(false);
+        });
+        
+        // Update button state if audio plays
+        backgroundMusic.addEventListener("play", function() {
+            updatePlayPauseButton(true);
+        });
+        
+        // Update button state if audio pauses
+        backgroundMusic.addEventListener("pause", function() {
+            updatePlayPauseButton(false);
         });
     </script>
 </body>

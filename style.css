@@ -1,4 +1,52 @@
-/* style.css - REVISION 5: Full frame, no scroll, ORIGINAL SCRIPT colors, layout from ref image, 2-line title, proportional scaling, mobile title position fix */
+/* style.css - REVISION 6: Full frame, no scroll, ORIGINAL SCRIPT colors, layout from ref image, 2-line title, proportional scaling, mobile title position fix, added music control button */
+
+/* Music Control Button Styles */
+.music-control {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.play-pause-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(107, 79, 52, 0.8); /* Match download button color with transparency */
+    border: 2px solid #B8860B;
+    color: #F5F5DC;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.play-pause-button:hover {
+    background-color: rgba(184, 134, 11, 0.8); /* Match download button hover */
+    transform: scale(1.05);
+}
+
+.control-icon {
+    display: inline-block;
+    line-height: 1;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    .music-control {
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    .play-pause-button {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+}
 html, body {
     margin: 0;
     padding: 0;
