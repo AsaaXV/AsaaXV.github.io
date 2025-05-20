@@ -24,9 +24,12 @@
         <button id="backButton" class="back-button">Kembali</button>
     </div>
     
+    <!-- Pink gradient overlay with dramatic effect -->
+    <div class="pink-gradient-overlay" id="pinkGradientOverlay"></div>
+    
     <!-- Love message overlay -->
     <div class="love-message-overlay" id="loveMessageOverlay">
-        <div class="love-message-container">
+        <div class="love-message-container" id="loveMessageContainer">
             <div class="love-message">Boleh gak si baper sama kating?</div>
             <button id="yesButton" class="yes-button">Ya</button>
         </div>
@@ -221,25 +224,35 @@
         // Love button and rain effect functionality
         const loveButton = document.getElementById("loveButton");
         const loveRainContainer = document.getElementById("loveRainContainer");
+        const pinkGradientOverlay = document.getElementById("pinkGradientOverlay");
         const loveMessageOverlay = document.getElementById("loveMessageOverlay");
+        const loveMessageContainer = document.getElementById("loveMessageContainer");
         const yesButton = document.getElementById("yesButton");
         
         // Create and animate love particles
         function createLoveRain() {
-            loveRainContainer.style.display = "block";
-            
-            // Clear any existing particles
+            // Clear any existing particles and reset displays
             loveRainContainer.innerHTML = '';
+            loveRainContainer.style.display = "block";
+            pinkGradientOverlay.style.display = "none";
+            loveMessageOverlay.style.display = "none";
             
-            // Create 50 love particles
-            for (let i = 0; i < 50; i++) {
+            // Create 100 love particles (increased from 50 to fill screen)
+            for (let i = 0; i < 100; i++) {
                 createLoveParticle();
             }
             
-            // Show love message after 2 seconds
+            // Show pink gradient overlay with dramatic effect after 1.5 seconds
             setTimeout(() => {
-                loveMessageOverlay.style.display = "flex";
-            }, 2000);
+                pinkGradientOverlay.style.display = "block";
+                pinkGradientOverlay.style.animation = "fadeInPulse 1.5s forwards";
+                
+                // Show love message with dramatic entrance after gradient effect
+                setTimeout(() => {
+                    loveMessageOverlay.style.display = "flex";
+                    loveMessageContainer.style.animation = "messageAppear 1s forwards";
+                }, 1500);
+            }, 1500);
         }
         
         function createLoveParticle() {
@@ -250,13 +263,13 @@
             const hearts = ["❤️", "💖", "💕", "💗", "💓", "💘", "💝"];
             particle.textContent = hearts[Math.floor(Math.random() * hearts.length)];
             
-            // Random starting position
+            // Random starting position across full width
             const startPositionX = Math.random() * window.innerWidth;
             particle.style.left = startPositionX + "px";
             particle.style.top = "-50px";
             
-            // Random size
-            const size = Math.random() * 20 + 15;
+            // Random size (increased for more visibility)
+            const size = Math.random() * 25 + 15;
             particle.style.fontSize = size + "px";
             
             // Random animation duration
@@ -271,6 +284,13 @@
                     loveRainContainer.removeChild(particle);
                 }
             }, duration * 1000);
+            
+            // Create new particles continuously for rain effect
+            setTimeout(() => {
+                if (loveRainContainer.style.display === "block") {
+                    createLoveParticle();
+                }
+            }, Math.random() * 300);
         }
         
         // Make the Yes button move away when hovered
@@ -293,12 +313,13 @@
             
             // When finally clicked, celebrate
             yesButton.addEventListener("click", function() {
-                // Hide message overlay
+                // Hide message overlay and gradient
                 loveMessageOverlay.style.display = "none";
+                pinkGradientOverlay.style.display = "none";
                 
                 // Create more intense love rain
                 loveRainContainer.innerHTML = '';
-                for (let i = 0; i < 100; i++) {
+                for (let i = 0; i < 150; i++) {
                     createLoveParticle();
                 }
                 
@@ -317,10 +338,12 @@
         // Setup moving yes button
         setupMovingYesButton();
         
-        // Close love message when clicking outside
+        // Close love message and gradient when clicking outside
         loveMessageOverlay.addEventListener("click", function(e) {
             if (e.target === loveMessageOverlay) {
                 loveMessageOverlay.style.display = "none";
+                pinkGradientOverlay.style.display = "none";
+                
                 // Stop the love rain
                 setTimeout(() => {
                     loveRainContainer.style.display = "none";
