@@ -230,7 +230,7 @@
         const yesButton = document.getElementById("yesButton");
         
         // Check if device is mobile
-        const isMobile = window.innerWidth <= 768;
+        let isMobile = window.innerWidth <= 768;
         
         // Create and animate love particles
         function createLoveRain() {
@@ -257,6 +257,11 @@
                 setTimeout(() => {
                     loveMessageOverlay.style.display = "flex";
                     loveMessageContainer.style.animation = "messageAppear 1s forwards";
+                    
+                    // Position the message container in a random position for mobile
+                    if (isMobile) {
+                        moveMessageToRandomPosition(true);
+                    }
                 }, 1500);
             }, 1500);
         }
@@ -308,39 +313,98 @@
             }, isMobile ? Math.random() * 500 : Math.random() * 300);
         }
         
-        // Make the Yes button move away when hovered
+        // Function to move message to a random position
+        function moveMessageToRandomPosition(isInitialPosition = false) {
+            // Get viewport dimensions
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            
+            // Calculate safe margins to keep message fully visible
+            const messageWidth = loveMessageContainer.offsetWidth;
+            const messageHeight = loveMessageContainer.offsetHeight;
+            
+            // Safe area calculation (keep message within viewport with padding)
+            const safeMaxX = viewportWidth - messageWidth - 20;
+            const safeMaxY = viewportHeight - messageHeight - 20;
+            
+            // For mobile, use wider distribution for initial position
+            let newX, newY;
+            
+            if (isMobile) {
+                // For initial position on mobile, place in a more specific area
+                if (isInitialPosition) {
+                    // Start in top half of screen for better visibility
+                    newX = Math.random() * (safeMaxX * 0.8) + (safeMaxX * 0.1);
+                    newY = Math.random() * (safeMaxY * 0.4) + 50; // Top area with padding
+                } else {
+                    // For subsequent moves, ensure significant distance from current position
+                    const currentX = parseInt(loveMessageContainer.style.left) || 0;
+                    const currentY = parseInt(loveMessageContainer.style.top) || 0;
+                    
+                    // Keep trying until we get a position that's far enough away
+                    let attempts = 0;
+                    do {
+                        newX = Math.random() * safeMaxX;
+                        newY = Math.random() * safeMaxY;
+                        
+                        // Calculate distance from current position
+                        const distance = Math.sqrt(
+                            Math.pow(newX - currentX, 2) + 
+                            Math.pow(newY - currentY, 2)
+                        );
+                        
+                        // If distance is sufficient or we've tried too many times, accept this position
+                        if (distance > Math.min(viewportWidth, viewportHeight) * 0.3 || attempts > 10) {
+                            break;
+                        }
+                        
+                        attempts++;
+                    } while (true);
+                }
+            } else {
+                // For desktop, use standard random positioning
+                newX = Math.random() * safeMaxX;
+                newY = Math.random() * safeMaxY;
+            }
+            
+            // Apply new position
+            loveMessageContainer.style.position = "absolute";
+            loveMessageContainer.style.left = newX + "px";
+            loveMessageContainer.style.top = newY + "px";
+        }
+        
+        // Make the Yes button move away when hovered or touched
         function setupMovingYesButton() {
+            // For mouse hover on desktop
             yesButton.addEventListener("mouseover", function(e) {
-                // Get viewport dimensions
-                const viewportWidth = window.innerWidth;
-                const viewportHeight = window.innerHeight;
-                
-                // Calculate new random position
-                const newX = Math.random() * (viewportWidth - 100);
-                const newY = Math.random() * (viewportHeight - 100);
-                
-                // Apply new position
-                const messageContainer = yesButton.parentNode;
-                messageContainer.style.position = "absolute";
-                messageContainer.style.left = newX + "px";
-                messageContainer.style.top = newY + "px";
+                if (!isMobile) {
+                    moveMessageToRandomPosition();
+                }
             });
             
-            // When finally clicked, celebrate
+            // For touch on mobile (move on touch start)
+            yesButton.addEventListener("touchstart", function(e) {
+                if (isMobile) {
+                    e.preventDefault(); // Prevent default touch behavior
+                    moveMessageToRandomPosition();
+                }
+            });
+            
+            // When finally clicked, celebrate but don't hide the message
             yesButton.addEventListener("click", function() {
-                // Hide message overlay and gradient
-                loveMessageOverlay.style.display = "none";
-                pinkGradientOverlay.style.display = "none";
-                
-                // Create more intense love rain
+                // Create more intense love rain but keep message visible
                 loveRainContainer.innerHTML = '';
+                
                 // Fewer celebration particles on mobile
                 const celebrationCount = isMobile ? 75 : 150;
                 for (let i = 0; i < celebrationCount; i++) {
                     createLoveParticle();
                 }
                 
-                // Hide rain after 5 seconds
+                // Move message to a new position instead of hiding it
+                moveMessageToRandomPosition();
+                
+                // Hide rain after 5 seconds but keep message
                 setTimeout(() => {
                     loveRainContainer.style.display = "none";
                 }, 5000);
@@ -355,8 +419,9 @@
         // Setup moving yes button
         setupMovingYesButton();
         
-        // Close love message and gradient when clicking outside
+        // Close love message and gradient only when clicking outside the message container
         loveMessageOverlay.addEventListener("click", function(e) {
+            // Check if the click is directly on the overlay (outside the message container)
             if (e.target === loveMessageOverlay) {
                 loveMessageOverlay.style.display = "none";
                 pinkGradientOverlay.style.display = "none";
