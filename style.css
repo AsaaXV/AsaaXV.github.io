@@ -34,19 +34,110 @@
     line-height: 1;
 }
 
+/* Video Control Button Styles */
+.video-control {
+    position: fixed;
+    bottom: 20px;
+    right: 70px; /* Position to the left of music control */
+    z-index: 1000;
+}
+
+.ghost-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(50, 50, 70, 0.8); /* Dark ghostly color with transparency */
+    border: 2px solid #8A2BE2; /* Purple border for ghostly effect */
+    color: #F5F5DC;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4), 0 0 15px rgba(138, 43, 226, 0.3); /* Ghostly glow effect */
+}
+
+.ghost-button:hover {
+    background-color: rgba(80, 80, 120, 0.9);
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5), 0 0 20px rgba(138, 43, 226, 0.5); /* Enhanced glow on hover */
+}
+
+/* Video Player Overlay */
+.video-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 2000;
+}
+
+.video-container {
+    max-width: 90%;
+    max-height: 80%;
+    position: relative;
+}
+
+.video-container video {
+    max-width: 100%;
+    max-height: 100%;
+    border: 3px solid #8A2BE2; /* Purple border for ghostly theme */
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.5); /* Ghostly glow */
+}
+
+.back-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: rgba(50, 50, 70, 0.8);
+    color: #F5F5DC;
+    border: 2px solid #8A2BE2;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'PantaiLosari', 'Merriweather', serif;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+}
+
+.back-button:hover {
+    background-color: rgba(80, 80, 120, 0.9);
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.5);
+}
+
 /* Media query for smaller screens */
 @media (max-width: 768px) {
-    .music-control {
+    .music-control, .video-control {
         bottom: 15px;
+    }
+    
+    .music-control {
         right: 15px;
     }
     
-    .play-pause-button {
+    .video-control {
+        right: 60px;
+    }
+    
+    .play-pause-button, .ghost-button {
         width: 35px;
         height: 35px;
         font-size: 14px;
     }
+    
+    .back-button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
 }
+
 html, body {
     margin: 0;
     padding: 0;
@@ -235,4 +326,3 @@ footer {
         padding: 12px 25px;
     }
 }
-

@@ -13,11 +13,29 @@
         Your browser does not support the audio element.
     </audio>
     
+    <!-- Video element for ghost video -->
+    <div class="video-overlay" id="videoOverlay">
+        <div class="video-container">
+            <video id="ghostVideo" controls>
+                <source src="video/VID-20250520-WA0490.mp4" type="video/mp4">
+                Your browser does not support the video element.
+            </video>
+        </div>
+        <button id="backButton" class="back-button">Kembali</button>
+    </div>
+    
     <!-- Music control button positioned at bottom right -->
     <div id="musicControl" class="music-control">
         <button id="playPauseButton" class="play-pause-button" aria-label="Play/Pause Music">
             <span id="playIcon" class="control-icon">▶</span>
             <span id="pauseIcon" class="control-icon" style="display:none;">❚❚</span>
+        </button>
+    </div>
+    
+    <!-- Ghost-themed video button positioned next to music control -->
+    <div id="videoControl" class="video-control">
+        <button id="ghostButton" class="ghost-button" aria-label="Play Ghost Video">
+            <span class="control-icon">👻</span>
         </button>
     </div>
     
@@ -148,6 +166,38 @@
         // Update button state if audio pauses
         backgroundMusic.addEventListener("pause", function() {
             updatePlayPauseButton(false);
+        });
+        
+        // Video player functionality
+        const videoOverlay = document.getElementById("videoOverlay");
+        const ghostVideo = document.getElementById("ghostVideo");
+        const ghostButton = document.getElementById("ghostButton");
+        const backButton = document.getElementById("backButton");
+        
+        // Show video overlay when ghost button is clicked
+        ghostButton.addEventListener("click", function() {
+            videoOverlay.style.display = "flex";
+            // Pause background music when video is shown
+            backgroundMusic.pause();
+            updatePlayPauseButton(false);
+            // Play the video
+            ghostVideo.play().catch(error => {
+                console.log("Video play was prevented:", error);
+            });
+        });
+        
+        // Hide video overlay when back button is clicked
+        backButton.addEventListener("click", function() {
+            videoOverlay.style.display = "none";
+            // Pause the video
+            ghostVideo.pause();
+            ghostVideo.currentTime = 0;
+        });
+        
+        // Ensure video is paused when overlay is hidden
+        ghostVideo.addEventListener("ended", function() {
+            // Optional: automatically close overlay when video ends
+            // videoOverlay.style.display = "none";
         });
     </script>
 </body>
