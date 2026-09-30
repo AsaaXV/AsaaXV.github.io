@@ -152,47 +152,47 @@ export const RecycleSection: React.FC = () => {
 
       {/* Roda Siklus Interaktif Visual */}
       <div className="w-full relative flex flex-col items-center">
-        {/* Dual Cards with equal heights - strictly rata */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mb-6 items-stretch">
+        {/* Dual Cards - 2 Columns side-by-side on mobile and desktop */}
+        <div className="grid grid-cols-2 gap-2 sm:gap-4 md:gap-6 w-full mb-6 items-stretch">
           {/* Left Card: Input Bahan Sampah */}
-          <div className="p-5 rounded-3xl bg-[#925E06] text-[#F1D2A1] shadow-xl border-2 border-[#794E05] flex flex-col justify-between min-h-[170px]">
+          <div className="p-2.5 sm:p-5 rounded-2xl sm:rounded-3xl bg-[#925E06] text-[#F1D2A1] shadow-md sm:shadow-xl border-2 border-[#794E05] flex flex-col justify-between min-h-[140px] sm:min-h-[170px]">
             <div>
-              <div className="h-6 flex items-center justify-between mb-2">
-                <span className="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-black/25 text-[#F1D2A1] whitespace-nowrap">
-                  Bahan Mentah Masuk
+              <div className="h-5 sm:h-6 flex items-center justify-between mb-1 sm:mb-2">
+                <span className="text-[7.5px] sm:text-[11px] font-bold uppercase tracking-wider px-1.5 sm:px-2.5 py-0.5 rounded-full bg-black/25 text-[#F1D2A1] truncate">
+                  Bahan Masuk
                 </span>
-                <span className="font-display text-xs font-black text-amber-300 whitespace-nowrap">
-                  Langkah {currentPhase.step} dari 5
+                <span className="font-display text-[8px] sm:text-xs font-black text-amber-300 whitespace-nowrap">
+                  Tahap {currentPhase.step}/5
                 </span>
               </div>
-              <h4 className="font-display text-lg font-black text-white">{currentPhase.title}</h4>
-              <p className="text-xs text-[#F1D2A1]/90 mt-1 leading-relaxed">
+              <h4 className="font-display text-xs sm:text-lg font-black text-white leading-tight">{currentPhase.title}</h4>
+              <p className="text-[8px] sm:text-xs text-[#F1D2A1]/90 mt-1 leading-tight sm:leading-relaxed line-clamp-3 sm:line-clamp-none">
                 {currentPhase.description}
               </p>
             </div>
-            <div className="pt-2 text-[10px] text-amber-200/80 font-bold uppercase tracking-wider">
-              Material: {currentPhase.material}
+            <div className="pt-1.5 sm:pt-2 text-[7px] sm:text-[10px] text-amber-200/80 font-bold uppercase tracking-wider truncate">
+              {currentPhase.material}
             </div>
           </div>
 
           {/* Right Card: Transformasi Hasil */}
-          <div className="p-5 rounded-3xl bg-[#808847] text-[#F1D2A1] shadow-xl border-2 border-[#697034] flex flex-col justify-between min-h-[170px]">
+          <div className="p-2.5 sm:p-5 rounded-2xl sm:rounded-3xl bg-[#808847] text-[#F1D2A1] shadow-md sm:shadow-xl border-2 border-[#697034] flex flex-col justify-between min-h-[140px] sm:min-h-[170px]">
             <div>
-              <div className="h-6 flex items-center justify-between mb-2">
-                <span className="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-black/25 text-[#F1D2A1] whitespace-nowrap">
-                  Aksi & Hasil Sirkular
+              <div className="h-5 sm:h-6 flex items-center justify-between mb-1 sm:mb-2">
+                <span className="text-[7.5px] sm:text-[11px] font-bold uppercase tracking-wider px-1.5 sm:px-2.5 py-0.5 rounded-full bg-black/25 text-[#F1D2A1] truncate">
+                  Aksi & Hasil
                 </span>
-                <span className="text-xs font-bold text-white flex items-center gap-1 whitespace-nowrap">
-                  <Sparkles className="w-3 h-3 text-[#F1D2A1] shrink-0" /> Siklus Sirkular
+                <span className="text-[8px] sm:text-xs font-bold text-white flex items-center gap-0.5 whitespace-nowrap">
+                  <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#F1D2A1] shrink-0" /> Sirkular
                 </span>
               </div>
-              <h4 className="font-display text-lg font-black text-white">{currentPhase.subtitle}</h4>
-              <p className="text-xs text-white/95 mt-1 leading-relaxed">
+              <h4 className="font-display text-xs sm:text-lg font-black text-white leading-tight">{currentPhase.subtitle}</h4>
+              <p className="text-[8px] sm:text-xs text-white/95 mt-1 leading-tight sm:leading-relaxed line-clamp-3 sm:line-clamp-none">
                 {currentPhase.campusAction}
               </p>
             </div>
-            <div className="pt-2 text-[10px] text-emerald-100 font-bold uppercase tracking-wider">
-              Output: Nilai Tambah DKV
+            <div className="pt-1.5 sm:pt-2 text-[7px] sm:text-[10px] text-emerald-100 font-bold uppercase tracking-wider truncate">
+              Output: Nilai Tambah
             </div>
           </div>
         </div>

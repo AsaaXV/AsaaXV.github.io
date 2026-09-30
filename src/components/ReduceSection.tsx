@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { RotateCw, CheckCircle2, Sparkles, ShoppingBag, Coffee, UtensilsCrossed } from 'lucide-react';
+import { ShoppingBag, Coffee, UtensilsCrossed, RotateCw, Sparkles, CheckCircle2 } from 'lucide-react';
 import { REDUCE_CARDS } from '../data/content';
 import { sounds } from '../utils/audio';
 
 export const ReduceSection: React.FC = () => {
-  const [flippedCards, setFlippedCards] = useState<Record<string, boolean>>({});
-  const [calculatorState, setCalculatorState] = useState({
-    tumbler: true,
-    totebag: true,
-    food: true,
+  // Track flipped status for each of the 3 cards
+  const [flippedCards, setFlippedCards] = useState<Record<string, boolean>>({
+    'reduce-1': false,
+    'reduce-2': false,
+    'reduce-3': false,
   });
 
   const toggleFlip = (id: string) => {
@@ -19,121 +19,129 @@ export const ReduceSection: React.FC = () => {
     }));
   };
 
-  // Daily waste savings calculation
-  const cupsSaved = calculatorState.tumbler ? 2 : 0;
-  const bagsSaved = calculatorState.totebag ? 3 : 0;
-  const foodSavedGrams = calculatorState.food ? 300 : 0;
-  const semesterDays = 120; // 1 semester aktif kuliah
-  const totalPlasticItems = (cupsSaved + bagsSaved) * semesterDays;
-  const totalMoneySaved = (cupsSaved * 8000) * semesterDays; // beli minum di luar vs isi tumbler
+  // Interactive simulation state matching Screenshot_2026_1001_021639.jpg.jpeg
+  const [simTumbler, setSimTumbler] = useState(true);
+  const [simTotebag, setSimTotebag] = useState(true);
+  const [simFood, setSimFood] = useState(true);
+
+  // Calculation per semester (120 active campus days)
+  const semesterDays = 120;
+  const plasticCount = (simTumbler ? 2 * semesterDays : 0) + (simTotebag ? 3 * semesterDays : 0);
+  const moneySaved = (simTumbler ? 10000 * semesterDays : 0) + (simFood ? 6000 * semesterDays : 0);
+  const foodSavedKg = simFood ? Math.round(0.3 * semesterDays) : 0;
+
+  const toggleSim = (setter: React.Dispatch<React.SetStateAction<boolean>>) => {
+    sounds.playPop();
+    setter((prev) => !prev);
+  };
 
   return (
-    <section id="reduce" className="py-12 px-4 max-w-4xl mx-auto flex flex-col items-center">
+    <section id="reduce" className="py-8 sm:py-12 px-2 sm:px-4 max-w-4xl mx-auto flex flex-col items-center">
       {/* Header matching 3R DMI.jpg */}
-      <div className="text-center mb-8">
-        <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-black text-[#808847] leading-tight tracking-tight uppercase">
+      <div className="text-center mb-6 sm:mb-8">
+        <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-black text-[#808847] leading-tight tracking-tight uppercase">
           REDUCE
         </h2>
-        <div className="font-display text-xl sm:text-2xl md:text-3xl font-black text-[#808847] tracking-wider uppercase mt-1">
+        <div className="font-display text-lg sm:text-2xl md:text-3xl font-black text-[#808847] tracking-wider uppercase mt-0.5 sm:mt-1">
           KURANGI DARI AWAL
         </div>
-        <p className="font-body text-[#3B4219] text-sm sm:text-base font-semibold mt-2 max-w-md mx-auto">
+        <p className="font-body text-[#3B4219] text-xs sm:text-base font-semibold mt-1 sm:mt-2 max-w-md mx-auto">
           cara terbaik untuk mengelola sampah adalah tidak menghasilkannya.
         </p>
       </div>
 
-      {/* 3 Interactive Flip Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">
+      {/* 3 Interactive Flip Cards - ALWAYS 3 columns side-by-side on mobile AND desktop */}
+      <div className="grid grid-cols-3 gap-1.5 sm:gap-4 md:gap-6 w-full max-w-4xl items-stretch">
         {REDUCE_CARDS.map((card) => {
           const isFlipped = !!flippedCards[card.id];
 
           return (
             <div
               key={card.id}
-              className="perspective-1000 h-[430px] w-full cursor-pointer select-none group"
+              className="perspective-1000 h-[290px] sm:h-[380px] md:h-[440px] w-full cursor-pointer select-none group"
               onClick={() => toggleFlip(card.id)}
             >
               <div
-                className={`relative w-full h-full rounded-3xl transition-transform duration-500 transform-style-3d shadow-xl ${
+                className={`relative w-full h-full rounded-2xl sm:rounded-3xl transition-transform duration-500 transform-style-3d shadow-md sm:shadow-xl ${
                   isFlipped ? 'rotate-y-180' : ''
                 }`}
               >
                 {/* FRONT SIDE (Golden Brown matching mockup) */}
-                <div className="absolute inset-0 w-full h-full rounded-3xl bg-[#925E06] text-[#F1D2A1] p-6 flex flex-col justify-between backface-hidden border-2 border-[#794E05]">
+                <div className="absolute inset-0 w-full h-full rounded-2xl sm:rounded-3xl bg-[#925E06] text-[#F1D2A1] p-2 sm:p-4 md:p-6 flex flex-col justify-between backface-hidden border-2 border-[#794E05]">
                   <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="font-display text-2xl font-black text-[#F1D2A1]/80">
+                    <div className="flex items-center justify-between mb-1 sm:mb-4">
+                      <span className="font-display text-base sm:text-2xl font-black text-[#F1D2A1]/80">
                         {card.number}
                       </span>
-                      <span className="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#F1D2A1]/20 text-[#F1D2A1]">
+                      <span className="hidden sm:inline-block text-[10px] sm:text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-[#F1D2A1]/20 text-[#F1D2A1]">
                         {card.tagline}
                       </span>
                     </div>
 
                     {/* Stylized Illustrated Icon Badge */}
-                    <div className="w-16 h-16 rounded-2xl bg-[#F1D2A1]/15 mx-auto flex items-center justify-center my-4 group-hover:scale-110 transition-transform">
-                      {card.iconType === 'plastic' && <ShoppingBag className="w-8 h-8 text-[#F1D2A1]" />}
-                      {card.iconType === 'tumbler' && <Coffee className="w-8 h-8 text-[#F1D2A1]" />}
-                      {card.iconType === 'food' && <UtensilsCrossed className="w-8 h-8 text-[#F1D2A1]" />}
+                    <div className="w-8 h-8 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl sm:rounded-2xl bg-[#F1D2A1]/15 mx-auto flex items-center justify-center my-1.5 sm:my-3 md:my-4 group-hover:scale-110 transition-transform">
+                      {card.iconType === 'plastic' && <ShoppingBag className="w-4 h-4 sm:w-7 sm:h-7 md:w-8 md:h-8 text-[#F1D2A1]" />}
+                      {card.iconType === 'tumbler' && <Coffee className="w-4 h-4 sm:w-7 sm:h-7 md:w-8 md:h-8 text-[#F1D2A1]" />}
+                      {card.iconType === 'food' && <UtensilsCrossed className="w-4 h-4 sm:w-7 sm:h-7 md:w-8 md:h-8 text-[#F1D2A1]" />}
                     </div>
 
-                    <div className="min-h-[56px] flex items-center justify-center">
-                      <h3 className="font-display text-xl font-black text-center text-white leading-tight">
+                    <div className="min-h-[36px] sm:min-h-[50px] md:min-h-[56px] flex items-center justify-center">
+                      <h3 className="font-display text-[10px] sm:text-base md:text-xl font-black text-center text-white leading-tight line-clamp-2">
                         {card.title}
                       </h3>
                     </div>
 
-                    <div className="min-h-[72px] flex items-center justify-center">
-                      <p className="font-body text-xs sm:text-sm text-center text-[#F1D2A1]/90 leading-relaxed">
+                    <div className="min-h-[44px] sm:min-h-[60px] md:min-h-[72px] flex items-center justify-center mt-1">
+                      <p className="font-body text-[8px] sm:text-xs md:text-sm text-center text-[#F1D2A1]/90 leading-tight sm:leading-relaxed line-clamp-3 sm:line-clamp-none">
                         {card.frontDescription}
                       </p>
                     </div>
                   </div>
 
                   {/* Bottom hint to flip */}
-                  <div className="pt-4 border-t border-[#F1D2A1]/20 flex items-center justify-center gap-1.5 text-xs font-bold text-[#F1D2A1]/80 group-hover:text-white transition">
-                    <RotateCw className="w-3.5 h-3.5" />
-                    <span>Klik untuk Balik Kartu</span>
+                  <div className="pt-1.5 sm:pt-4 border-t border-[#F1D2A1]/20 flex items-center justify-center gap-1 text-[7px] sm:text-xs font-bold text-[#F1D2A1]/80 group-hover:text-white transition">
+                    <RotateCw className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5" />
+                    <span>Balik Kartu</span>
                   </div>
                 </div>
 
                 {/* BACK SIDE (Rich Olive Mustard Card) */}
-                <div className="absolute inset-0 w-full h-full rounded-3xl bg-[#808847] text-[#F1D2A1] p-6 flex flex-col justify-between backface-hidden rotate-y-180 border-2 border-[#697034]">
+                <div className="absolute inset-0 w-full h-full rounded-2xl sm:rounded-3xl bg-[#808847] text-[#F1D2A1] p-2 sm:p-4 md:p-6 flex flex-col justify-between backface-hidden rotate-y-180 border-2 border-[#697034]">
                   <div>
-                    <div className="flex items-center justify-between pb-2 border-b border-[#F1D2A1]/25 mb-3">
-                      <span className="font-display text-sm font-bold text-white uppercase tracking-wider">
-                        Aksi Praktis Mahasiswa
+                    <div className="flex items-center justify-between pb-1 sm:pb-2 border-b border-[#F1D2A1]/25 mb-1.5 sm:mb-3">
+                      <span className="font-display text-[8px] sm:text-sm font-bold text-white uppercase tracking-wider line-clamp-1">
+                        Aksi Praktis
                       </span>
-                      <span className="font-display text-xs text-[#F1D2A1]/90 font-black">
+                      <span className="font-display text-[8px] sm:text-xs text-[#F1D2A1]/90 font-black">
                         #{card.number}
                       </span>
                     </div>
 
-                    <ul className="space-y-2.5 text-xs text-white/95 font-medium min-h-[140px]">
+                    <ul className="space-y-1 sm:space-y-2 text-[7.5px] sm:text-xs text-white/95 font-medium min-h-[90px] sm:min-h-[140px]">
                       {card.backTips.map((tip, idx) => (
-                        <li key={idx} className="flex items-start gap-2">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-[#F1D2A1] shrink-0 mt-0.5" />
-                          <span>{tip}</span>
+                        <li key={idx} className="flex items-start gap-1 sm:gap-2">
+                          <CheckCircle2 className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-[#F1D2A1] shrink-0 mt-0.5" />
+                          <span className="line-clamp-2 sm:line-clamp-none">{tip}</span>
                         </li>
                       ))}
                     </ul>
 
                     {/* Impact stat box */}
-                    <div className="mt-2 p-2.5 rounded-xl bg-[#686F35]/70 border border-[#F1D2A1]/30">
-                      <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#F1D2A1]">
-                        <Sparkles className="w-3 h-3 text-[#F1D2A1]" />
-                        <span>Dampak Nyata:</span>
+                    <div className="mt-1 sm:mt-2 p-1.5 sm:p-2.5 rounded-lg sm:rounded-xl bg-[#686F35]/70 border border-[#F1D2A1]/30">
+                      <div className="flex items-center gap-1 text-[7px] sm:text-[11px] font-bold text-[#F1D2A1]">
+                        <Sparkles className="w-2 h-2 sm:w-3 sm:h-3 text-[#F1D2A1]" />
+                        <span>Dampak:</span>
                       </div>
-                      <p className="text-[11px] font-semibold text-white mt-0.5">
+                      <p className="text-[7.5px] sm:text-[11px] font-semibold text-white mt-0.5 line-clamp-2">
                         {card.impactMetric}
                       </p>
                     </div>
                   </div>
 
                   {/* Back button */}
-                  <div className="pt-3 border-t border-[#F1D2A1]/20 flex items-center justify-center gap-1.5 text-xs font-bold text-[#F1D2A1]">
-                    <RotateCw className="w-3.5 h-3.5" />
-                    <span>Kembali ke Depan</span>
+                  <div className="pt-1.5 sm:pt-3 border-t border-[#F1D2A1]/20 flex items-center justify-center gap-1 text-[7px] sm:text-xs font-bold text-[#F1D2A1]">
+                    <RotateCw className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5" />
+                    <span>Kembali</span>
                   </div>
                 </div>
               </div>
@@ -142,100 +150,100 @@ export const ReduceSection: React.FC = () => {
         })}
       </div>
 
-      {/* Interactive Micro Simulation: Kalkulator Dampak Mahasiswa */}
-      <div className="w-full mt-10 p-6 rounded-3xl bg-[#E6C38E]/70 border-2 border-[#808847]/40 shadow-md">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4 pb-3 border-b border-[#808847]/30">
+      {/* Interactive Impact Simulator matching Screenshot_2026_1001_021639.jpg.jpeg */}
+      <div className="w-full max-w-4xl mt-6 p-4 sm:p-6 rounded-3xl bg-[#925E06]/15 border-2 border-[#925E06]/30 shadow-lg">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
           <div>
-            <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#925E06] block">
-              Simulasi Interaktif
+            <span className="text-[10px] font-black uppercase tracking-widest text-[#925E06]">
+              SIMULASI INTERAKTIF
             </span>
-            <h4 className="font-display text-lg sm:text-xl font-black text-[#242A16]">
+            <h3 className="font-display text-base sm:text-lg font-black text-[#3B4219]">
               Seberapa Besar Dampak Gaya Hidup Reduce-mu?
-            </h4>
+            </h3>
           </div>
-          <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#808847] text-[#F1D2A1] self-start sm:self-auto">
+          <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#808847] text-white self-start sm:self-auto">
             1 Semester Kuliah
           </span>
         </div>
 
-        {/* Action Toggles */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
+        {/* 3 Interactive Toggle Pills */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 mb-5">
           <button
-            onClick={() => {
-              sounds.playPop();
-              setCalculatorState((prev) => ({ ...prev, tumbler: !prev.tumbler }));
-            }}
-            className={`p-3 rounded-2xl flex items-center gap-2.5 text-left transition cursor-pointer border ${
-              calculatorState.tumbler
-                ? 'bg-[#808847] text-[#F1D2A1] border-[#5E6430] shadow'
-                : 'bg-[#F1D2A1]/60 text-[#474F20] border-[#808847]/30 hover:bg-[#F1D2A1]'
+            type="button"
+            onClick={() => toggleSim(setSimTumbler)}
+            className={`p-3 rounded-2xl flex items-center gap-2.5 text-xs font-bold transition-all cursor-pointer border-2 text-left ${
+              simTumbler
+                ? 'bg-[#808847] text-[#F1D2A1] border-[#5E6430] shadow-sm'
+                : 'bg-black/10 text-[#4D3A1F] border-transparent hover:bg-black/15'
             }`}
           >
-            <Coffee className="w-5 h-5 shrink-0" />
+            <Coffee className="w-4 h-4 shrink-0" />
             <div>
-              <p className="text-xs font-black">Bawa Tumbler</p>
-              <p className="text-[10px] opacity-80">Hemat 2 cup plastik/hari</p>
+              <div className="font-black leading-tight">Bawa Tumbler</div>
+              <div className="text-[10px] opacity-85">Hemat 2 cup plastik/hari</div>
             </div>
           </button>
 
           <button
-            onClick={() => {
-              sounds.playPop();
-              setCalculatorState((prev) => ({ ...prev, totebag: !prev.totebag }));
-            }}
-            className={`p-3 rounded-2xl flex items-center gap-2.5 text-left transition cursor-pointer border ${
-              calculatorState.totebag
-                ? 'bg-[#808847] text-[#F1D2A1] border-[#5E6430] shadow'
-                : 'bg-[#F1D2A1]/60 text-[#474F20] border-[#808847]/30 hover:bg-[#F1D2A1]'
+            type="button"
+            onClick={() => toggleSim(setSimTotebag)}
+            className={`p-3 rounded-2xl flex items-center gap-2.5 text-xs font-bold transition-all cursor-pointer border-2 text-left ${
+              simTotebag
+                ? 'bg-[#808847] text-[#F1D2A1] border-[#5E6430] shadow-sm'
+                : 'bg-black/10 text-[#4D3A1F] border-transparent hover:bg-black/15'
             }`}
           >
-            <ShoppingBag className="w-5 h-5 shrink-0" />
+            <ShoppingBag className="w-4 h-4 shrink-0" />
             <div>
-              <p className="text-xs font-black">Bawa Totebag</p>
-              <p className="text-[10px] opacity-80">Tolak 3 kantong kresek/hari</p>
+              <div className="font-black leading-tight">Bawa Totebag</div>
+              <div className="text-[10px] opacity-85">Tolak 3 kantong kresek/hari</div>
             </div>
           </button>
 
           <button
-            onClick={() => {
-              sounds.playPop();
-              setCalculatorState((prev) => ({ ...prev, food: !prev.food }));
-            }}
-            className={`p-3 rounded-2xl flex items-center gap-2.5 text-left transition cursor-pointer border ${
-              calculatorState.food
-                ? 'bg-[#808847] text-[#F1D2A1] border-[#5E6430] shadow'
-                : 'bg-[#F1D2A1]/60 text-[#474F20] border-[#808847]/30 hover:bg-[#F1D2A1]'
+            type="button"
+            onClick={() => toggleSim(setSimFood)}
+            className={`p-3 rounded-2xl flex items-center gap-2.5 text-xs font-bold transition-all cursor-pointer border-2 text-left ${
+              simFood
+                ? 'bg-[#808847] text-[#F1D2A1] border-[#5E6430] shadow-sm'
+                : 'bg-black/10 text-[#4D3A1F] border-transparent hover:bg-black/15'
             }`}
           >
-            <UtensilsCrossed className="w-5 h-5 shrink-0" />
+            <UtensilsCrossed className="w-4 h-4 shrink-0" />
             <div>
-              <p className="text-xs font-black">Habiskan Makanan</p>
-              <p className="text-[10px] opacity-80">Cegah 300gr sisa makanan</p>
+              <div className="font-black leading-tight">Habiskan Makanan</div>
+              <div className="text-[10px] opacity-85">Cegah 300gr sisa makanan</div>
             </div>
           </button>
         </div>
 
-        {/* Result Counter */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-center">
-          <div className="p-3 rounded-2xl bg-white/70">
-            <span className="block font-display text-2xl sm:text-3xl font-black text-[#925E06] tabular-nums">
-              {totalPlasticItems}
-            </span>
-            <span className="text-[11px] font-bold text-[#3B4219]">Plastik Ditiadakan</span>
+        {/* 3 Result Stat Cards */}
+        <div className="grid grid-cols-3 gap-2 sm:gap-4">
+          <div className="p-3 sm:p-4 rounded-2xl bg-[#F1D2A1] border-2 border-[#925E06]/30 text-center shadow-sm">
+            <div className="font-display text-xl sm:text-3xl font-black text-[#925E06] leading-none">
+              {plasticCount}
+            </div>
+            <div className="text-[10px] sm:text-xs font-bold text-[#573907] mt-1">
+              Plastik Ditiadakan
+            </div>
           </div>
 
-          <div className="p-3 rounded-2xl bg-white/70">
-            <span className="block font-display text-2xl sm:text-3xl font-black text-[#808847] tabular-nums">
-              Rp {(totalMoneySaved / 1000).toLocaleString('id-ID')}rb
-            </span>
-            <span className="text-[11px] font-bold text-[#3B4219]">Uang Jajan Hemat</span>
+          <div className="p-3 sm:p-4 rounded-2xl bg-[#F1D2A1] border-2 border-[#925E06]/30 text-center shadow-sm">
+            <div className="font-display text-xl sm:text-3xl font-black text-[#808847] leading-none">
+              Rp {(moneySaved / 1000).toLocaleString('id-ID')}rb
+            </div>
+            <div className="text-[10px] sm:text-xs font-bold text-[#444C1D] mt-1">
+              Uang Jajan Hemat
+            </div>
           </div>
 
-          <div className="p-3 rounded-2xl bg-white/70 col-span-2 sm:col-span-1">
-            <span className="block font-display text-2xl sm:text-3xl font-black text-[#242A16] tabular-nums">
-              {((foodSavedGrams * semesterDays) / 1000).toFixed(0)} kg
-            </span>
-            <span className="text-[11px] font-bold text-[#3B4219]">Sampah Makanan Dicegah</span>
+          <div className="p-3 sm:p-4 rounded-2xl bg-[#F1D2A1] border-2 border-[#925E06]/30 text-center shadow-sm">
+            <div className="font-display text-xl sm:text-3xl font-black text-[#925E06] leading-none">
+              {foodSavedKg} kg
+            </div>
+            <div className="text-[10px] sm:text-xs font-bold text-[#573907] mt-1">
+              Sampah Makanan Dicegah
+            </div>
           </div>
         </div>
       </div>

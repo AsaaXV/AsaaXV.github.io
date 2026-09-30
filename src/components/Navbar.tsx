@@ -4,8 +4,8 @@ import { sounds } from '../utils/audio';
 
 interface NavbarProps {
   onOpenReport: () => void;
-  isMobileFrame: boolean;
-  onToggleFrame: () => void;
+  isMobileFrame?: boolean;
+  onToggleFrame?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -64,27 +64,29 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Right actions */}
         <div className="flex items-center gap-1.5 sm:gap-2">
-          {/* Toggle Mobile Mockup view / Desktop view */}
-          <button
-            onClick={() => {
-              sounds.playPop();
-              onToggleFrame();
-            }}
-            title={isMobileFrame ? 'Tampilan Layar Penuh' : 'Tampilan Mode Mockup HP'}
-            className="hidden sm:flex items-center gap-1 px-2.5 py-1.5 rounded-full text-xs font-bold bg-[#808847]/20 text-[#3B4219] hover:bg-[#808847]/30 transition cursor-pointer"
-          >
-            {isMobileFrame ? (
-              <>
-                <Monitor className="w-3.5 h-3.5" />
-                <span>Full</span>
-              </>
-            ) : (
-              <>
-                <Smartphone className="w-3.5 h-3.5" />
-                <span>Mobile View</span>
-              </>
-            )}
-          </button>
+          {/* Toggle Mobile Mockup view / Desktop view (optional) */}
+          {onToggleFrame && (
+            <button
+              onClick={() => {
+                sounds.playPop();
+                onToggleFrame();
+              }}
+              title={isMobileFrame ? 'Tampilan Layar Penuh' : 'Tampilan Mode Mockup HP'}
+              className="hidden sm:flex items-center gap-1 px-2.5 py-1.5 rounded-full text-xs font-bold bg-[#808847]/20 text-[#3B4219] hover:bg-[#808847]/30 transition cursor-pointer"
+            >
+              {isMobileFrame ? (
+                <>
+                  <Monitor className="w-3.5 h-3.5" />
+                  <span>Full</span>
+                </>
+              ) : (
+                <>
+                  <Smartphone className="w-3.5 h-3.5" />
+                  <span>Mobile View</span>
+                </>
+              )}
+            </button>
+          )}
 
           {/* Sound toggle */}
           <button

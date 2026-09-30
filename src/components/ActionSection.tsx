@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import { Share2, CheckCircle2, ChevronRight, Sparkles, FolderOpen, Heart } from 'lucide-react';
+import { Share2, CheckCircle2, ChevronRight, Sparkles, FolderOpen, Heart, X } from 'lucide-react';
 import { ACTION_FOLDERS } from '../data/content';
 import { GrassDivider } from './GrassDivider';
 import { ShareModal } from './ShareModal';
 import { sounds } from '../utils/audio';
 
 export const ActionSection: React.FC = () => {
-  const [selectedFolderId, setSelectedFolderId] = useState<string | null>('act-1');
+  // Initially null so guide card only appears when a document/step is pressed
+  const [selectedFolderId, setSelectedFolderId] = useState<string | null>(null);
   const [completedFolders, setCompletedFolders] = useState<Record<string, boolean>>({
     'act-1': true,
   });
-  const [isLidOpen, setIsLidOpen] = useState(false); // Closed by default
+  const [isLidOpen, setIsLidOpen] = useState(true); // Open by default matching 3R DMI.jpg
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   const toggleFolder = (id: string) => {
@@ -61,8 +62,8 @@ export const ActionSection: React.FC = () => {
           </p>
         </div>
 
-        {/* 3 Step Action Pill Bar - strictly rata */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full max-w-2xl mb-8 items-stretch">
+        {/* 3 Step Action Pill Bar - 3 Columns on mobile & desktop */}
+        <div className="grid grid-cols-3 gap-1.5 sm:gap-3 w-full max-w-2xl mb-6 sm:mb-8 items-stretch">
           {ACTION_FOLDERS.map((folder) => {
             const isSelected = selectedFolderId === folder.id;
             const isDone = !!completedFolders[folder.id];
@@ -71,7 +72,7 @@ export const ActionSection: React.FC = () => {
               <button
                 key={folder.id}
                 onClick={() => toggleFolder(folder.id)}
-                className={`p-3 h-14 rounded-2xl flex items-center justify-between transition-all cursor-pointer border-2 text-left ${
+                className={`p-1.5 sm:p-3 h-11 sm:h-14 rounded-xl sm:rounded-2xl flex items-center justify-between transition-all cursor-pointer border-2 text-left ${
                   isSelected
                     ? 'bg-[#808847] text-[#F1D2A1] border-[#5E6430] shadow-md scale-[1.02]'
                     : isDone
@@ -79,19 +80,19 @@ export const ActionSection: React.FC = () => {
                     : 'bg-[#925E06] text-[#F1D2A1] border-[#794E05]'
                 }`}
               >
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1 sm:gap-2">
                   <div
-                    className={`w-6 h-6 rounded-full flex items-center justify-center font-display text-xs font-black shrink-0 ${
+                    className={`w-4.5 h-4.5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center font-display text-[9px] sm:text-xs font-black shrink-0 ${
                       isDone ? 'bg-[#808847] text-white' : 'bg-white/20 text-white'
                     }`}
                   >
                     {folder.stepNumber}
                   </div>
-                  <span className="font-display text-xs font-bold truncate max-w-[130px]">
-                    Langkah {folder.stepNumber}
+                  <span className="font-display text-[8.5px] sm:text-xs font-bold truncate">
+                    Tahap {folder.stepNumber}
                   </span>
                 </div>
-                {isDone && <CheckCircle2 className="w-4 h-4 text-emerald-300 shrink-0" />}
+                {isDone && <CheckCircle2 className="w-3 h-3 sm:w-4 sm:h-4 text-emerald-300 shrink-0" />}
               </button>
             );
           })}
@@ -111,9 +112,19 @@ export const ActionSection: React.FC = () => {
                         Panduan Langkah #{activeFolder.stepNumber}
                       </span>
                     </div>
-                    <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-[#808847]/15 text-[#5C642F]">
-                      Aksi Mahasiswa UNM
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-[#808847]/15 text-[#5C642F]">
+                        Aksi Mahasiswa UNM
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => setSelectedFolderId(null)}
+                        className="w-7 h-7 rounded-full bg-[#808847]/20 hover:bg-[#808847]/40 text-[#242A16] flex items-center justify-center transition cursor-pointer"
+                        title="Tutup Panduan"
+                      >
+                        <X className="w-4 h-4 stroke-[2.5]" />
+                      </button>
+                    </div>
                   </div>
 
                   <h3 className="font-display text-lg sm:text-xl font-black text-[#242A16] mb-1">
@@ -217,10 +228,8 @@ export const ActionSection: React.FC = () => {
               <Share2 className="w-5 h-5 text-white group-hover:rotate-12 transition-transform" />
             </button>
 
-            <span className="text-[11px] font-bold text-[#F1D2A1]/80 mt-2 block">
-              {completedCount === 3
-                ? 'Semua langkah terbuka! Klik untuk bagikan'
-                : `Arahkan kursor untuk membuka tempat sampah`}
+            <span className="text-[11px] font-bold text-[#F1D2A1]/90 mt-2 block">
+              Klik salah satu dokumen di atas untuk melihat panduan langkah
             </span>
           </div>
         </div>

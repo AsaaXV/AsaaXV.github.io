@@ -79,7 +79,7 @@ export const REUSE_ITEMS: ComparisonItem[] = [
     id: 'reuse-1',
     title: 'Botol Kaca Kopi & Selai',
     subtitle: 'Wadah Baru Ruang Belajar',
-    category: 'Peralatan Kos & Meja Belajar',
+    category: 'Peralatan Kos',
     before: {
       label: 'Sebelum (Limbah)',
       description: 'Botol kaca bekas kopi instan atau selai yang menumpuk di tempat cuci piring dan biasanya langsung dibuang ke TPA.',
@@ -97,7 +97,7 @@ export const REUSE_ITEMS: ComparisonItem[] = [
     id: 'reuse-2',
     title: 'Kardus Paket Ekspedisi',
     subtitle: 'Organizer Meja Minimalis',
-    category: 'Penyimpanan & Dekorasi',
+    category: 'Organizer Meja',
     before: {
       label: 'Sebelum (Limbah)',
       description: 'Kardus bekas belanja online e-commerce yang robek dan tergeletak memenuhi sudut kamar tidur kos.',
@@ -115,7 +115,7 @@ export const REUSE_ITEMS: ComparisonItem[] = [
     id: 'reuse-3',
     title: 'Baju & Kaos Panitia Usang',
     subtitle: 'Totebag Unik Tanpa Jahit',
-    category: 'Fashion Daur Pakai',
+    category: 'Fashion Daur',
     before: {
       label: 'Sebelum (Limbah)',
       description: 'Kaos kepanitiaan lama atau baju katun yang sudah sempit, bernoda, dan hanya diam berbulan-bulan di lemari pakaian.',
