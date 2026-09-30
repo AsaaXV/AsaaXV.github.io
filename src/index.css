@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-mustard: #808847;
+    --color-peach: #F1D2A1;
+    --color-brown: #925E06;
+    --color-dark: #242A16;
+  }
+}
+
+/* Custom Display and Body Fonts matching the project concept */
+.font-display {
+  font-family: 'Fredoka', 'Titan One', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.01em;
+}
+
+.font-body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+/* 3D Flip Card Utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Smooth custom scrollbars */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F1D2A1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #808847;
+  border-radius: 9999px;
+  border: 2px solid #F1D2A1;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #925E06;
+}
