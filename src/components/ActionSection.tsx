@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Share2, CheckCircle2, ChevronRight, Sparkles, FolderOpen, Heart, X } from 'lucide-react';
+import { Share2, CheckCircle2, ChevronRight, Sparkles, FolderOpen, Heart, X, FileText, MousePointerClick } from 'lucide-react';
 import { ACTION_FOLDERS } from '../data/content';
 import { GrassDivider } from './GrassDivider';
 import { ShareModal } from './ShareModal';
@@ -160,54 +160,100 @@ export const ActionSection: React.FC = () => {
           className="relative my-4 flex flex-col items-center cursor-pointer select-none group"
           title="Arahkan mouse atau klik untuk membuka tempat sampah"
         >
-          {/* Lid of the trash bin (tilted angle on open, closed by default) */}
+          {/* Lid of the trash bin (tilted angle on open, closed by default, subtle pulse when open) */}
           <div
             className={`relative z-30 transition-all duration-500 ease-out origin-bottom-left ${
               isLidOpen
-                ? 'rotate-[-26deg] -translate-y-3 translate-x-12 sm:translate-x-16 drop-shadow-xl'
+                ? 'rotate-[-26deg] -translate-y-3 translate-x-12 sm:translate-x-16 drop-shadow-xl hover:rotate-[-30deg]'
                 : 'rotate-0 translate-y-3 translate-x-0'
             }`}
           >
             {/* Trash bin lid */}
-            <div className="w-52 h-9 sm:w-68 sm:h-11 rounded-t-2xl bg-[#734303] border-b-4 border-[#523002] flex items-center justify-center shadow-lg">
+            <div className="w-52 h-9 sm:w-68 sm:h-11 rounded-t-2xl bg-[#734303] border-b-4 border-[#523002] flex items-center justify-center shadow-lg transition-transform">
               <div className="w-20 h-2.5 rounded-full bg-[#925E06] border border-[#523002]/40" />
             </div>
           </div>
 
           {/* Action Folders sticking out of bin - reveals when bin opens */}
           <div
-            className={`relative z-10 -mb-4 flex items-end justify-center gap-2 transition-all duration-500 ease-out ${
+            className={`relative z-10 -mb-4 flex items-end justify-center gap-2.5 transition-all duration-500 ease-out ${
               isLidOpen
                 ? 'translate-y-0 opacity-100 scale-100 pointer-events-auto'
                 : 'translate-y-8 opacity-0 scale-90 pointer-events-none'
             }`}
           >
+            {/* Floating micro-hint when no document is currently open */}
+            {!selectedFolderId && (
+              <div className="absolute -top-8 z-30 flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#808847] text-[#F1D2A1] text-[10px] font-black shadow-lg animate-bounce pointer-events-none border border-[#A0A95A]">
+                <MousePointerClick className="w-3 h-3 text-[#F1D2A1]" />
+                <span>Tekan dokumen</span>
+              </div>
+            )}
+
+            {/* Document 1: #01 BYO */}
             <div
               onClick={(e) => {
                 e.stopPropagation();
                 toggleFolder('act-1');
               }}
-              className="w-16 h-14 sm:w-20 sm:h-16 rounded-t-lg bg-[#3C4A21] text-white p-1 text-[10px] font-bold text-center shadow cursor-pointer transform -rotate-6 hover:-translate-y-2 transition-transform"
+              className={`w-16 h-15 sm:w-20 sm:h-18 rounded-t-xl bg-[#3C4A21] text-white p-1.5 flex flex-col justify-between text-center shadow-lg cursor-pointer transition-all duration-300 border-t-2 border-x-2 ${
+                selectedFolderId === 'act-1'
+                  ? 'border-white ring-4 ring-[#F1D2A1] -translate-y-4 scale-105 z-20 shadow-2xl'
+                  : 'border-[#556730] animate-doc-bounce-1 hover:-translate-y-3 hover:scale-105 z-10'
+              }`}
+              title="Klik untuk melihat Panduan Langkah 1: Bawa Wadah Sendiri"
             >
-              #01 BYO
+              <div className="flex items-center justify-between">
+                <FileText className="w-3 h-3 text-[#F1D2A1]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#F1D2A1] animate-pulse" />
+              </div>
+              <div className="font-display text-[9.5px] sm:text-xs font-black tracking-tight leading-tight">
+                #01 BYO
+              </div>
             </div>
+
+            {/* Document 2: #02 Kost */}
             <div
               onClick={(e) => {
                 e.stopPropagation();
                 toggleFolder('act-2');
               }}
-              className="w-18 h-16 sm:w-24 sm:h-18 rounded-t-lg bg-[#4E5E2C] text-white p-1 text-[10px] font-bold text-center shadow cursor-pointer transform hover:-translate-y-2 transition-transform z-10"
+              className={`w-18 h-17 sm:w-24 sm:h-20 rounded-t-xl bg-[#4E5E2C] text-white p-1.5 flex flex-col justify-between text-center shadow-lg cursor-pointer transition-all duration-300 border-t-2 border-x-2 ${
+                selectedFolderId === 'act-2'
+                  ? 'border-white ring-4 ring-[#F1D2A1] -translate-y-4 scale-105 z-20 shadow-2xl'
+                  : 'border-[#667A3B] animate-doc-bounce-2 hover:-translate-y-3 hover:scale-105 z-15'
+              }`}
+              title="Klik untuk melihat Panduan Langkah 2: Pojok Pilah Kamar Kos"
             >
-              #02 Kost
+              <div className="flex items-center justify-between">
+                <FileText className="w-3.5 h-3.5 text-[#F1D2A1]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#F1D2A1] animate-pulse" />
+              </div>
+              <div className="font-display text-[10px] sm:text-xs font-black tracking-tight leading-tight">
+                #02 Kost
+              </div>
             </div>
+
+            {/* Document 3: #03 Share */}
             <div
               onClick={(e) => {
                 e.stopPropagation();
                 toggleFolder('act-3');
               }}
-              className="w-16 h-14 sm:w-20 sm:h-16 rounded-t-lg bg-[#687C3C] text-white p-1 text-[10px] font-bold text-center shadow cursor-pointer transform rotate-6 hover:-translate-y-2 transition-transform"
+              className={`w-16 h-15 sm:w-20 sm:h-18 rounded-t-xl bg-[#687C3C] text-white p-1.5 flex flex-col justify-between text-center shadow-lg cursor-pointer transition-all duration-300 border-t-2 border-x-2 ${
+                selectedFolderId === 'act-3'
+                  ? 'border-white ring-4 ring-[#F1D2A1] -translate-y-4 scale-105 z-20 shadow-2xl'
+                  : 'border-[#82994E] animate-doc-bounce-3 hover:-translate-y-3 hover:scale-105 z-10'
+              }`}
+              title="Klik untuk melihat Panduan Langkah 3: Bagikan Semangat 3R"
             >
-              #03 Share
+              <div className="flex items-center justify-between">
+                <FileText className="w-3 h-3 text-[#F1D2A1]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#F1D2A1] animate-pulse" />
+              </div>
+              <div className="font-display text-[9.5px] sm:text-xs font-black tracking-tight leading-tight">
+                #03 Share
+              </div>
             </div>
           </div>
 

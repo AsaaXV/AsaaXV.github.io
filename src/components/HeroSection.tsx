@@ -49,7 +49,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onStartExplore }) => {
             onClick={handleClick}
             className="group inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-[#925E06] text-[#F1D2A1] font-display text-base sm:text-lg font-black tracking-wide shadow-lg hover:bg-[#784D05] active:scale-95 transition-all transform hover:-translate-y-0.5 cursor-pointer select-none"
           >
-            <span>MULAI JELAJAHI</span>
+            <span>GESER KE BAWAH</span>
             <div className="w-7 h-7 rounded-full bg-[#F1D2A1] text-[#925E06] flex items-center justify-center group-hover:translate-y-1 transition-transform duration-200 shadow-xs">
               <ArrowDown className="w-4 h-4 stroke-[3]" />
             </div>

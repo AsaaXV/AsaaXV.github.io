@@ -62,31 +62,29 @@ export const Navbar: React.FC<NavbarProps> = ({
           </span>
         </div>
 
-        {/* Right actions */}
+        {/* Right actions matching Screenshot_2026_1001_021639.jpg.jpeg */}
         <div className="flex items-center gap-1.5 sm:gap-2">
-          {/* Toggle Mobile Mockup view / Desktop view (optional) */}
-          {onToggleFrame && (
-            <button
-              onClick={() => {
-                sounds.playPop();
-                onToggleFrame();
-              }}
-              title={isMobileFrame ? 'Tampilan Layar Penuh' : 'Tampilan Mode Mockup HP'}
-              className="hidden sm:flex items-center gap-1 px-2.5 py-1.5 rounded-full text-xs font-bold bg-[#808847]/20 text-[#3B4219] hover:bg-[#808847]/30 transition cursor-pointer"
-            >
-              {isMobileFrame ? (
-                <>
-                  <Monitor className="w-3.5 h-3.5" />
-                  <span>Full</span>
-                </>
-              ) : (
-                <>
-                  <Smartphone className="w-3.5 h-3.5" />
-                  <span>Mobile View</span>
-                </>
-              )}
-            </button>
-          )}
+          {/* Toggle Mobile Mockup view / Desktop view */}
+          <button
+            onClick={() => {
+              sounds.playPop();
+              if (onToggleFrame) onToggleFrame();
+            }}
+            title={isMobileFrame ? 'Tampilan Layar Penuh' : 'Tampilan Mode Mockup HP'}
+            className="flex items-center gap-1 px-2.5 py-1.5 rounded-full text-xs font-bold bg-[#808847]/20 text-[#3B4219] hover:bg-[#808847]/30 transition cursor-pointer"
+          >
+            {isMobileFrame ? (
+              <>
+                <Monitor className="w-3.5 h-3.5" />
+                <span>Full</span>
+              </>
+            ) : (
+              <>
+                <Smartphone className="w-3.5 h-3.5" />
+                <span>Mobile View</span>
+              </>
+            )}
+          </button>
 
           {/* Sound toggle */}
           <button
@@ -106,7 +104,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-[#925E06] text-[#F1D2A1] hover:bg-[#784D05] shadow-sm transition active:scale-95 cursor-pointer"
           >
             <BookOpen className="w-3.5 h-3.5" />
-            <span className="hidden md:inline">Laporan DKV</span>
+            <span>Laporan DKV</span>
           </button>
         </div>
       </header>

@@ -10,6 +10,7 @@ import { AcademicReportModal } from './components/AcademicReportModal';
 
 export default function App() {
   const [isReportOpen, setIsReportOpen] = useState(false);
+  const [isMobileFrame, setIsMobileFrame] = useState(false);
 
   const handleScrollToReduce = () => {
     const el = document.getElementById('reduce');
@@ -20,10 +21,20 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#F1D2A1] text-[#242A16] font-body flex flex-col items-center">
-      {/* Container wrapper: full desktop canvas scaling gracefully */}
-      <div className="w-full max-w-5xl mx-auto">
+      {/* Container wrapper: either fluid responsive or simulated smartphone bezel frame */}
+      <div
+        className={`w-full transition-all duration-300 ${
+          isMobileFrame
+            ? 'max-w-[440px] my-6 rounded-[44px] shadow-2xl border-[10px] border-[#3B2504] overflow-hidden bg-[#F1D2A1] ring-8 ring-[#808847]/30'
+            : 'max-w-5xl mx-auto'
+        }`}
+      >
         {/* Top Navbar */}
-        <Navbar onOpenReport={() => setIsReportOpen(true)} />
+        <Navbar
+          onOpenReport={() => setIsReportOpen(true)}
+          isMobileFrame={isMobileFrame}
+          onToggleFrame={() => setIsMobileFrame(!isMobileFrame)}
+        />
 
         {/* Main Content Sections */}
         <main className="w-full">
