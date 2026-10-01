@@ -56,13 +56,13 @@ export const ReuseSection: React.FC = () => {
                   <ChevronLeft className="w-5 h-5 stroke-[3]" />
                 </button>
 
-                {/* Main Card with exact desktop proportions */}
+                {/* Main Card with exact desktop proportions & hover micro-interactions */}
                 <div
                   onClick={() => toggleCardState(item.id)}
-                  className={`w-full h-full min-h-[460px] rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-xl cursor-pointer border-2 select-none ${
+                  className={`w-full h-full min-h-[460px] rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-xl cursor-pointer border-2 select-none transform hover:-translate-y-2.5 hover:scale-[1.025] hover:shadow-2xl group ${
                     isAfter
-                      ? 'bg-[#808847] text-[#F1D2A1] border-[#686F35]'
-                      : 'bg-[#925E06] text-[#F1D2A1] border-[#794E05]'
+                      ? 'bg-[#808847] text-[#F1D2A1] border-[#686F35] hover:border-[#F1D2A1]/60'
+                      : 'bg-[#925E06] text-[#F1D2A1] border-[#794E05] hover:border-[#F1D2A1]/60'
                   }`}
                 >
                   {/* Top Bar inside Card */}

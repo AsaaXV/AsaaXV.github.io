@@ -154,17 +154,17 @@ export const RecycleSection: React.FC = () => {
         {/* Dual Cards - 2 Columns side-by-side on mobile and desktop */}
         <div className="grid grid-cols-2 gap-2 sm:gap-4 md:gap-6 w-full mb-6 items-stretch">
           {/* Left Card: Input Bahan Sampah */}
-          <div className="p-2.5 sm:p-5 rounded-2xl sm:rounded-3xl bg-[#925E06] text-[#F1D2A1] shadow-md sm:shadow-xl border-2 border-[#794E05] flex flex-col justify-between min-h-[140px] sm:min-h-[170px]">
+          <div className="p-2.5 sm:p-5 rounded-2xl sm:rounded-3xl bg-[#925E06] text-[#F1D2A1] shadow-md sm:shadow-xl border-2 border-[#794E05] flex flex-col justify-between min-h-[140px] sm:min-h-[170px] transform hover:-translate-y-2 hover:scale-[1.025] hover:shadow-2xl transition-all duration-300 group cursor-default">
             <div>
               <div className="h-5 sm:h-6 flex items-center justify-between mb-1 sm:mb-2">
-                <span className="text-[7.5px] sm:text-[11px] font-bold uppercase tracking-wider px-1.5 sm:px-2.5 py-0.5 rounded-full bg-black/25 text-[#F1D2A1] truncate">
+                <span className="text-[7.5px] sm:text-[11px] font-bold uppercase tracking-wider px-1.5 sm:px-2.5 py-0.5 rounded-full bg-black/25 text-[#F1D2A1] truncate group-hover:scale-105 transition-transform">
                   Bahan Masuk
                 </span>
-                <span className="font-display text-[8px] sm:text-xs font-black text-amber-300 whitespace-nowrap">
+                <span className="font-display text-[8px] sm:text-xs font-black text-amber-300 whitespace-nowrap group-hover:scale-110 transition-transform">
                   Tahap {currentPhase.step}/5
                 </span>
               </div>
-              <h4 className="font-display text-xs sm:text-lg font-black text-white leading-tight">{currentPhase.title}</h4>
+              <h4 className="font-display text-xs sm:text-lg font-black text-white leading-tight group-hover:text-amber-100 transition-colors">{currentPhase.title}</h4>
               <p className="text-[8px] sm:text-xs text-[#F1D2A1]/90 mt-1 leading-tight sm:leading-relaxed line-clamp-3 sm:line-clamp-none">
                 {currentPhase.description}
               </p>
@@ -175,17 +175,17 @@ export const RecycleSection: React.FC = () => {
           </div>
 
           {/* Right Card: Transformasi Hasil */}
-          <div className="p-2.5 sm:p-5 rounded-2xl sm:rounded-3xl bg-[#808847] text-[#F1D2A1] shadow-md sm:shadow-xl border-2 border-[#697034] flex flex-col justify-between min-h-[140px] sm:min-h-[170px]">
+          <div className="p-2.5 sm:p-5 rounded-2xl sm:rounded-3xl bg-[#808847] text-[#F1D2A1] shadow-md sm:shadow-xl border-2 border-[#697034] flex flex-col justify-between min-h-[140px] sm:min-h-[170px] transform hover:-translate-y-2 hover:scale-[1.025] hover:shadow-2xl transition-all duration-300 group cursor-default">
             <div>
               <div className="h-5 sm:h-6 flex items-center justify-between mb-1 sm:mb-2">
-                <span className="text-[7.5px] sm:text-[11px] font-bold uppercase tracking-wider px-1.5 sm:px-2.5 py-0.5 rounded-full bg-black/25 text-[#F1D2A1] truncate">
+                <span className="text-[7.5px] sm:text-[11px] font-bold uppercase tracking-wider px-1.5 sm:px-2.5 py-0.5 rounded-full bg-black/25 text-[#F1D2A1] truncate group-hover:scale-105 transition-transform">
                   Aksi & Hasil
                 </span>
-                <span className="text-[8px] sm:text-xs font-bold text-white flex items-center gap-0.5 whitespace-nowrap">
-                  <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#F1D2A1] shrink-0" /> Sirkular
+                <span className="text-[8px] sm:text-xs font-bold text-white flex items-center gap-0.5 whitespace-nowrap group-hover:scale-110 transition-transform">
+                  <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#F1D2A1] shrink-0 animate-spin" style={{ animationDuration: '8s' }} /> Sirkular
                 </span>
               </div>
-              <h4 className="font-display text-xs sm:text-lg font-black text-white leading-tight">{currentPhase.subtitle}</h4>
+              <h4 className="font-display text-xs sm:text-lg font-black text-white leading-tight group-hover:text-amber-100 transition-colors">{currentPhase.subtitle}</h4>
               <p className="text-[8px] sm:text-xs text-white/95 mt-1 leading-tight sm:leading-relaxed line-clamp-3 sm:line-clamp-none">
                 {currentPhase.campusAction}
               </p>
@@ -200,19 +200,19 @@ export const RecycleSection: React.FC = () => {
         <div className="relative my-4 flex flex-col items-center select-none w-full max-w-lg">
           
           {/* 1. KOTAK ANGKA DI ATAS RODA (Matching the "ANGKA" rectangle in user's sketch) */}
-          <div className="w-full max-w-xs sm:max-w-sm rounded-3xl bg-[#808847] text-[#F1D2A1] p-4 sm:p-5 shadow-2xl border-4 border-[#5E6430] flex flex-col items-center text-center relative z-30 transition-all duration-300 transform hover:scale-[1.02]">
+          <div className="w-full max-w-xs sm:max-w-sm rounded-3xl bg-[#808847] text-[#F1D2A1] p-4 sm:p-5 shadow-2xl border-4 border-[#5E6430] flex flex-col items-center text-center relative z-30 transition-all duration-300 transform hover:scale-[1.04] hover:-translate-y-1.5 hover:shadow-2xl cursor-default group">
             {/* Top tiny label */}
-            <span className="text-[10px] font-black uppercase tracking-widest text-[#F1D2A1]/80 mb-1">
+            <span className="text-[10px] font-black uppercase tracking-widest text-[#F1D2A1]/80 mb-1 group-hover:text-white transition-colors">
               INDIKATOR TAHAP TERPILIH
             </span>
 
             {/* BIG PROMINENT NUMBER (ANGKA) */}
-            <div className="font-display text-5xl sm:text-6xl font-black text-white leading-none tracking-tight my-1 tabular-nums drop-shadow-md">
+            <div className="font-display text-5xl sm:text-6xl font-black text-white leading-none tracking-tight my-1 tabular-nums drop-shadow-md group-hover:scale-110 group-hover:text-amber-200 transition-all">
               0{currentPhase.step}
             </div>
 
             {/* Title corresponding to this number */}
-            <h4 className="font-display text-sm sm:text-base font-black text-amber-200 mt-1 uppercase tracking-wide">
+            <h4 className="font-display text-sm sm:text-base font-black text-amber-200 mt-1 uppercase tracking-wide group-hover:scale-105 transition-transform">
               {currentPhase.title.split('. ')[1] || currentPhase.title}
             </h4>
             <p className="text-xs text-white/90 font-medium mt-1 line-clamp-1">

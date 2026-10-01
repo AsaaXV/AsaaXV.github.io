@@ -179,15 +179,6 @@ export const ReduceSection: React.FC = () => {
             className="relative w-full max-w-4xl rounded-3xl bg-[#F1D2A1] shadow-2xl border-4 border-[#925E06] overflow-hidden flex flex-col md:flex-row animate-rotate-expand"
             style={{ maxHeight: '92vh' }}
           >
-            {/* Top Right "X" Close Button (Sesuai Tanda X di Sketsa Pengguna) */}
-            <button
-              onClick={closeCard}
-              className="absolute top-3 right-3 sm:top-4 sm:right-4 z-40 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#925E06] hover:bg-[#784A03] text-[#F1D2A1] hover:text-white flex items-center justify-center shadow-2xl transition-all transform hover:scale-110 active:scale-95 cursor-pointer border-2 border-[#F1D2A1]"
-              title="Tutup Infografis (Esc)"
-            >
-              <X className="w-5 h-5 sm:w-6 sm:h-6 stroke-[3]" />
-            </button>
-
             {/* SISI KIRI (Gambar / Visual Kartu Sesuai Sketsa Kotak Kiri "[ ]") */}
             <div className="w-full md:w-[38%] bg-[#925E06] text-[#F1D2A1] p-5 sm:p-8 flex flex-col justify-between border-b-4 md:border-b-0 md:border-r-4 border-[#794E05] shrink-0">
               <div>
@@ -256,14 +247,14 @@ export const ReduceSection: React.FC = () => {
                       </span>
                     </div>
 
-                    {/* 1. ANIMASI INFOGRAFIS BAR: Stat Bar Animation */}
-                    <div className="mb-4 sm:mb-5 p-3 sm:p-4 rounded-2xl bg-[#686F35]/70 border border-[#F1D2A1]/30 shadow-md animate-slide-up-1">
+                    {/* 1. ANIMASI INFOGRAFIS BAR: Stat Bar Animation with Hover Micro-interaction */}
+                    <div className="mb-4 sm:mb-5 p-3 sm:p-4 rounded-2xl bg-[#686F35]/70 border border-[#F1D2A1]/30 shadow-md animate-slide-up-1 transform transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5 hover:bg-[#686F35]/90 hover:border-[#F1D2A1]/60 hover:shadow-xl cursor-default group">
                       <div className="flex items-center justify-between text-xs sm:text-sm font-bold text-white mb-1.5">
-                        <span className="flex items-center gap-1.5 text-[#F1D2A1]">
-                          <TrendingUp className="w-4 h-4 text-emerald-300" />
+                        <span className="flex items-center gap-1.5 text-[#F1D2A1] group-hover:text-white transition-colors">
+                          <TrendingUp className="w-4 h-4 text-emerald-300 group-hover:scale-125 transition-transform" />
                           {info.barLabel}
                         </span>
-                        <span className="font-display text-sm sm:text-base font-black text-amber-200">
+                        <span className="font-display text-sm sm:text-base font-black text-amber-200 group-hover:scale-110 transition-transform">
                           {info.barPercent}%
                         </span>
                       </div>
@@ -271,7 +262,7 @@ export const ReduceSection: React.FC = () => {
                       {/* Animated Progress Bar */}
                       <div className="w-full h-3 sm:h-3.5 bg-black/30 rounded-full overflow-hidden p-0.5 border border-[#F1D2A1]/20">
                         <div
-                          className="h-full bg-gradient-to-r from-amber-300 via-emerald-400 to-emerald-300 rounded-full animate-bar-grow shadow"
+                          className="h-full bg-gradient-to-r from-amber-300 via-emerald-400 to-emerald-300 rounded-full animate-bar-grow shadow group-hover:brightness-110 transition-all"
                           style={{ ['--bar-width' as string]: `${info.barPercent}%` }}
                         />
                       </div>
@@ -280,12 +271,12 @@ export const ReduceSection: React.FC = () => {
                       </p>
                     </div>
 
-                    {/* 2. ANIMASI INFOGRAFIS LANGKAH PRAKTIS: 3 Step Cards Sliding in Sequentially */}
+                    {/* 2. ANIMASI INFOGRAFIS LANGKAH PRAKTIS: 3 Step Cards with Interactive Hover Lift */}
                     <div className="space-y-2.5 my-3 sm:my-4">
                       {activeCard.backTips.map((tip, idx) => (
                         <div
                           key={idx}
-                          className={`flex items-start gap-3 p-3 rounded-2xl bg-[#6C7436]/70 border border-[#F1D2A1]/25 shadow-sm ${
+                          className={`flex items-start gap-3 p-3 rounded-2xl bg-[#6C7436]/70 border border-[#F1D2A1]/25 shadow-sm transform transition-all duration-300 hover:scale-[1.025] hover:-translate-y-1 hover:bg-[#6C7436] hover:border-[#F1D2A1]/60 hover:shadow-xl cursor-pointer group ${
                             idx === 0
                               ? 'animate-slide-up-2'
                               : idx === 1
@@ -293,24 +284,24 @@ export const ReduceSection: React.FC = () => {
                               : 'animate-slide-up-4'
                           }`}
                         >
-                          <div className="w-6 h-6 rounded-full bg-[#808847] border border-[#F1D2A1] flex items-center justify-center font-display font-black text-xs text-[#F1D2A1] shrink-0 mt-0.5 shadow">
+                          <div className="w-6 h-6 rounded-full bg-[#808847] border border-[#F1D2A1] flex items-center justify-center font-display font-black text-xs text-[#F1D2A1] shrink-0 mt-0.5 shadow group-hover:scale-115 group-hover:bg-[#F1D2A1] group-hover:text-[#6C7436] group-hover:rotate-6 transition-all duration-300">
                             {idx + 1}
                           </div>
                           <div className="flex-1">
-                            <span className="text-xs sm:text-sm text-white font-medium leading-relaxed">
+                            <span className="text-xs sm:text-sm text-white font-medium leading-relaxed group-hover:text-amber-100 transition-colors">
                               {tip}
                             </span>
                           </div>
-                          <CheckCircle2 className="w-4 h-4 text-emerald-300 shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-4 h-4 text-emerald-300 shrink-0 mt-0.5 group-hover:scale-125 group-hover:text-emerald-200 transition-transform" />
                         </div>
                       ))}
                     </div>
 
-                    {/* 3. ANIMASI IMPACT BANNER */}
-                    <div className="mt-3 p-3.5 rounded-2xl bg-[#5E6430] border-2 border-[#F1D2A1]/35 shadow-md animate-slide-up-4">
+                    {/* 3. ANIMASI IMPACT BANNER with Hover Glow */}
+                    <div className="mt-3 p-3.5 rounded-2xl bg-[#5E6430] border-2 border-[#F1D2A1]/35 shadow-md animate-slide-up-4 transform transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5 hover:border-[#F1D2A1]/60 hover:shadow-2xl cursor-default group">
                       <div className="flex items-center gap-1.5 text-xs font-bold text-amber-200">
-                        <Sparkles className="w-4 h-4 text-amber-200 animate-spin" style={{ animationDuration: '6s' }} />
-                        <span>Dampak Nyata Kampus UNM:</span>
+                        <Sparkles className="w-4 h-4 text-amber-200 animate-spin group-hover:scale-125 transition-transform" style={{ animationDuration: '6s' }} />
+                        <span className="group-hover:text-white transition-colors">Dampak Nyata Kampus UNM:</span>
                       </div>
                       <p className="text-xs sm:text-sm font-semibold text-white mt-1 leading-snug">
                         {activeCard.impactMetric}
@@ -325,14 +316,18 @@ export const ReduceSection: React.FC = () => {
                 );
               })()}
 
-              {/* Bottom Action Button */}
+              {/* Bottom Action Button - Combined with "X" */}
               <div className="mt-4 pt-3 border-t border-[#F1D2A1]/20 flex justify-end">
                 <button
                   onClick={closeCard}
-                  className="px-6 py-2.5 rounded-full bg-[#925E06] hover:bg-[#794E05] text-white font-display text-xs sm:text-sm font-black shadow-lg cursor-pointer transition-all active:scale-95 border border-[#F1D2A1]/40 flex items-center gap-2"
+                  className="px-6 py-2.5 rounded-full bg-[#925E06] hover:bg-[#794E05] text-white font-display text-xs sm:text-sm font-black shadow-lg cursor-pointer transition-all hover:scale-105 active:scale-95 border-2 border-[#F1D2A1]/50 flex items-center gap-2.5 group"
+                  title="Tutup Infografis (Esc)"
                 >
+                  <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white/30 transition-colors">
+                    <X className="w-3.5 h-3.5 stroke-[3] text-[#F1D2A1] group-hover:text-white" />
+                  </div>
                   <span>Tutup Infografis</span>
-                  <span className="text-[10px] text-amber-200">(Esc)</span>
+                  <span className="text-[10px] text-amber-200 font-semibold">(Esc)</span>
                 </button>
               </div>
             </div>

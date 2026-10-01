@@ -33,28 +33,28 @@ export const FactsSection: React.FC = () => {
             <div
               key={fact.id}
               onClick={() => toggleFact(fact.id)}
-              className={`rounded-3xl p-6 transition-all duration-300 shadow-xl cursor-pointer border-2 flex flex-col justify-between h-full min-h-[340px] select-none ${
+              className={`rounded-3xl p-6 transition-all duration-300 shadow-xl cursor-pointer border-2 flex flex-col justify-between h-full min-h-[340px] select-none transform hover:-translate-y-2.5 hover:scale-[1.025] hover:shadow-2xl group ${
                 isExpanded
                   ? 'bg-[#808847] text-[#F1D2A1] border-[#656C30] ring-4 ring-[#808847]/30 scale-[1.02]'
-                  : 'bg-[#925E06] text-[#F1D2A1] border-[#784D05] hover:bg-[#835405]'
+                  : 'bg-[#925E06] text-[#F1D2A1] border-[#784D05] hover:bg-[#835405] hover:border-[#F1D2A1]/50'
               }`}
             >
               <div>
                 <div className="h-6 flex items-center justify-between mb-3">
-                  <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-black/25 text-[#F1D2A1] whitespace-nowrap">
+                  <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-black/25 text-[#F1D2A1] whitespace-nowrap group-hover:bg-black/40 group-hover:scale-105 transition-all">
                     {fact.badge}
                   </span>
-                  <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-white shrink-0">
+                  <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-white shrink-0 group-hover:scale-125 group-hover:bg-white/30 transition-all">
                     {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                   </div>
                 </div>
 
-                {/* Numeric Counter */}
+                {/* Numeric Counter with Hover Scale */}
                 <div className="my-2 min-h-[72px] flex flex-col justify-center">
-                  <div className="font-display text-4xl sm:text-5xl font-black text-white tracking-tight tabular-nums leading-none">
+                  <div className="font-display text-4xl sm:text-5xl font-black text-white tracking-tight tabular-nums leading-none group-hover:scale-105 group-hover:text-amber-200 transition-all origin-left drop-shadow">
                     {fact.number}
                   </div>
-                  <div className="font-display text-xs sm:text-sm font-bold text-[#F1D2A1]/90 uppercase tracking-wide mt-1">
+                  <div className="font-display text-xs sm:text-sm font-bold text-[#F1D2A1]/90 uppercase tracking-wide mt-1 group-hover:text-white transition-colors">
                     {fact.unit}
                   </div>
                 </div>
@@ -74,16 +74,16 @@ export const FactsSection: React.FC = () => {
               </div>
 
               {/* Bottom Card Footer */}
-              <div className="pt-3 mt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-bold text-[#F1D2A1]/70">
+              <div className="pt-3 mt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-bold text-[#F1D2A1]/70 group-hover:text-white transition-colors">
                 <span className="truncate">{fact.source}</span>
-                <span className="shrink-0 text-white">{isExpanded ? 'Tutup' : 'Tap untuk melihat detail data'}</span>
+                <span className="shrink-0 text-white group-hover:underline">{isExpanded ? 'Tutup' : 'Tap untuk melihat detail data'}</span>
               </div>
             </div>
           );
         })}
       </div>
 
-      {/* Decomposition Timeline Table matching Screenshot_2026_1001_021639.jpg.jpeg */}
+      {/* Decomposition Timeline Table with Hover Highlights */}
       <div className="w-full max-w-4xl mt-8 p-6 rounded-3xl bg-[#925E06]/15 border-2 border-[#925E06]/30 shadow-lg">
         <div className="flex items-center gap-2 mb-4">
           <Clock className="w-5 h-5 text-[#925E06]" />
@@ -93,25 +93,25 @@ export const FactsSection: React.FC = () => {
         </div>
 
         <div className="divide-y divide-[#925E06]/20 text-sm">
-          <div className="py-2.5 flex items-center justify-between">
-            <span className="font-semibold text-[#3B4219]">Kertas HVS / Catatan Kuliah</span>
-            <span className="font-bold text-[#808847] bg-[#808847]/15 px-3 py-1 rounded-full text-xs">2 – 6 Minggu</span>
+          <div className="py-2.5 px-2.5 rounded-xl flex items-center justify-between transition-all duration-200 hover:bg-[#925E06]/20 hover:scale-[1.01] hover:pl-4 cursor-default group">
+            <span className="font-semibold text-[#3B4219] group-hover:text-[#925E06] transition-colors">Kertas HVS / Catatan Kuliah</span>
+            <span className="font-bold text-[#808847] bg-[#808847]/15 px-3 py-1 rounded-full text-xs group-hover:scale-105 group-hover:bg-[#808847] group-hover:text-white transition-all">2 – 6 Minggu</span>
           </div>
-          <div className="py-2.5 flex items-center justify-between">
-            <span className="font-semibold text-[#3B4219]">Kantong Kresek Plastik</span>
-            <span className="font-bold text-[#925E06] bg-[#925E06]/15 px-3 py-1 rounded-full text-xs">20 – 50 Tahun</span>
+          <div className="py-2.5 px-2.5 rounded-xl flex items-center justify-between transition-all duration-200 hover:bg-[#925E06]/20 hover:scale-[1.01] hover:pl-4 cursor-default group">
+            <span className="font-semibold text-[#3B4219] group-hover:text-[#925E06] transition-colors">Kantong Kresek Plastik</span>
+            <span className="font-bold text-[#925E06] bg-[#925E06]/15 px-3 py-1 rounded-full text-xs group-hover:scale-105 group-hover:bg-[#925E06] group-hover:text-white transition-all">20 – 50 Tahun</span>
           </div>
-          <div className="py-2.5 flex items-center justify-between">
-            <span className="font-semibold text-[#3B4219]">Botol Plastik PET (Air Mineral / Es Teh)</span>
-            <span className="font-bold text-[#925E06] bg-[#925E06]/20 px-3 py-1 rounded-full text-xs">450 Tahun (Berbahaya)</span>
+          <div className="py-2.5 px-2.5 rounded-xl flex items-center justify-between transition-all duration-200 hover:bg-[#925E06]/20 hover:scale-[1.01] hover:pl-4 cursor-default group">
+            <span className="font-semibold text-[#3B4219] group-hover:text-[#925E06] transition-colors">Botol Plastik PET (Air Mineral / Es Teh)</span>
+            <span className="font-bold text-[#925E06] bg-[#925E06]/20 px-3 py-1 rounded-full text-xs group-hover:scale-105 group-hover:bg-[#925E06] group-hover:text-white transition-all">450 Tahun (Berbahaya)</span>
           </div>
-          <div className="py-2.5 flex items-center justify-between">
-            <span className="font-semibold text-[#3B4219]">Botol Kaca Kopi / Minuman</span>
-            <span className="font-bold text-amber-900 bg-amber-900/15 px-3 py-1 rounded-full text-xs">1.000.000+ Tahun</span>
+          <div className="py-2.5 px-2.5 rounded-xl flex items-center justify-between transition-all duration-200 hover:bg-[#925E06]/20 hover:scale-[1.01] hover:pl-4 cursor-default group">
+            <span className="font-semibold text-[#3B4219] group-hover:text-[#925E06] transition-colors">Botol Kaca Kopi / Minuman</span>
+            <span className="font-bold text-amber-900 bg-amber-900/15 px-3 py-1 rounded-full text-xs group-hover:scale-105 group-hover:bg-amber-900 group-hover:text-white transition-all">1.000.000+ Tahun</span>
           </div>
-          <div className="py-2.5 flex items-center justify-between">
-            <span className="font-semibold text-[#3B4219]">Styrofoam Kotak Makanan</span>
-            <span className="font-bold text-red-700 bg-red-700/15 px-3 py-1 rounded-full text-xs">Tidak Pernah Terurai Alami</span>
+          <div className="py-2.5 px-2.5 rounded-xl flex items-center justify-between transition-all duration-200 hover:bg-[#925E06]/20 hover:scale-[1.01] hover:pl-4 cursor-default group">
+            <span className="font-semibold text-[#3B4219] group-hover:text-[#925E06] transition-colors">Styrofoam Kotak Makanan</span>
+            <span className="font-bold text-red-700 bg-red-700/15 px-3 py-1 rounded-full text-xs group-hover:scale-105 group-hover:bg-red-700 group-hover:text-white transition-all">Tidak Pernah Terurai Alami</span>
           </div>
         </div>
       </div>
