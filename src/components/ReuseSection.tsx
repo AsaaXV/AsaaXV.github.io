@@ -42,20 +42,8 @@ export const ReuseSection: React.FC = () => {
 
           return (
             <div key={item.id} className="flex flex-col items-center justify-between h-full w-full">
-              {/* Card Container with navigation buttons on sides */}
+              {/* Card Container without protruding side arrows */}
               <div className="relative w-full flex-1 flex flex-col items-center">
-                {/* Left Arrow Button matching mockup & screenshot `<` */}
-                <button
-                  type="button"
-                  onClick={() => toggleCardState(item.id, 0)}
-                  aria-label="Lihat Sebelum"
-                  className={`absolute -left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#808847] text-[#F1D2A1] flex items-center justify-center shadow-lg transition-all cursor-pointer ${
-                    !isAfter ? 'opacity-40 cursor-default' : 'hover:bg-[#686F35] active:scale-95'
-                  }`}
-                >
-                  <ChevronLeft className="w-5 h-5 stroke-[3]" />
-                </button>
-
                 {/* Main Card with exact desktop proportions & hover micro-interactions */}
                 <div
                   onClick={() => toggleCardState(item.id)}
@@ -197,38 +185,59 @@ export const ReuseSection: React.FC = () => {
                     {isAfter ? 'Klik untuk lihat kondisi awal' : 'Klik panah kanan untuk lihat hasil kreasi'}
                   </div>
                 </div>
+              </div>
 
-                {/* Right Arrow Button matching mockup & screenshot `>` */}
+              {/* Pengontrol Sebelum/Sesudah Terpadu di Bawah Kartu - Rapi & Bebas Tumpang Tindih */}
+              <div className="flex items-center justify-center gap-2.5 mt-3.5">
+                <button
+                  type="button"
+                  onClick={() => toggleCardState(item.id, 0)}
+                  aria-label="Lihat Sebelum"
+                  className={`w-7 h-7 rounded-full flex items-center justify-center shadow transition-all cursor-pointer ${
+                    !isAfter
+                      ? 'bg-black/15 text-[#F1D2A1]/40 cursor-default'
+                      : 'bg-[#808847] hover:bg-[#686F35] text-white active:scale-95 hover:scale-110'
+                  }`}
+                  title="Kondisi Sebelum"
+                >
+                  <ChevronLeft className="w-4 h-4 stroke-[3]" />
+                </button>
+
+                {/* Indicator Dots */}
+                <div className="flex items-center gap-1.5">
+                  <button
+                    type="button"
+                    onClick={() => toggleCardState(item.id, 0)}
+                    aria-label="Ke Sebelum"
+                    className={`h-2.5 rounded-full transition-all cursor-pointer ${
+                      !isAfter ? 'w-6 bg-[#925E06] shadow' : 'w-2.5 bg-[#808847]/40 hover:bg-[#808847]'
+                    }`}
+                    title="Kondisi Sebelum"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => toggleCardState(item.id, 1)}
+                    aria-label="Ke Sesudah"
+                    className={`h-2.5 rounded-full transition-all cursor-pointer ${
+                      isAfter ? 'w-6 bg-[#808847] shadow' : 'w-2.5 bg-[#808847]/40 hover:bg-[#808847]'
+                    }`}
+                    title="Kondisi Sesudah (Kreasi)"
+                  />
+                </div>
+
                 <button
                   type="button"
                   onClick={() => toggleCardState(item.id, 1)}
                   aria-label="Lihat Sesudah"
-                  className={`absolute -right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#808847] text-[#F1D2A1] flex items-center justify-center shadow-lg transition-all cursor-pointer ${
-                    isAfter ? 'opacity-40 cursor-default' : 'hover:bg-[#686F35] active:scale-95'
+                  className={`w-7 h-7 rounded-full flex items-center justify-center shadow transition-all cursor-pointer ${
+                    isAfter
+                      ? 'bg-black/15 text-[#F1D2A1]/40 cursor-default'
+                      : 'bg-[#808847] hover:bg-[#686F35] text-white active:scale-95 hover:scale-110'
                   }`}
+                  title="Lihat Hasil Kreasi Sesudah"
                 >
-                  <ChevronRight className="w-5 h-5 stroke-[3]" />
+                  <ChevronRight className="w-4 h-4 stroke-[3]" />
                 </button>
-              </div>
-
-              {/* Dots indicator matching mockup `..` below each card */}
-              <div className="flex items-center justify-center gap-2 mt-3.5">
-                <button
-                  type="button"
-                  onClick={() => toggleCardState(item.id, 0)}
-                  aria-label="Ke Sebelum"
-                  className={`w-3 h-3 rounded-full transition-all cursor-pointer ${
-                    !isAfter ? 'bg-[#925E06] ring-2 ring-[#925E06]/40 scale-110' : 'bg-[#808847]/40 hover:bg-[#808847]'
-                  }`}
-                />
-                <button
-                  type="button"
-                  onClick={() => toggleCardState(item.id, 1)}
-                  aria-label="Ke Sesudah"
-                  className={`w-3 h-3 rounded-full transition-all cursor-pointer ${
-                    isAfter ? 'bg-[#808847] ring-2 ring-[#808847]/40 scale-110' : 'bg-[#808847]/40 hover:bg-[#808847]'
-                  }`}
-                />
               </div>
             </div>
           );
