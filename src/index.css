@@ -2,10 +2,14 @@
 
 @layer base {
   :root {
-    --color-mustard: #808847;
-    --color-peach: #F1D2A1;
-    --color-brown: #925E06;
-    --color-dark: #242A16;
+    --color-cream: #FEFAE0;
+    --color-brown: #5B4436;
+    --color-forest: #283618;
+  }
+
+  body {
+    background-color: #FEFAE0;
+    color: #283618;
   }
 }
 
@@ -116,17 +120,17 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #F1D2A1;
+  background: #FEFAE0;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #808847;
+  background: #283618;
   border-radius: 9999px;
-  border: 2px solid #F1D2A1;
+  border: 2px solid #FEFAE0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #925E06;
+  background: #5B4436;
 }
 
 /* Hide scrollbar for clean horizontal card carousels on mobile */
@@ -168,10 +172,10 @@
 
 @keyframes gentle-pulse-glow {
   0%, 100% {
-    box-shadow: 0 0 0 0 rgba(241, 210, 161, 0.7);
+    box-shadow: 0 0 0 0 rgba(254, 250, 224, 0.7);
   }
   50% {
-    box-shadow: 0 0 0 8px rgba(241, 210, 161, 0);
+    box-shadow: 0 0 0 8px rgba(254, 250, 224, 0);
   }
 }
 

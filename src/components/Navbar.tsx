@@ -1,20 +1,33 @@
 import React, { useState } from 'react';
-import { Menu, X, Volume2, VolumeX, BookOpen, Sparkles, Smartphone, Monitor } from 'lucide-react';
+import { X, Volume2, VolumeX, BookOpen, Smartphone, Monitor } from 'lucide-react';
 import { sounds } from '../utils/audio';
 
 interface NavbarProps {
   onOpenReport: () => void;
   isMobileFrame?: boolean;
   onToggleFrame?: () => void;
+  onOpenSecret?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   onOpenReport,
   isMobileFrame,
   onToggleFrame,
+  onOpenSecret,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSoundActive, setIsSoundActive] = useState(sounds.enabled);
+  const [logoClicks, setLogoClicks] = useState(0);
+
+  const handleLogoClick = () => {
+    sounds.playPop();
+    const next = logoClicks + 1;
+    setLogoClicks(next);
+    if (next >= 3) {
+      setLogoClicks(0);
+      onOpenSecret?.();
+    }
+  };
 
   const toggleSound = () => {
     sounds.enabled = !sounds.enabled;
@@ -39,72 +52,43 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <>
       {/* Floating Top Bar with circular hamburger button & quick controls */}
-      <header className="sticky top-0 z-40 w-full px-4 py-3 flex items-center justify-between backdrop-blur-xs bg-[#F1D2A1]/85 transition-all">
-        {/* Top left circular hamburger matching 3R DMI.jpg */}
+      <header className="sticky top-0 z-40 w-full px-4 py-3 flex items-center justify-between backdrop-blur-xs bg-[#FEFAE0]/90 transition-all border-b border-[#283618]/10">
+        {/* Top left clean text button without any icon */}
         <button
           onClick={() => {
             sounds.playPop();
             setIsOpen(true);
           }}
           aria-label="Buka Menu Navigasi"
-          className="w-11 h-11 rounded-full bg-[#808847] text-[#F1D2A1] flex items-center justify-center shadow-md hover:bg-[#6A7137] active:scale-95 transition cursor-pointer"
+          className="px-4 py-2 rounded-full bg-[#283618] text-[#FEFAE0] font-display text-xs sm:text-sm font-bold shadow-md hover:bg-[#1e2a12] active:scale-95 transition cursor-pointer"
         >
-          <Menu className="w-5 h-5 stroke-[2.5]" />
+          Menu
         </button>
 
-        {/* Center Title pill / indicator */}
-        <div className="flex items-center gap-2">
-          <span className="font-display text-[#808847] text-lg font-black tracking-wider">
+        {/* Center Title pill / indicator with secret 3-clicks trigger */}
+        <div
+          onClick={handleLogoClick}
+          className="flex items-center gap-2 cursor-pointer select-none group"
+          title="Klik 3x untuk membuka Fitur Rahasia DKV"
+        >
+          <span className="font-display text-[#283618] text-lg font-black tracking-wider group-hover:text-[#5B4436] transition-colors">
             CRAFT4EARTH
           </span>
-          <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-[#808847]/15 text-[#5F6630]">
+          <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-[#283618]/15 text-[#283618] group-hover:bg-[#283618]/25 transition-colors">
             DKV UNM
           </span>
         </div>
 
-        {/* Right actions matching Screenshot_2026_1001_021639.jpg.jpeg */}
-        <div className="flex items-center gap-1.5 sm:gap-2">
-          {/* Toggle Mobile Mockup view / Desktop view */}
-          <button
-            onClick={() => {
-              sounds.playPop();
-              if (onToggleFrame) onToggleFrame();
-            }}
-            title={isMobileFrame ? 'Tampilan Layar Penuh' : 'Tampilan Mode Mockup HP'}
-            className="flex items-center gap-1 px-2.5 py-1.5 rounded-full text-xs font-bold bg-[#808847]/20 text-[#3B4219] hover:bg-[#808847]/30 transition cursor-pointer"
-          >
-            {isMobileFrame ? (
-              <>
-                <Monitor className="w-3.5 h-3.5" />
-                <span>Full</span>
-              </>
-            ) : (
-              <>
-                <Smartphone className="w-3.5 h-3.5" />
-                <span>Mobile View</span>
-              </>
-            )}
-          </button>
-
-          {/* Sound toggle */}
-          <button
-            onClick={toggleSound}
-            aria-label="Suara"
-            className="w-9 h-9 rounded-full bg-[#808847]/20 text-[#3B4219] flex items-center justify-center hover:bg-[#808847]/30 transition cursor-pointer"
-          >
-            {isSoundActive ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
-          </button>
-
-          {/* Academic Report Modal trigger */}
+        {/* Right actions: clean button without icon or asset button on top bar */}
+        <div className="flex items-center">
           <button
             onClick={() => {
               sounds.playPop();
               onOpenReport();
             }}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-[#925E06] text-[#F1D2A1] hover:bg-[#784D05] shadow-sm transition active:scale-95 cursor-pointer"
+            className="px-4 py-2 rounded-full text-xs sm:text-sm font-bold bg-[#5B4436] text-[#FEFAE0] hover:bg-[#433126] shadow-sm transition active:scale-95 cursor-pointer"
           >
-            <BookOpen className="w-3.5 h-3.5" />
-            <span>Laporan DKV</span>
+            Laporan DKV
           </button>
         </div>
       </header>
@@ -119,18 +103,18 @@ export const Navbar: React.FC<NavbarProps> = ({
           />
 
           {/* Drawer content */}
-          <div className="relative w-80 max-w-[85vw] bg-[#F1D2A1] h-full shadow-2xl p-6 flex flex-col justify-between z-10 border-r-4 border-[#808847]">
+          <div className="relative w-80 max-w-[85vw] bg-[#FEFAE0] h-full shadow-2xl p-6 flex flex-col justify-between z-10 border-r-4 border-[#283618]">
             <div>
-              <div className="flex items-center justify-between pb-4 border-b border-[#808847]/30">
+              <div className="flex items-center justify-between pb-4 border-b border-[#283618]/20">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-[#808847] text-[#F1D2A1] flex items-center justify-center font-display font-black text-sm">
+                  <div className="w-8 h-8 rounded-full bg-[#283618] text-[#FEFAE0] flex items-center justify-center font-display font-black text-sm">
                     3R
                   </div>
                   <div>
-                    <h3 className="font-display text-lg font-black text-[#808847] leading-none">
+                    <h3 className="font-display text-lg font-black text-[#283618] leading-none">
                       Craft4Earth
                     </h3>
-                    <p className="text-[11px] text-[#697135] font-semibold">DKV UNM • Semester 5</p>
+                    <p className="text-[11px] text-[#5B4436] font-semibold">DKV UNM • Semester 5</p>
                   </div>
                 </div>
                 <button
@@ -138,7 +122,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     sounds.playPop();
                     setIsOpen(false);
                   }}
-                  className="w-8 h-8 rounded-full bg-[#808847]/20 flex items-center justify-center text-[#242A16] hover:bg-[#808847]/40 cursor-pointer"
+                  className="w-8 h-8 rounded-full bg-[#283618]/15 flex items-center justify-center text-[#283618] hover:bg-[#283618]/30 cursor-pointer"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -151,36 +135,67 @@ export const Navbar: React.FC<NavbarProps> = ({
                     key={link.href}
                     href={link.href}
                     onClick={handleLinkClick}
-                    className="flex items-center justify-between px-3 py-2.5 rounded-xl font-display text-base font-bold text-[#242A16] hover:bg-[#808847] hover:text-[#F1D2A1] transition group cursor-pointer"
+                    className="flex items-center justify-between px-3 py-2.5 rounded-xl font-display text-base font-bold text-[#283618] hover:bg-[#283618] hover:text-[#FEFAE0] transition group cursor-pointer"
                   >
                     <span>{link.label}</span>
-                    <span className="text-[#808847] group-hover:text-[#F1D2A1] transition text-sm">→</span>
+                    <span className="text-[#283618] group-hover:text-[#FEFAE0] transition text-sm">→</span>
                   </a>
                 ))}
               </nav>
 
-              {/* Special action button inside drawer */}
-              <div className="mt-6 pt-4 border-t border-[#808847]/30 flex flex-col gap-2">
+              {/* Settings & actions inside drawer */}
+              <div className="mt-6 pt-4 border-t border-[#283618]/20 flex flex-col gap-2.5">
+                {/* Audio sound toggle */}
+                <button
+                  onClick={toggleSound}
+                  className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-[#283618]/10 text-[#283618] font-display font-bold text-xs hover:bg-[#283618]/20 transition cursor-pointer"
+                >
+                  <div className="flex items-center gap-2">
+                    {isSoundActive ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+                    <span>Efek Suara Audio</span>
+                  </div>
+                  <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#283618] text-[#FEFAE0]">
+                    {isSoundActive ? 'Aktif' : 'Mati'}
+                  </span>
+                </button>
+
+                {/* Mobile / Full view toggle */}
+                {onToggleFrame && (
+                  <button
+                    onClick={() => {
+                      sounds.playPop();
+                      onToggleFrame();
+                    }}
+                    className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-[#283618]/10 text-[#283618] font-display font-bold text-xs hover:bg-[#283618]/20 transition cursor-pointer"
+                  >
+                    <div className="flex items-center gap-2">
+                      {isMobileFrame ? <Monitor className="w-4 h-4" /> : <Smartphone className="w-4 h-4" />}
+                      <span>{isMobileFrame ? 'Tampilan Layar Penuh' : 'Mode Mockup HP'}</span>
+                    </div>
+                    <span className="text-[11px] font-semibold text-[#5B4436]">Ubah</span>
+                  </button>
+                )}
+
                 <button
                   onClick={() => {
                     sounds.playPop();
                     setIsOpen(false);
                     onOpenReport();
                   }}
-                  className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#925E06] text-[#F1D2A1] font-display font-bold text-sm shadow hover:bg-[#784D05] transition cursor-pointer"
+                  className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#5B4436] text-[#FEFAE0] font-display font-bold text-sm shadow hover:bg-[#433126] transition cursor-pointer mt-1"
                 >
                   <BookOpen className="w-4 h-4" />
-                  <span>Buka Lembar Asistensi & Riset</span>
+                  <span>Buka Data Hasil Riset DKV</span>
                 </button>
               </div>
             </div>
 
             {/* Drawer footer */}
-            <div className="pt-4 border-t border-[#808847]/20 text-center">
-              <p className="font-display text-xs text-[#808847] font-semibold">
+            <div className="pt-4 border-t border-[#283618]/20 text-center">
+              <p className="font-display text-xs text-[#283618] font-semibold">
                 "Belajar 3R, Sekali Scroll"
               </p>
-              <p className="text-[10px] text-[#242A16]/70 mt-0.5">
+              <p className="text-[10px] text-[#283618]/70 mt-0.5">
                 Kelompok Craft4Earth © 2026
               </p>
             </div>

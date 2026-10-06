@@ -1,17 +1,29 @@
 import React, { useState } from 'react';
-import { Share2, CheckCircle2, ChevronRight, Sparkles, FolderOpen, Heart, X, FileText, MousePointerClick } from 'lucide-react';
+import { FolderOpen, Share2, CheckCircle2, ChevronRight, Sparkles, Heart, X, MousePointerClick } from 'lucide-react';
 import { ACTION_FOLDERS } from '../data/content';
 import { GrassDivider } from './GrassDivider';
 import { ShareModal } from './ShareModal';
 import { sounds } from '../utils/audio';
 
-export const ActionSection: React.FC = () => {
+import tongsampahAtasImg from '../assets/tongsampah-atas.png';
+import tongsampahBawahImg from '../assets/tongsampah-bawah.png';
+import folder1Img from '../assets/folder1.png';
+import folder2Img from '../assets/folder2.png';
+import folder3Img from '../assets/folder3.png';
+import sampah1Img from '../assets/sampah1.png';
+import sampah2Img from '../assets/sampah2.png';
+
+interface ActionSectionProps {
+  onOpenSecret?: () => void;
+}
+
+export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) => {
   // Initially null so guide card only appears when a document/step is pressed
   const [selectedFolderId, setSelectedFolderId] = useState<string | null>(null);
   const [completedFolders, setCompletedFolders] = useState<Record<string, boolean>>({
     'act-1': true,
   });
-  const [isLidOpen, setIsLidOpen] = useState(true); // Open by default matching 3R DMI.jpg
+  const [isLidOpen, setIsLidOpen] = useState(false); // Closed by default, opens on hover/click matching reference
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   const toggleFolder = (id: string) => {
@@ -51,13 +63,13 @@ export const ActionSection: React.FC = () => {
       <div className="max-w-4xl mx-auto px-4 w-full flex flex-col items-center">
         {/* Header matching 3R DMI.jpg */}
         <div className="text-center mb-8">
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-black text-[#808847] leading-tight tracking-tight uppercase">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-black text-[#283618] leading-tight tracking-tight uppercase">
             MULAI DARI KAMPUS,
           </h2>
-          <div className="font-display text-2xl sm:text-3xl md:text-4xl font-black text-[#808847] tracking-wider uppercase mt-0.5">
+          <div className="font-display text-2xl sm:text-3xl md:text-4xl font-black text-[#283618] tracking-wider uppercase mt-0.5">
             MULAI DARI SEKARANG
           </div>
-          <p className="font-body text-[#3B4219] text-xs sm:text-sm font-semibold mt-2 max-w-md mx-auto">
+          <p className="font-body text-[#283618]/90 text-xs sm:text-sm font-semibold mt-2 max-w-md mx-auto">
             kamu nggak perlu jadi aktivis buat mulai peduli. cukup 3 langkah kecil ini.
           </p>
         </div>
@@ -74,16 +86,16 @@ export const ActionSection: React.FC = () => {
                 onClick={() => toggleFolder(folder.id)}
                 className={`p-1.5 sm:p-3 h-11 sm:h-14 rounded-xl sm:rounded-2xl flex items-center justify-between transition-all cursor-pointer border-2 text-left ${
                   isSelected
-                    ? 'bg-[#808847] text-[#F1D2A1] border-[#5E6430] shadow-md scale-[1.02]'
+                    ? 'bg-[#283618] text-[#FEFAE0] border-[#1e2a12] shadow-md scale-[1.02]'
                     : isDone
-                    ? 'bg-[#F1D2A1] text-[#242A16] border-[#808847] hover:bg-[#E7C693]'
-                    : 'bg-[#925E06] text-[#F1D2A1] border-[#794E05]'
+                    ? 'bg-[#FEFAE0] text-[#283618] border-[#283618] hover:bg-[#f6f0cb]'
+                    : 'bg-[#5B4436] text-[#FEFAE0] border-[#433126]'
                 }`}
               >
                 <div className="flex items-center gap-1 sm:gap-2">
                   <div
                     className={`w-4.5 h-4.5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center font-display text-[9px] sm:text-xs font-black shrink-0 ${
-                      isDone ? 'bg-[#808847] text-white' : 'bg-white/20 text-white'
+                      isDone ? 'bg-[#283618] text-white' : 'bg-white/20 text-white'
                     }`}
                   >
                     {folder.stepNumber}
@@ -100,26 +112,26 @@ export const ActionSection: React.FC = () => {
 
         {/* Detailed Folder Drawer/Card when selected */}
         {selectedFolderId && (
-          <div className="w-full max-w-2xl mb-8 p-6 rounded-3xl bg-white/80 border-2 border-[#808847]/40 shadow-lg text-[#242A16] animate-fade-in">
+          <div className="w-full max-w-2xl mb-8 p-6 rounded-3xl bg-white/90 border-2 border-[#283618]/25 shadow-lg text-[#283618] animate-fade-in">
             {(() => {
               const activeFolder = ACTION_FOLDERS.find((f) => f.id === selectedFolderId)!;
               return (
                 <div>
-                  <div className="flex items-center justify-between pb-3 border-b border-[#808847]/30 mb-3">
+                  <div className="flex items-center justify-between pb-3 border-b border-[#283618]/20 mb-3">
                     <div className="flex items-center gap-2">
-                      <FolderOpen className="w-5 h-5 text-[#808847]" />
-                      <span className="font-display text-sm font-black text-[#808847] uppercase tracking-wide">
+                      <FolderOpen className="w-5 h-5 text-[#283618]" />
+                      <span className="font-display text-sm font-black text-[#283618] uppercase tracking-wide">
                         Panduan Langkah #{activeFolder.stepNumber}
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-[#808847]/15 text-[#5C642F]">
+                      <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-[#283618]/15 text-[#283618]">
                         Aksi Mahasiswa UNM
                       </span>
                       <button
                         type="button"
                         onClick={() => setSelectedFolderId(null)}
-                        className="w-7 h-7 rounded-full bg-[#808847]/20 hover:bg-[#808847]/40 text-[#242A16] flex items-center justify-center transition cursor-pointer"
+                        className="w-7 h-7 rounded-full bg-[#283618]/15 hover:bg-[#283618]/30 text-[#283618] flex items-center justify-center transition cursor-pointer"
                         title="Tutup Panduan"
                       >
                         <X className="w-4 h-4 stroke-[2.5]" />
@@ -127,23 +139,23 @@ export const ActionSection: React.FC = () => {
                     </div>
                   </div>
 
-                  <h3 className="font-display text-lg sm:text-xl font-black text-[#242A16] mb-1">
+                  <h3 className="font-display text-lg sm:text-xl font-black text-[#283618] mb-1">
                     {activeFolder.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-[#464D23] font-semibold mb-4">
+                  <p className="text-xs sm:text-sm text-[#283618]/80 font-semibold mb-4">
                     {activeFolder.summary}
                   </p>
 
                   <div className="space-y-2 mb-4">
                     {activeFolder.checklist.map((item, idx) => (
-                      <div key={idx} className="flex items-start gap-2.5 text-xs font-medium text-[#242A16]">
-                        <CheckCircle2 className="w-4 h-4 text-[#808847] shrink-0 mt-0.5" />
+                      <div key={idx} className="flex items-start gap-2.5 text-xs font-medium text-[#283618]">
+                        <CheckCircle2 className="w-4 h-4 text-[#283618] shrink-0 mt-0.5" />
                         <span>{item}</span>
                       </div>
                     ))}
                   </div>
 
-                  <div className="p-3 rounded-2xl bg-[#F1D2A1]/70 border border-[#808847]/20 text-xs italic text-[#555C2A]">
+                  <div className="p-3 rounded-2xl bg-[#FEFAE0] border border-[#283618]/20 text-xs italic text-[#283618]">
                     {activeFolder.quote}
                   </div>
                 </div>
@@ -152,7 +164,7 @@ export const ActionSection: React.FC = () => {
           </div>
         )}
 
-        {/* The Iconic Illustrated Trash Bin matching 3R DMI.jpg (Hover to Open on Desktop) */}
+        {/* The Iconic Illustrated Trash Bin using user's real assets & reference repo interaction */}
         <div
           onMouseEnter={handleBinMouseEnter}
           onMouseLeave={handleBinMouseLeave}
@@ -160,129 +172,163 @@ export const ActionSection: React.FC = () => {
           className="relative my-4 flex flex-col items-center cursor-pointer select-none group"
           title="Arahkan mouse atau klik untuk membuka tempat sampah"
         >
-          {/* Lid of the trash bin (tilted angle on open, closed by default, subtle pulse when open) */}
+          {/* Action Folders sticking out of bin - absolute positioned so it takes no space between lid and body */}
           <div
-            className={`relative z-30 transition-all duration-500 ease-out origin-bottom-left ${
+            className={`absolute top-8 sm:top-10 z-15 flex items-end justify-center gap-1 sm:gap-2 transition-all duration-500 ease-out pointer-events-none ${
               isLidOpen
-                ? 'rotate-[-26deg] -translate-y-3 translate-x-12 sm:translate-x-16 drop-shadow-xl hover:rotate-[-30deg]'
-                : 'rotate-0 translate-y-3 translate-x-0'
-            }`}
-          >
-            {/* Trash bin lid */}
-            <div className="w-52 h-9 sm:w-68 sm:h-11 rounded-t-2xl bg-[#734303] border-b-4 border-[#523002] flex items-center justify-center shadow-lg transition-transform">
-              <div className="w-20 h-2.5 rounded-full bg-[#925E06] border border-[#523002]/40" />
-            </div>
-          </div>
-
-          {/* Action Folders sticking out of bin - reveals when bin opens */}
-          <div
-            className={`relative z-10 -mb-4 flex items-end justify-center gap-2.5 transition-all duration-500 ease-out ${
-              isLidOpen
-                ? 'translate-y-0 opacity-100 scale-100 pointer-events-auto'
-                : 'translate-y-8 opacity-0 scale-90 pointer-events-none'
+                ? '-translate-y-20 sm:-translate-y-28 opacity-100 scale-100 pointer-events-auto'
+                : 'translate-y-4 opacity-0 scale-75'
             }`}
           >
             {/* Floating micro-hint when no document is currently open */}
             {!selectedFolderId && (
-              <div className="absolute -top-8 z-30 flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#808847] text-[#F1D2A1] text-[10px] font-black shadow-lg animate-bounce pointer-events-none border border-[#A0A95A]">
-                <MousePointerClick className="w-3 h-3 text-[#F1D2A1]" />
+              <div className="absolute -top-7 z-30 flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#283618] text-[#FEFAE0] text-[10px] font-black shadow-lg animate-bounce pointer-events-none border border-[#435728]">
+                <MousePointerClick className="w-3 h-3 text-[#FEFAE0]" />
                 <span>Tekan dokumen</span>
               </div>
             )}
 
-            {/* Document 1: #01 BYO */}
+            {/* Document 1: folder1.png */}
             <div
               onClick={(e) => {
                 e.stopPropagation();
                 toggleFolder('act-1');
               }}
-              className={`w-16 h-15 sm:w-20 sm:h-18 rounded-t-xl bg-[#3C4A21] text-white p-1.5 flex flex-col justify-between text-center shadow-lg cursor-pointer transition-all duration-300 border-t-2 border-x-2 ${
+              className={`cursor-pointer transition-all duration-300 ${
                 selectedFolderId === 'act-1'
-                  ? 'border-white ring-4 ring-[#F1D2A1] -translate-y-4 scale-105 z-20 shadow-2xl'
-                  : 'border-[#556730] animate-doc-bounce-1 hover:-translate-y-3 hover:scale-105 z-10'
+                  ? '-translate-y-4 scale-110 z-20 drop-shadow-2xl'
+                  : 'animate-doc-bounce-1 hover:-translate-y-3 hover:scale-105 z-10 drop-shadow-lg'
               }`}
               title="Klik untuk melihat Panduan Langkah 1: Bawa Wadah Sendiri"
             >
-              <div className="flex items-center justify-between">
-                <FileText className="w-3 h-3 text-[#F1D2A1]" />
-                <span className="w-1.5 h-1.5 rounded-full bg-[#F1D2A1] animate-pulse" />
-              </div>
-              <div className="font-display text-[9.5px] sm:text-xs font-black tracking-tight leading-tight">
-                #01 BYO
-              </div>
+              <img
+                src={folder1Img}
+                alt="Dokumen Aksi 1"
+                className="w-20 h-20 sm:w-26 sm:h-26 object-contain select-none pointer-events-none"
+                draggable={false}
+                referrerPolicy="no-referrer"
+              />
             </div>
 
-            {/* Document 2: #02 Kost */}
+            {/* Document 2: folder2.png */}
             <div
               onClick={(e) => {
                 e.stopPropagation();
                 toggleFolder('act-2');
               }}
-              className={`w-18 h-17 sm:w-24 sm:h-20 rounded-t-xl bg-[#4E5E2C] text-white p-1.5 flex flex-col justify-between text-center shadow-lg cursor-pointer transition-all duration-300 border-t-2 border-x-2 ${
+              className={`cursor-pointer transition-all duration-300 -mx-1 sm:-mx-2 ${
                 selectedFolderId === 'act-2'
-                  ? 'border-white ring-4 ring-[#F1D2A1] -translate-y-4 scale-105 z-20 shadow-2xl'
-                  : 'border-[#667A3B] animate-doc-bounce-2 hover:-translate-y-3 hover:scale-105 z-15'
+                  ? '-translate-y-4 scale-110 z-20 drop-shadow-2xl'
+                  : 'animate-doc-bounce-2 hover:-translate-y-3 hover:scale-105 z-15 drop-shadow-xl'
               }`}
               title="Klik untuk melihat Panduan Langkah 2: Pojok Pilah Kamar Kos"
             >
-              <div className="flex items-center justify-between">
-                <FileText className="w-3.5 h-3.5 text-[#F1D2A1]" />
-                <span className="w-1.5 h-1.5 rounded-full bg-[#F1D2A1] animate-pulse" />
-              </div>
-              <div className="font-display text-[10px] sm:text-xs font-black tracking-tight leading-tight">
-                #02 Kost
-              </div>
+              <img
+                src={folder2Img}
+                alt="Dokumen Aksi 2"
+                className="w-22 h-22 sm:w-28 sm:h-28 object-contain select-none pointer-events-none"
+                draggable={false}
+                referrerPolicy="no-referrer"
+              />
             </div>
 
-            {/* Document 3: #03 Share */}
+            {/* Document 3: folder3.png */}
             <div
               onClick={(e) => {
                 e.stopPropagation();
                 toggleFolder('act-3');
               }}
-              className={`w-16 h-15 sm:w-20 sm:h-18 rounded-t-xl bg-[#687C3C] text-white p-1.5 flex flex-col justify-between text-center shadow-lg cursor-pointer transition-all duration-300 border-t-2 border-x-2 ${
+              className={`cursor-pointer transition-all duration-300 ${
                 selectedFolderId === 'act-3'
-                  ? 'border-white ring-4 ring-[#F1D2A1] -translate-y-4 scale-105 z-20 shadow-2xl'
-                  : 'border-[#82994E] animate-doc-bounce-3 hover:-translate-y-3 hover:scale-105 z-10'
+                  ? '-translate-y-4 scale-110 z-20 drop-shadow-2xl'
+                  : 'animate-doc-bounce-3 hover:-translate-y-3 hover:scale-105 z-10 drop-shadow-lg'
               }`}
               title="Klik untuk melihat Panduan Langkah 3: Bagikan Semangat 3R"
             >
-              <div className="flex items-center justify-between">
-                <FileText className="w-3 h-3 text-[#F1D2A1]" />
-                <span className="w-1.5 h-1.5 rounded-full bg-[#F1D2A1] animate-pulse" />
-              </div>
-              <div className="font-display text-[9.5px] sm:text-xs font-black tracking-tight leading-tight">
-                #03 Share
-              </div>
+              <img
+                src={folder3Img}
+                alt="Dokumen Aksi 3"
+                className="w-20 h-20 sm:w-26 sm:h-26 object-contain select-none pointer-events-none"
+                draggable={false}
+                referrerPolicy="no-referrer"
+              />
             </div>
           </div>
 
-          {/* Main Trapezoid Trash Bin Body */}
-          <div className="relative z-20 w-56 sm:w-72 h-44 sm:h-52 bg-[#925E06] rounded-b-2xl shadow-2xl flex flex-col items-center justify-center p-4 border-t-4 border-[#7A4B04] text-center">
-            {/* Decorative texture lines */}
-            <div className="absolute top-4 left-6 right-6 h-0.5 bg-[#B07715]/40" />
+          {/* Lid of the trash bin (tilted angle on open, flush when closed, lifts high and slanted when open) */}
+          <div
+            className={`relative z-30 -mb-8 sm:-mb-10 transition-all duration-500 ease-out origin-bottom-left ${
+              isLidOpen ? 'drop-shadow-2xl' : 'drop-shadow-md'
+            }`}
+            style={{
+              transform: isLidOpen
+                ? 'translate(28px, -86px) rotate(-26deg)'
+                : 'translate(0px, 0px) rotate(0deg)',
+              transformOrigin: 'bottom left',
+            }}
+          >
+            <img
+              src={tongsampahAtasImg}
+              alt="Aset Asli Tutup Tong Sampah"
+              className="w-56 sm:w-72 h-auto select-none pointer-events-none"
+              draggable={false}
+              referrerPolicy="no-referrer"
+            />
+          </div>
+
+          {/* Main Trash Bin Body using tongsampah-bawah.png */}
+          <div className="relative z-20 flex flex-col items-center">
+            <img
+              src={tongsampahBawahImg}
+              alt="Aset Asli Badan Tong Sampah"
+              className="w-56 sm:w-72 h-auto drop-shadow-2xl select-none pointer-events-none"
+              draggable={false}
+              referrerPolicy="no-referrer"
+            />
 
             {/* The Iconic "SHARE" Button matching 3R DMI.jpg */}
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                handleOpenShare();
-              }}
-              className="group px-8 py-3 rounded-full bg-[#808847] hover:bg-[#686F35] text-white font-display text-2xl sm:text-3xl font-black tracking-wider uppercase shadow-xl active:scale-95 transition-all transform hover:scale-105 cursor-pointer border-2 border-[#A0A95A] flex items-center gap-2"
-            >
-              <span>SHARE</span>
-              <Share2 className="w-5 h-5 text-white group-hover:rotate-12 transition-transform" />
-            </button>
+            <div className="absolute top-[48%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-30">
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleOpenShare();
+                }}
+                className="group px-7 py-2.5 sm:px-8 sm:py-3 rounded-full bg-[#283618] hover:bg-[#1e2a12] text-white font-display text-2xl sm:text-3xl font-black tracking-wider uppercase shadow-2xl active:scale-95 transition-all transform hover:scale-105 cursor-pointer border-2 border-[#FEFAE0] flex items-center gap-2"
+              >
+                <span>SHARE</span>
+                <Share2 className="w-5 h-5 text-white group-hover:rotate-12 transition-transform" />
+              </button>
+            </div>
+          </div>
 
-            <span className="text-[11px] font-bold text-[#F1D2A1]/90 mt-2 block">
-              Klik salah satu dokumen di atas untuk melihat panduan langkah
-            </span>
+          {/* Clustered Trash around base using sampah1.png & sampah2.png */}
+          <div className="relative -mt-6 sm:-mt-8 w-72 sm:w-88 flex justify-between items-center pointer-events-none z-25 px-2">
+            <img
+              src={sampah1Img}
+              alt="Sampah Terpilah 1"
+              className="w-24 sm:w-30 h-auto -ml-4 drop-shadow-md select-none"
+              draggable={false}
+              referrerPolicy="no-referrer"
+            />
+            <img
+              src={sampah2Img}
+              alt="Sampah Terpilah 2"
+              className="w-24 sm:w-30 h-auto -mr-4 drop-shadow-md select-none -scale-x-100"
+              draggable={false}
+              referrerPolicy="no-referrer"
+            />
+          </div>
+
+          {/* Background Grass Silhouette behind trash bin matching Image 6 */}
+          <div className="w-full max-w-lg -mt-12 pointer-events-none z-10 opacity-85">
+            <GrassDivider variant="bottom" className="w-full h-16 sm:h-20" />
           </div>
         </div>
 
-        {/* Closing Quote from 3R DMI.jpg */}
+        {/* Closing Quote from 3R DMI.jpg & Image 7 */}
         <div className="text-center my-10 max-w-lg mx-auto">
-          <p className="font-display text-lg sm:text-xl md:text-2xl font-black text-[#5C6330] leading-snug tracking-wide">
+          <p className="font-display text-lg sm:text-xl md:text-2xl font-black text-[#283618] leading-snug tracking-wide">
             BUMI ini dipinjam dari anak cucu kita.
             <br />
             yuk jaga bareng-bareng !
@@ -290,18 +336,36 @@ export const ActionSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Illustrated Bottom Grass Silhouette Line from mockup */}
-      <GrassDivider variant="bottom" className="w-full mt-4" />
+      {/* Illustrated Bottom Grass Silhouette Line right above rounded footer matching Image 7 */}
+      <div className="w-full -mb-3 z-10 pointer-events-none">
+        <GrassDivider variant="bottom" className="w-full h-20 sm:h-24" />
+      </div>
 
-      {/* Footer Banner matching "Craft 4 Earth - DKV UNM 2024" */}
-      <footer className="w-full bg-[#6C3E04] text-[#F1D2A1] py-5 px-4 text-center">
+      {/* Footer Banner with rounded top corners matching Image 7 */}
+      <footer className="w-full bg-[#5B4436] text-[#FEFAE0] pt-6 pb-8 px-4 text-center rounded-t-[32px] sm:rounded-t-[40px] shadow-2xl relative z-20">
         <div className="max-w-2xl mx-auto flex flex-col items-center justify-center gap-1">
           <p className="font-display text-sm sm:text-base font-black tracking-wider">
             Craft 4 Earth - DKV UNM 2024
           </p>
-          <p className="text-[11px] text-[#F1D2A1]/75">
+          <p className="text-[11px] text-[#FEFAE0]/75">
             Mata Kuliah Desain Media Interaktif • Fakultas Seni dan Desain • Universitas Negeri Makassar
           </p>
+
+          {/* Discrete Secret Easter Egg Trigger */}
+          {onOpenSecret && (
+            <div className="mt-2.5">
+              <button
+                type="button"
+                onClick={onOpenSecret}
+                className="text-[10px] font-bold text-[#FEFAE0]/70 hover:text-amber-200 transition-colors inline-flex items-center gap-1.5 py-1 px-3 rounded-full hover:bg-black/25 cursor-pointer border border-[#FEFAE0]/20"
+                title="Ketik 'UNM' di keyboard atau klik untuk membuka Ruang Rahasia"
+              >
+                <span>🤫</span>
+                <span>Ruang Rahasia DKV (Ketik: "UNM")</span>
+                <span>✨</span>
+              </button>
+            </div>
+          )}
         </div>
       </footer>
 

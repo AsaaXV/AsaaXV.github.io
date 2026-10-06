@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { RotateCw, RefreshCw, Sparkles, Leaf, Package, AlertTriangle, Check, ArrowRight } from 'lucide-react';
 import { RECYCLE_PHASES } from '../data/content';
 import { sounds } from '../utils/audio';
+import { GrassDivider } from './GrassDivider';
 
 export const RecycleSection: React.FC = () => {
   const [activeStepIndex, setActiveStepIndex] = useState(0);
@@ -138,13 +139,13 @@ export const RecycleSection: React.FC = () => {
     <section id="recycle" className="py-12 px-4 max-w-4xl mx-auto flex flex-col items-center">
       {/* Header matching 3R DMI.jpg */}
       <div className="text-center mb-8">
-        <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-black text-[#808847] leading-tight tracking-tight uppercase">
+        <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-black text-[#283618] leading-tight tracking-tight uppercase">
           RECYCLE
         </h2>
-        <div className="font-display text-xl sm:text-2xl md:text-3xl font-black text-[#808847] tracking-wider uppercase mt-1">
+        <div className="font-display text-xl sm:text-2xl md:text-3xl font-black text-[#283618] tracking-wider uppercase mt-1">
           UBAH JADI BARU
         </div>
-        <p className="font-body text-[#3B4219] text-sm sm:text-base font-semibold mt-2 max-w-md mx-auto">
+        <p className="font-body text-[#283618]/90 text-sm sm:text-base font-semibold mt-2 max-w-md mx-auto">
           sampah bukan akhir cerita, bisa jadi awal dari sesuatu yang baru.
         </p>
       </div>
@@ -154,35 +155,35 @@ export const RecycleSection: React.FC = () => {
         {/* Dual Cards - 2 Columns side-by-side on mobile and desktop */}
         <div className="grid grid-cols-2 gap-2 sm:gap-4 md:gap-6 w-full mb-6 items-stretch">
           {/* Left Card: Input Bahan Sampah */}
-          <div className="p-2.5 sm:p-5 rounded-2xl sm:rounded-3xl bg-[#925E06] text-[#F1D2A1] shadow-md sm:shadow-xl border-2 border-[#794E05] flex flex-col justify-between min-h-[140px] sm:min-h-[170px] transform hover:-translate-y-2 hover:scale-[1.025] hover:shadow-2xl transition-all duration-300 group cursor-default">
+          <div className="p-2.5 sm:p-5 rounded-2xl sm:rounded-3xl bg-[#5B4436] text-[#FEFAE0] shadow-md sm:shadow-xl border-2 border-[#433126] flex flex-col justify-between min-h-[140px] sm:min-h-[170px] transform hover:-translate-y-2 hover:scale-[1.025] hover:shadow-2xl transition-all duration-300 group cursor-default">
             <div>
               <div className="h-5 sm:h-6 flex items-center justify-between mb-1 sm:mb-2">
-                <span className="text-[7.5px] sm:text-[11px] font-bold uppercase tracking-wider px-1.5 sm:px-2.5 py-0.5 rounded-full bg-black/25 text-[#F1D2A1] truncate group-hover:scale-105 transition-transform">
+                <span className="text-[7.5px] sm:text-[11px] font-bold uppercase tracking-wider px-1.5 sm:px-2.5 py-0.5 rounded-full bg-black/25 text-[#FEFAE0] truncate group-hover:scale-105 transition-transform">
                   Bahan Masuk
                 </span>
-                <span className="font-display text-[8px] sm:text-xs font-black text-amber-300 whitespace-nowrap group-hover:scale-110 transition-transform">
+                <span className="font-display text-[8px] sm:text-xs font-black text-[#FEFAE0] whitespace-nowrap group-hover:scale-110 transition-transform">
                   Tahap {currentPhase.step}/5
                 </span>
               </div>
               <h4 className="font-display text-xs sm:text-lg font-black text-white leading-tight group-hover:text-amber-100 transition-colors">{currentPhase.title}</h4>
-              <p className="text-[8px] sm:text-xs text-[#F1D2A1]/90 mt-1 leading-tight sm:leading-relaxed line-clamp-3 sm:line-clamp-none">
+              <p className="text-[8px] sm:text-xs text-[#FEFAE0]/90 mt-1 leading-tight sm:leading-relaxed line-clamp-3 sm:line-clamp-none">
                 {currentPhase.description}
               </p>
             </div>
-            <div className="pt-1.5 sm:pt-2 text-[7px] sm:text-[10px] text-amber-200/80 font-bold uppercase tracking-wider truncate">
+            <div className="pt-1.5 sm:pt-2 text-[7px] sm:text-[10px] text-[#FEFAE0]/80 font-bold uppercase tracking-wider truncate">
               {currentPhase.material}
             </div>
           </div>
 
           {/* Right Card: Transformasi Hasil */}
-          <div className="p-2.5 sm:p-5 rounded-2xl sm:rounded-3xl bg-[#808847] text-[#F1D2A1] shadow-md sm:shadow-xl border-2 border-[#697034] flex flex-col justify-between min-h-[140px] sm:min-h-[170px] transform hover:-translate-y-2 hover:scale-[1.025] hover:shadow-2xl transition-all duration-300 group cursor-default">
+          <div className="p-2.5 sm:p-5 rounded-2xl sm:rounded-3xl bg-[#283618] text-[#FEFAE0] shadow-md sm:shadow-xl border-2 border-[#1e2a12] flex flex-col justify-between min-h-[140px] sm:min-h-[170px] transform hover:-translate-y-2 hover:scale-[1.025] hover:shadow-2xl transition-all duration-300 group cursor-default">
             <div>
               <div className="h-5 sm:h-6 flex items-center justify-between mb-1 sm:mb-2">
-                <span className="text-[7.5px] sm:text-[11px] font-bold uppercase tracking-wider px-1.5 sm:px-2.5 py-0.5 rounded-full bg-black/25 text-[#F1D2A1] truncate group-hover:scale-105 transition-transform">
+                <span className="text-[7.5px] sm:text-[11px] font-bold uppercase tracking-wider px-1.5 sm:px-2.5 py-0.5 rounded-full bg-black/25 text-[#FEFAE0] truncate group-hover:scale-105 transition-transform">
                   Aksi & Hasil
                 </span>
                 <span className="text-[8px] sm:text-xs font-bold text-white flex items-center gap-0.5 whitespace-nowrap group-hover:scale-110 transition-transform">
-                  <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#F1D2A1] shrink-0 animate-spin" style={{ animationDuration: '8s' }} /> Sirkular
+                  <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#FEFAE0] shrink-0 animate-spin" style={{ animationDuration: '8s' }} /> Sirkular
                 </span>
               </div>
               <h4 className="font-display text-xs sm:text-lg font-black text-white leading-tight group-hover:text-amber-100 transition-colors">{currentPhase.subtitle}</h4>
@@ -200,19 +201,19 @@ export const RecycleSection: React.FC = () => {
         <div className="relative my-4 flex flex-col items-center select-none w-full max-w-lg">
           
           {/* 1. KOTAK ANGKA DI ATAS RODA (Matching the "ANGKA" rectangle in user's sketch) */}
-          <div className="w-full max-w-xs sm:max-w-sm rounded-3xl bg-[#808847] text-[#F1D2A1] p-4 sm:p-5 shadow-2xl border-4 border-[#5E6430] flex flex-col items-center text-center relative z-30 transition-all duration-300 transform hover:scale-[1.04] hover:-translate-y-1.5 hover:shadow-2xl cursor-default group">
+          <div className="w-full max-w-xs sm:max-w-sm rounded-3xl bg-[#283618] text-[#FEFAE0] p-4 sm:p-5 shadow-2xl border-4 border-[#1e2a12] flex flex-col items-center text-center relative z-30 transition-all duration-300 transform hover:scale-[1.04] hover:-translate-y-1.5 hover:shadow-2xl cursor-default group">
             {/* Top tiny label */}
-            <span className="text-[10px] font-black uppercase tracking-widest text-[#F1D2A1]/80 mb-1 group-hover:text-white transition-colors">
+            <span className="text-[10px] font-black uppercase tracking-widest text-[#FEFAE0]/80 mb-1 group-hover:text-white transition-colors">
               INDIKATOR TAHAP TERPILIH
             </span>
 
             {/* BIG PROMINENT NUMBER (ANGKA) */}
-            <div className="font-display text-5xl sm:text-6xl font-black text-white leading-none tracking-tight my-1 tabular-nums drop-shadow-md group-hover:scale-110 group-hover:text-amber-200 transition-all">
+            <div className="font-display text-5xl sm:text-6xl font-black text-white leading-none tracking-tight my-1 tabular-nums drop-shadow-md group-hover:scale-110 group-hover:text-[#FEFAE0] transition-all">
               0{currentPhase.step}
             </div>
 
             {/* Title corresponding to this number */}
-            <h4 className="font-display text-sm sm:text-base font-black text-amber-200 mt-1 uppercase tracking-wide group-hover:scale-105 transition-transform">
+            <h4 className="font-display text-sm sm:text-base font-black text-[#FEFAE0] mt-1 uppercase tracking-wide group-hover:scale-105 transition-transform">
               {currentPhase.title.split('. ')[1] || currentPhase.title}
             </h4>
             <p className="text-xs text-white/90 font-medium mt-1 line-clamp-1">
@@ -220,7 +221,7 @@ export const RecycleSection: React.FC = () => {
             </p>
 
             {/* Downward indicator notch pointing to the top number on the half-wheel */}
-            <div className="absolute -bottom-3.5 left-1/2 -translate-x-1/2 w-0 h-0 border-x-8 border-x-transparent border-t-[14px] border-t-[#5E6430] drop-shadow" />
+            <div className="absolute -bottom-3.5 left-1/2 -translate-x-1/2 w-0 h-0 border-x-8 border-x-transparent border-t-[14px] border-t-[#1e2a12] drop-shadow" />
           </div>
 
           {/* 2. RODA SETENGAH LINGKARAN (Setir Lebih Besar, Poros Hijau Ringkas & Elegan) */}
@@ -252,19 +253,19 @@ export const RecycleSection: React.FC = () => {
                 >
                   {/* Outer Circular Steering Rim (Setir Bulat Besar & Megah) */}
                   <div
-                    className="w-full h-full rounded-full border-[22px] sm:border-[26px] border-[#925E06] shadow-2xl relative flex items-center justify-center bg-[#F1D2A1]/20"
+                    className="w-full h-full rounded-full border-[22px] sm:border-[26px] border-[#5B4436] shadow-2xl relative flex items-center justify-center bg-[#FEFAE0]/20"
                     style={{
                       boxShadow: '0 14px 35px -4px rgba(0, 0, 0, 0.4), inset 0 2px 8px 0 rgba(255, 255, 255, 0.25)',
                     }}
                   >
                     {/* Subtle inner grip groove */}
-                    <div className="absolute inset-[-4px] rounded-full border border-dashed border-[#F1D2A1]/40 pointer-events-none" />
+                    <div className="absolute inset-[-4px] rounded-full border border-dashed border-[#FEFAE0]/40 pointer-events-none" />
 
                     {/* 5 Long Radial Spokes (Jeruji Setir Panjang Menuju Puncak) */}
                     {[0, 72, 144, 216, 288].map((angle, i) => (
                       <div
                         key={`spoke-${i}`}
-                        className="absolute w-4 sm:w-5 bg-[#7A4B04] rounded-full shadow-inner"
+                        className="absolute w-4 sm:w-5 bg-[#433126] rounded-full shadow-inner"
                         style={{
                           height: '100%',
                           transform: `rotate(${angle}deg)`,
@@ -291,8 +292,8 @@ export const RecycleSection: React.FC = () => {
                           }}
                           className={`absolute w-10 h-10 sm:w-11 sm:h-11 rounded-full font-display font-black text-xs sm:text-sm flex items-center justify-center transition-all cursor-pointer ${
                             isStepActive
-                              ? 'bg-[#808847] text-white ring-4 ring-[#F1D2A1] scale-125 z-20 shadow-xl'
-                              : 'bg-[#5C3202] text-[#F1D2A1] hover:bg-[#794608] hover:scale-110 z-10 shadow-md'
+                              ? 'bg-[#283618] text-[#FEFAE0] ring-4 ring-[#FEFAE0] scale-125 z-20 shadow-xl'
+                              : 'bg-[#433126] text-[#FEFAE0] hover:bg-[#5B4436] hover:scale-110 z-10 shadow-md'
                           }`}
                           style={{
                             transform: `translate(${x}px, ${y}px) rotate(${-wheelRotation}deg)`,
@@ -314,22 +315,22 @@ export const RecycleSection: React.FC = () => {
                   e.stopPropagation();
                   handleNextPhase();
                 }}
-                className="absolute bottom-0 z-30 w-20 h-10 sm:w-24 sm:h-12 rounded-t-full bg-[#808847] hover:bg-[#6C7436] active:scale-95 text-[#F1D2A1] flex flex-col items-center justify-start pt-1 sm:pt-1.5 shadow-xl border-t-3 border-x-3 border-[#5E6430] cursor-pointer transition-all group"
+                className="absolute bottom-0 z-30 w-20 h-10 sm:w-24 sm:h-12 rounded-t-full bg-[#283618] hover:bg-[#1e2a12] active:scale-95 text-[#FEFAE0] flex flex-col items-center justify-start pt-1 sm:pt-1.5 shadow-xl border-t-3 border-x-3 border-[#1e2a12] cursor-pointer transition-all group"
                 style={{
                   boxShadow: '0 4px 10px 0 rgba(0, 0, 0, 0.35)',
                 }}
                 title="Klik untuk memutar setir ke tahap berikutnya"
               >
-                <RefreshCw className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F1D2A1] group-hover:rotate-180 transition-transform duration-500" />
-                <span className="font-display text-[8px] sm:text-[9.5px] font-black uppercase tracking-widest text-white leading-none mt-0.5">
+                <RefreshCw className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#FEFAE0] group-hover:rotate-180 transition-transform duration-500" />
+                <span className="font-display text-[8px] sm:text-[9.5px] font-black uppercase tracking-widest text-[#FEFAE0] leading-none mt-0.5">
                   PUTAR
                 </span>
               </button>
             </div>
 
             {/* 3. HORIZONTAL BASELINE BAR (Garis Dasar Sesuai Sketsa Pengguna) */}
-            <div className="w-full max-w-[410px] sm:max-w-[480px] h-4 bg-[#7A4B04] rounded-full border-t-2 border-[#B07715] shadow-lg -mt-2 z-20 flex items-center justify-center relative">
-              <div className="w-28 h-1.5 rounded-full bg-[#B07715]/60" />
+            <div className="w-full max-w-[410px] sm:max-w-[480px] h-4 bg-[#433126] rounded-full border-t-2 border-[#5B4436] shadow-lg -mt-2 z-20 flex items-center justify-center relative">
+              <div className="w-28 h-1.5 rounded-full bg-[#5B4436]/60" />
             </div>
           </div>
 
@@ -344,8 +345,8 @@ export const RecycleSection: React.FC = () => {
                   onClick={() => handleSelectPhase(idx)}
                   className={`w-9 h-9 sm:w-10 sm:h-10 rounded-2xl font-display font-black text-xs sm:text-sm flex items-center justify-center transition-all cursor-pointer shadow-sm ${
                     activeStepIndex === idx
-                      ? 'bg-[#808847] text-white scale-110 shadow-md ring-2 ring-[#808847]/40'
-                      : 'bg-[#925E06] text-[#F1D2A1] hover:bg-[#784D05]'
+                      ? 'bg-[#283618] text-[#FEFAE0] scale-110 shadow-md ring-2 ring-[#283618]/40'
+                      : 'bg-[#5B4436] text-[#FEFAE0] hover:bg-[#433126]'
                   }`}
                 >
                   {p.step}
@@ -357,29 +358,29 @@ export const RecycleSection: React.FC = () => {
             <button
               type="button"
               onClick={handleNextPhase}
-              className="flex items-center gap-2 px-7 py-3 rounded-full bg-[#925E06] text-[#F1D2A1] font-display font-black text-sm tracking-wide shadow-lg hover:bg-[#784D05] active:scale-95 transition-all transform hover:-translate-y-0.5 cursor-pointer border border-[#B07715]/40"
+              className="flex items-center gap-2 px-7 py-3 rounded-full bg-[#5B4436] text-[#FEFAE0] font-display font-black text-sm tracking-wide shadow-lg hover:bg-[#433126] active:scale-95 transition-all transform hover:-translate-y-0.5 cursor-pointer border border-[#433126]"
             >
               <RotateCw className="w-4 h-4 stroke-[2.5]" />
               <span>Putar Setir ke Tahap Berikutnya</span>
             </button>
 
-            <span className="text-[11px] font-semibold text-[#5F6732] text-center max-w-sm">
+            <span className="text-[11px] font-semibold text-[#283618]/80 text-center max-w-sm">
               Angka di puncak atas setir adalah tahap yang dipilih. Seret roda atau klik angka untuk memutar.
             </span>
           </div>
         </div>
 
         {/* Mini Game Toggle Button addressing survey finding */}
-        <div className="w-full mt-8 p-6 rounded-3xl bg-[#E6C38E]/70 border-2 border-[#808847]/40 shadow-sm">
+        <div className="w-full mt-8 p-6 rounded-3xl bg-[#5B4436]/15 border-2 border-[#283618]/20 shadow-sm">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-              <span className="text-[11px] font-black uppercase text-[#925E06]">
+              <span className="text-[11px] font-black uppercase text-[#5B4436]">
                 Tantangan Interaktif Mahasiswa
               </span>
-              <h4 className="font-display text-lg font-black text-[#242A16]">
+              <h4 className="font-display text-lg font-black text-[#283618]">
                 Uji Kemampuan: Masih Bingung Memilah Sampah?
               </h4>
-              <p className="text-xs text-[#3B4219] font-medium mt-0.5">
+              <p className="text-xs text-[#283618]/80 font-medium mt-0.5">
                 Riset DKV UNM membuktikan 18,8% mahasiswa masih bingung membedakan kategori sampah.
               </p>
             </div>
@@ -388,25 +389,25 @@ export const RecycleSection: React.FC = () => {
                 sounds.playPop();
                 setShowGame(!showGame);
               }}
-              className="px-4 py-2 rounded-xl bg-[#808847] text-[#F1D2A1] font-display text-xs font-black shadow hover:bg-[#686F35] transition self-start sm:self-auto cursor-pointer"
+              className="px-4 py-2 rounded-xl bg-[#283618] text-[#FEFAE0] font-display text-xs font-black shadow hover:bg-[#1e2a12] transition self-start sm:self-auto cursor-pointer"
             >
               {showGame ? 'Tutup Game' : 'Mulai Latihan Pilah (5 Soal)'}
             </button>
           </div>
 
           {showGame && (
-            <div className="mt-5 pt-4 border-t border-[#808847]/30">
+            <div className="mt-5 pt-4 border-t border-[#283618]/20">
               {currentWasteIndex < wasteItems.length ? (
                 <div>
-                  <div className="flex items-center justify-between mb-3 text-xs font-bold text-[#4B5222]">
+                  <div className="flex items-center justify-between mb-3 text-xs font-bold text-[#283618]">
                     <span>Pertanyaan {currentWasteIndex + 1} dari {wasteItems.length}</span>
                     <span>Skor: {gameScore}</span>
                   </div>
 
                   {/* Card with waste item */}
                   <div className="p-4 rounded-2xl bg-white/80 text-center mb-4">
-                    <p className="text-[11px] text-[#925E06] font-bold uppercase tracking-wider">Sampah apa ini?</p>
-                    <h5 className="font-display text-xl font-black text-[#242A16] my-1">
+                    <p className="text-[11px] text-[#5B4436] font-bold uppercase tracking-wider">Sampah apa ini?</p>
+                    <h5 className="font-display text-xl font-black text-[#283618] my-1">
                       {wasteItems[currentWasteIndex].name}
                     </h5>
                     <p className="text-xs text-slate-500 italic">Petunjuk: {wasteItems[currentWasteIndex].hint}</p>
@@ -414,7 +415,7 @@ export const RecycleSection: React.FC = () => {
 
                   {/* Feedback display */}
                   {gameFeedback && (
-                    <div className="mb-4 p-2.5 rounded-xl bg-[#808847]/20 text-center font-bold text-xs text-[#2F3617] animate-fade-in">
+                    <div className="mb-4 p-2.5 rounded-xl bg-[#283618]/15 text-center font-bold text-xs text-[#283618] animate-fade-in">
                       {gameFeedback}
                     </div>
                   )}
@@ -446,11 +447,11 @@ export const RecycleSection: React.FC = () => {
                 </div>
               ) : (
                 <div className="text-center py-4">
-                  <div className="w-12 h-12 rounded-full bg-[#808847] text-[#F1D2A1] flex items-center justify-center mx-auto mb-2 font-display text-xl font-bold">
+                  <div className="w-12 h-12 rounded-full bg-[#283618] text-[#FEFAE0] flex items-center justify-center mx-auto mb-2 font-display text-xl font-bold">
                     <Check className="w-6 h-6 stroke-[3]" />
                   </div>
-                  <h5 className="font-display text-xl font-black text-[#242A16]">Latihan Selesai!</h5>
-                  <p className="text-xs text-[#3B4219] font-medium mt-1">
+                  <h5 className="font-display text-xl font-black text-[#283618]">Latihan Selesai!</h5>
+                  <p className="text-xs text-[#283618]/90 font-medium mt-1">
                     Kamu mendapatkan skor <strong>{gameScore} dari 50</strong>. Sekarang kamu siap memilah sampah di kampus!
                   </p>
                   <button
@@ -459,7 +460,7 @@ export const RecycleSection: React.FC = () => {
                       setGameScore(0);
                       setGameFeedback(null);
                     }}
-                    className="mt-3 px-5 py-2 rounded-full bg-[#925E06] text-[#F1D2A1] text-xs font-bold hover:bg-[#784D05] cursor-pointer"
+                    className="mt-3 px-5 py-2 rounded-full bg-[#5B4436] text-[#FEFAE0] text-xs font-bold hover:bg-[#433126] cursor-pointer"
                   >
                     Main Lagi
                   </button>
@@ -469,6 +470,9 @@ export const RecycleSection: React.FC = () => {
           )}
         </div>
       </div>
+
+      {/* Grass Silhouette Line Divider matching reference images */}
+      <GrassDivider variant="bottom" className="w-full mt-8" />
     </section>
   );
 };

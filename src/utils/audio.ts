@@ -122,6 +122,38 @@ class SoundEffectsManager {
       // ignore
     }
   }
+
+  // Exciting arcade victory fanfare for secret unlock
+  playFanfare() {
+    if (!this.enabled) return;
+    try {
+      this.initCtx();
+      if (!this.ctx) return;
+      const now = this.ctx.currentTime;
+      // Trumpet / arcade sequence: G4, C5, E5, G5, high C6
+      const fanfareNotes = [
+        { freq: 392.0, time: 0, dur: 0.1 },
+        { freq: 523.25, time: 0.12, dur: 0.1 },
+        { freq: 659.25, time: 0.24, dur: 0.1 },
+        { freq: 783.99, time: 0.36, dur: 0.15 },
+        { freq: 1046.5, time: 0.52, dur: 0.4 },
+      ];
+      fanfareNotes.forEach((n) => {
+        const osc = this.ctx!.createOscillator();
+        const gain = this.ctx!.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(n.freq, now + n.time);
+        gain.gain.setValueAtTime(0.09, now + n.time);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + n.time + n.dur);
+        osc.connect(gain);
+        gain.connect(this.ctx!.destination);
+        osc.start(now + n.time);
+        osc.stop(now + n.time + n.dur);
+      });
+    } catch {
+      // ignore
+    }
+  }
 }
 
 export const sounds = new SoundEffectsManager();

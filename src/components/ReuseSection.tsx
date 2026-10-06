@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Sparkles, ArrowRightLeft, Check, AlertCircle, Package, Wine, Shirt } from 'lucide-react';
 import { REUSE_ITEMS } from '../data/content';
 import { sounds } from '../utils/audio';
+import { TotebagIllustration } from './HandDrawnIllustrations';
+import { GrassDivider } from './GrassDivider';
 
 export const ReuseSection: React.FC = () => {
   // Store state for each card: 0 = Before (Limbah), 1 = After (Upcycled)
@@ -24,13 +26,13 @@ export const ReuseSection: React.FC = () => {
     <section id="reuse" className="py-12 px-4 max-w-4xl mx-auto flex flex-col items-center">
       {/* Header matching 3R DMI.jpg & Screenshot */}
       <div className="text-center mb-8">
-        <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-black text-[#808847] leading-tight tracking-tight uppercase">
+        <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-black text-[#283618] leading-tight tracking-tight uppercase">
           REUSE
         </h2>
-        <div className="font-display text-xl sm:text-2xl md:text-3xl font-black text-[#808847] tracking-wider uppercase mt-1">
+        <div className="font-display text-xl sm:text-2xl md:text-3xl font-black text-[#283618] tracking-wider uppercase mt-1">
           MASIH BISA DI PAKAI NGGAK?
         </div>
-        <p className="font-body text-[#3B4219] text-sm sm:text-base font-semibold mt-2 max-w-md mx-auto">
+        <p className="font-body text-[#283618]/90 text-sm sm:text-base font-semibold mt-2 max-w-md mx-auto">
           kita mengupayakan barang yang kita punya selagi masih layak pakai.
         </p>
       </div>
@@ -49,25 +51,25 @@ export const ReuseSection: React.FC = () => {
                   onClick={() => toggleCardState(item.id)}
                   className={`w-full h-full min-h-[460px] rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-xl cursor-pointer border-2 select-none transform hover:-translate-y-2.5 hover:scale-[1.025] hover:shadow-2xl group ${
                     isAfter
-                      ? 'bg-[#808847] text-[#F1D2A1] border-[#686F35] hover:border-[#F1D2A1]/60'
-                      : 'bg-[#925E06] text-[#F1D2A1] border-[#794E05] hover:border-[#F1D2A1]/60'
+                      ? 'bg-[#283618] text-[#FEFAE0] border-[#1e2a12] hover:border-[#FEFAE0]/60'
+                      : 'bg-[#5B4436] text-[#FEFAE0] border-[#433126] hover:border-[#FEFAE0]/60'
                   }`}
                 >
                   {/* Top Bar inside Card */}
                   <div>
                     <div className="h-7 flex items-center justify-between gap-2 mb-3">
-                      <span className="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-black/25 text-[#F1D2A1] truncate max-w-[130px]">
+                      <span className="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-black/25 text-[#FEFAE0] truncate max-w-[130px]">
                         {item.category}
                       </span>
                       {/* State Badge: Sebelum vs Sesudah */}
                       <span
                         className={`text-[11px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full shrink-0 whitespace-nowrap inline-flex items-center gap-1 ${
-                          isAfter ? 'bg-[#F1D2A1] text-[#4E5421]' : 'bg-[#F1D2A1]/20 text-white'
+                          isAfter ? 'bg-[#FEFAE0] text-[#283618]' : 'bg-[#FEFAE0]/20 text-white'
                         }`}
                       >
                         {isAfter ? (
                           <>
-                            <Sparkles className="w-3 h-3 text-[#4E5421] shrink-0" />
+                            <Sparkles className="w-3 h-3 text-[#283618] shrink-0" />
                             <span>SESUDAH</span>
                           </>
                         ) : (
@@ -84,7 +86,7 @@ export const ReuseSection: React.FC = () => {
                       <h3 className="font-display text-lg font-black text-white leading-snug line-clamp-1">
                         {item.title}
                       </h3>
-                      <p className="text-xs text-[#F1D2A1]/85 font-medium mt-0.5 line-clamp-1">
+                      <p className="text-xs text-[#FEFAE0]/85 font-medium mt-0.5 line-clamp-1">
                         {item.subtitle}
                       </p>
                     </div>
@@ -94,11 +96,11 @@ export const ReuseSection: React.FC = () => {
                       {item.id === 'reuse-1' && (
                         !isAfter ? (
                           <div className="flex flex-col items-center justify-center text-center">
-                            <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-1 text-[#F1D2A1]">
+                            <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-1 text-[#FEFAE0]">
                               <Wine className="w-7 h-7 stroke-[2]" />
                             </div>
-                            <span className="text-xs font-bold text-[#F1D2A1]">Botol Kaca Bekas Kopi</span>
-                            <span className="text-[10px] text-[#F1D2A1]/70">Limbah tak terurai</span>
+                            <span className="text-xs font-bold text-[#FEFAE0]">Botol Kaca Bekas Kopi</span>
+                            <span className="text-[10px] text-[#FEFAE0]/70">Limbah tak terurai</span>
                           </div>
                         ) : (
                           <div className="flex flex-col items-center justify-center text-center animate-fade-in">
@@ -106,7 +108,7 @@ export const ReuseSection: React.FC = () => {
                               <Sparkles className="w-7 h-7 stroke-[2]" />
                             </div>
                             <span className="text-xs font-bold text-white">Pot Hidroponik Meja Kos</span>
-                            <span className="text-[10px] text-[#F1D2A1]">Estetik & hemat beli pot</span>
+                            <span className="text-[10px] text-[#FEFAE0]">Estetik & hemat beli pot</span>
                           </div>
                         )
                       )}
@@ -114,11 +116,11 @@ export const ReuseSection: React.FC = () => {
                       {item.id === 'reuse-2' && (
                         !isAfter ? (
                           <div className="flex flex-col items-center justify-center text-center">
-                            <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-1 text-[#F1D2A1]">
+                            <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-1 text-[#FEFAE0]">
                               <Package className="w-7 h-7 stroke-[2]" />
                             </div>
-                            <span className="text-xs font-bold text-[#F1D2A1]">Kardus Paket Ekspedisi</span>
-                            <span className="text-[10px] text-[#F1D2A1]/70">Menumpuk di sudut kos</span>
+                            <span className="text-xs font-bold text-[#FEFAE0]">Kardus Paket Ekspedisi</span>
+                            <span className="text-[10px] text-[#FEFAE0]/70">Menumpuk di sudut kos</span>
                           </div>
                         ) : (
                           <div className="flex flex-col items-center justify-center text-center animate-fade-in">
@@ -126,7 +128,7 @@ export const ReuseSection: React.FC = () => {
                               <Sparkles className="w-7 h-7 stroke-[2]" />
                             </div>
                             <span className="text-xs font-bold text-white">Organizer Modul Bersekat</span>
-                            <span className="text-[10px] text-[#F1D2A1]">Rapi minimalis tanpa biaya</span>
+                            <span className="text-[10px] text-[#FEFAE0]">Rapi minimalis tanpa biaya</span>
                           </div>
                         )
                       )}
@@ -134,19 +136,17 @@ export const ReuseSection: React.FC = () => {
                       {item.id === 'reuse-3' && (
                         !isAfter ? (
                           <div className="flex flex-col items-center justify-center text-center">
-                            <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-1 text-[#F1D2A1]">
+                            <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-1 text-[#FEFAE0]">
                               <Shirt className="w-7 h-7 stroke-[2]" />
                             </div>
-                            <span className="text-xs font-bold text-[#F1D2A1]">Kaos Panitia Lama</span>
-                            <span className="text-[10px] text-[#F1D2A1]/70">Hanya diam di lemari</span>
+                            <span className="text-xs font-bold text-[#FEFAE0]">Kaos Panitia Lama</span>
+                            <span className="text-[10px] text-[#FEFAE0]/70">Hanya diam di lemari</span>
                           </div>
                         ) : (
                           <div className="flex flex-col items-center justify-center text-center animate-fade-in">
-                            <div className="w-12 h-12 rounded-xl bg-emerald-900/40 flex items-center justify-center mb-1 text-emerald-200">
-                              <Sparkles className="w-7 h-7 stroke-[2]" />
-                            </div>
-                            <span className="text-xs font-bold text-white">Totebag Tanpa Jahit</span>
-                            <span className="text-[10px] text-[#F1D2A1]">Praktis dibawa belanja</span>
+                            <TotebagIllustration className="w-20 h-20 drop-shadow-lg -my-1" />
+                            <span className="text-xs font-bold text-white mt-1">Totebag Tanpa Jahit</span>
+                            <span className="text-[10px] text-[#FEFAE0]">Praktis & estetik dibawa belanja</span>
                           </div>
                         )
                       )}
@@ -163,14 +163,14 @@ export const ReuseSection: React.FC = () => {
                       {isAfter ? (
                         <div>
                           <p className="text-white font-medium mb-2 line-clamp-2">{item.after.description}</p>
-                          <div className="p-2 rounded-xl bg-white/15 text-[11px] text-[#F1D2A1] flex items-start gap-1.5">
-                            <Check className="w-3.5 h-3.5 text-[#F1D2A1] shrink-0 mt-0.5" />
+                          <div className="p-2 rounded-xl bg-white/15 text-[11px] text-[#FEFAE0] flex items-start gap-1.5">
+                            <Check className="w-3.5 h-3.5 text-[#FEFAE0] shrink-0 mt-0.5" />
                             <span className="line-clamp-2"><strong>Manfaat:</strong> {item.after.benefit}</span>
                           </div>
                         </div>
                       ) : (
                         <div>
-                          <p className="text-[#F1D2A1]/95 font-medium mb-2 line-clamp-2">{item.before.description}</p>
+                          <p className="text-[#FEFAE0]/95 font-medium mb-2 line-clamp-2">{item.before.description}</p>
                           <div className="p-2 rounded-xl bg-black/25 text-[11px] text-amber-200 flex items-start gap-1.5">
                             <AlertCircle className="w-3.5 h-3.5 text-amber-300 shrink-0 mt-0.5" />
                             <span className="line-clamp-2">{item.before.drawback}</span>
@@ -181,7 +181,7 @@ export const ReuseSection: React.FC = () => {
                   </div>
 
                   {/* Footnote inside card */}
-                  <div className="pt-2 text-center text-[10px] font-bold text-[#F1D2A1]/75 border-t border-white/10">
+                  <div className="pt-2 text-center text-[10px] font-bold text-[#FEFAE0]/75 border-t border-white/10">
                     {isAfter ? 'Klik untuk lihat kondisi awal' : 'Klik panah kanan untuk lihat hasil kreasi'}
                   </div>
                 </div>
@@ -195,8 +195,8 @@ export const ReuseSection: React.FC = () => {
                   aria-label="Lihat Sebelum"
                   className={`w-7 h-7 rounded-full flex items-center justify-center shadow transition-all cursor-pointer ${
                     !isAfter
-                      ? 'bg-black/15 text-[#F1D2A1]/40 cursor-default'
-                      : 'bg-[#808847] hover:bg-[#686F35] text-white active:scale-95 hover:scale-110'
+                      ? 'bg-black/15 text-[#FEFAE0]/40 cursor-default'
+                      : 'bg-[#283618] hover:bg-[#1e2a12] text-white active:scale-95 hover:scale-110'
                   }`}
                   title="Kondisi Sebelum"
                 >
@@ -210,7 +210,7 @@ export const ReuseSection: React.FC = () => {
                     onClick={() => toggleCardState(item.id, 0)}
                     aria-label="Ke Sebelum"
                     className={`h-2.5 rounded-full transition-all cursor-pointer ${
-                      !isAfter ? 'w-6 bg-[#925E06] shadow' : 'w-2.5 bg-[#808847]/40 hover:bg-[#808847]'
+                      !isAfter ? 'w-6 bg-[#5B4436] shadow' : 'w-2.5 bg-[#283618]/30 hover:bg-[#283618]'
                     }`}
                     title="Kondisi Sebelum"
                   />
@@ -219,7 +219,7 @@ export const ReuseSection: React.FC = () => {
                     onClick={() => toggleCardState(item.id, 1)}
                     aria-label="Ke Sesudah"
                     className={`h-2.5 rounded-full transition-all cursor-pointer ${
-                      isAfter ? 'w-6 bg-[#808847] shadow' : 'w-2.5 bg-[#808847]/40 hover:bg-[#808847]'
+                      isAfter ? 'w-6 bg-[#283618] shadow' : 'w-2.5 bg-[#283618]/30 hover:bg-[#283618]'
                     }`}
                     title="Kondisi Sesudah (Kreasi)"
                   />
@@ -231,8 +231,8 @@ export const ReuseSection: React.FC = () => {
                   aria-label="Lihat Sesudah"
                   className={`w-7 h-7 rounded-full flex items-center justify-center shadow transition-all cursor-pointer ${
                     isAfter
-                      ? 'bg-black/15 text-[#F1D2A1]/40 cursor-default'
-                      : 'bg-[#808847] hover:bg-[#686F35] text-white active:scale-95 hover:scale-110'
+                      ? 'bg-black/15 text-[#FEFAE0]/40 cursor-default'
+                      : 'bg-[#283618] hover:bg-[#1e2a12] text-white active:scale-95 hover:scale-110'
                   }`}
                   title="Lihat Hasil Kreasi Sesudah"
                 >
@@ -245,11 +245,14 @@ export const ReuseSection: React.FC = () => {
       </div>
 
       {/* Callout matching 3R DMI.jpg & Screenshot */}
-      <div className="w-full text-center mt-10 mb-2 py-4 px-6 rounded-2xl bg-[#808847]/15 border border-[#808847]/30">
-        <p className="font-display text-base sm:text-lg md:text-xl font-black text-[#5C6330] tracking-wide">
+      <div className="w-full text-center mt-10 mb-2 py-4 px-6 rounded-2xl bg-[#283618]/10 border border-[#283618]/20">
+        <p className="font-display text-base sm:text-lg md:text-xl font-black text-[#283618] tracking-wide">
           "Siapa bilang barang bekas tidak bisa naik kelas?"
         </p>
       </div>
+
+      {/* Grass Silhouette Line Divider matching reference images */}
+      <GrassDivider variant="bottom" className="w-full mt-6" />
     </section>
   );
 };

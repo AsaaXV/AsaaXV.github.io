@@ -19,26 +19,65 @@
         var ignoredKeywords = [
           'sender-wallet',
           'sender_getProviderState',
+          'sender-wallet-providerResult',
           'sender',
+          'Failed to get initial state',
+          'No account exist',
           'ethereum',
           'solana',
           'chrome-extension://',
           'moz-extension://'
         ];
 
-        function isIgnored(msg) {
-          if (!msg) return false;
-          var str = typeof msg === 'string' ? msg : (msg.message || JSON.stringify(msg) || '');
+        function isIgnored(val) {
+          if (!val) return false;
+          var str = '';
+          try {
+            if (typeof val === 'string') {
+              str = val;
+            } else if (val instanceof Error) {
+              str = val.message + ' ' + (val.stack || '');
+            } else if (typeof val === 'object') {
+              str = JSON.stringify(val);
+            } else {
+              str = String(val);
+            }
+          } catch(e) {
+            str = String(val);
+          }
+          str = str.toLowerCase();
           for (var i = 0; i < ignoredKeywords.length; i++) {
-            if (str.indexOf(ignoredKeywords[i]) !== -1) return true;
+            if (str.indexOf(ignoredKeywords[i].toLowerCase()) !== -1) return true;
           }
           return false;
         }
 
+        // Intercept console.error to prevent external wallet extensions from reporting errors
+        var originalConsoleError = console.error;
+        console.error = function() {
+          for (var i = 0; i < arguments.length; i++) {
+            if (isIgnored(arguments[i])) {
+              return; // Silently suppress extension error
+            }
+          }
+          return originalConsoleError.apply(console, arguments);
+        };
+
+        // Intercept console.warn as well
+        var originalConsoleWarn = console.warn;
+        console.warn = function() {
+          for (var i = 0; i < arguments.length; i++) {
+            if (isIgnored(arguments[i])) {
+              return;
+            }
+          }
+          return originalConsoleWarn.apply(console, arguments);
+        };
+
         window.addEventListener('error', function(e) {
           if (isIgnored(e.message) || isIgnored(e.filename) || isIgnored(e.error)) {
             e.preventDefault();
-            e.stopPropagation();
+            e.stopImmediatePropagation();
             return true;
           }
         }, true);
@@ -46,8 +85,15 @@
         window.addEventListener('unhandledrejection', function(e) {
           if (isIgnored(e.reason)) {
             e.preventDefault();
-            e.stopPropagation();
+            e.stopImmediatePropagation();
             return true;
+          }
+        }, true);
+
+        // Suppress message events from sender-wallet extension
+        window.addEventListener('message', function(e) {
+          if (e && e.data && isIgnored(e.data)) {
+            e.stopImmediatePropagation();
           }
         }, true);
       })();
