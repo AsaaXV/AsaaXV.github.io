@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FolderOpen, Share2, CheckCircle2, ChevronRight, Sparkles, Heart, X, MousePointerClick } from 'lucide-react';
+import { FolderOpen, Share2, CheckCircle2, ChevronRight, Sparkles, Heart, X, MousePointerClick, ChevronLeft } from 'lucide-react';
 import { ACTION_FOLDERS } from '../data/content';
 import { GrassDivider } from './GrassDivider';
 import { ShareModal } from './ShareModal';
@@ -23,11 +23,14 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
   const [completedFolders, setCompletedFolders] = useState<Record<string, boolean>>({
     'act-1': true,
   });
-  const [isLidOpen, setIsLidOpen] = useState(false); // Closed by default, opens on hover/click matching reference
+  // Bin starts open or can be toggled; kept stable while interacting
+  const [isLidOpen, setIsLidOpen] = useState(true);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   const toggleFolder = (id: string) => {
     sounds.playFlip();
+    // Ensure bin remains open when interacting with folders
+    setIsLidOpen(true);
     setSelectedFolderId((prev) => (prev === id ? null : id));
     setCompletedFolders((prev) => ({
       ...prev,
@@ -42,27 +45,29 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
 
   const toggleLid = () => {
     sounds.playPop();
-    setIsLidOpen(!isLidOpen);
+    setIsLidOpen((prev) => !prev);
   };
 
-  const handleBinMouseEnter = () => {
-    if (!isLidOpen) {
-      sounds.playPop();
-      setIsLidOpen(true);
+  const activeFolderIndex = ACTION_FOLDERS.findIndex((f) => f.id === selectedFolderId);
+  const activeFolder = activeFolderIndex !== -1 ? ACTION_FOLDERS[activeFolderIndex] : null;
+
+  const handleNextStep = () => {
+    if (activeFolderIndex < ACTION_FOLDERS.length - 1) {
+      toggleFolder(ACTION_FOLDERS[activeFolderIndex + 1].id);
     }
   };
 
-  const handleBinMouseLeave = () => {
-    setIsLidOpen(false);
+  const handlePrevStep = () => {
+    if (activeFolderIndex > 0) {
+      toggleFolder(ACTION_FOLDERS[activeFolderIndex - 1].id);
+    }
   };
-
-  const completedCount = Object.values(completedFolders).filter(Boolean).length;
 
   return (
     <section id="action" className="pt-12 pb-0 flex flex-col items-center overflow-hidden">
       <div className="max-w-4xl mx-auto px-4 w-full flex flex-col items-center">
         {/* Header matching 3R DMI.jpg */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-6">
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-black text-[#283618] leading-tight tracking-tight uppercase">
             MULAI DARI KAMPUS,
           </h2>
@@ -75,7 +80,7 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
         </div>
 
         {/* 3 Step Action Pill Bar - 3 Columns on mobile & desktop */}
-        <div className="grid grid-cols-3 gap-1.5 sm:gap-3 w-full max-w-2xl mb-6 sm:mb-8 items-stretch">
+        <div className="grid grid-cols-3 gap-1.5 sm:gap-3 w-full max-w-2xl mb-4 sm:mb-6 items-stretch">
           {ACTION_FOLDERS.map((folder) => {
             const isSelected = selectedFolderId === folder.id;
             const isDone = !!completedFolders[folder.id];
@@ -83,6 +88,7 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
             return (
               <button
                 key={folder.id}
+                type="button"
                 onClick={() => toggleFolder(folder.id)}
                 className={`p-1.5 sm:p-3 h-11 sm:h-14 rounded-xl sm:rounded-2xl flex items-center justify-between transition-all cursor-pointer border-2 text-left ${
                   isSelected
@@ -110,162 +116,129 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
           })}
         </div>
 
-        {/* Detailed Folder Drawer/Card when selected */}
-        {selectedFolderId && (
-          <div className="w-full max-w-2xl mb-8 p-6 rounded-3xl bg-white/90 border-2 border-[#283618]/25 shadow-lg text-[#283618] animate-fade-in">
-            {(() => {
-              const activeFolder = ACTION_FOLDERS.find((f) => f.id === selectedFolderId)!;
-              return (
-                <div>
-                  <div className="flex items-center justify-between pb-3 border-b border-[#283618]/20 mb-3">
-                    <div className="flex items-center gap-2">
-                      <FolderOpen className="w-5 h-5 text-[#283618]" />
-                      <span className="font-display text-sm font-black text-[#283618] uppercase tracking-wide">
-                        Panduan Langkah #{activeFolder.stepNumber}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-[#283618]/15 text-[#283618]">
-                        Aksi Mahasiswa UNM
-                      </span>
-                      <button
-                        type="button"
-                        onClick={() => setSelectedFolderId(null)}
-                        className="w-7 h-7 rounded-full bg-[#283618]/15 hover:bg-[#283618]/30 text-[#283618] flex items-center justify-center transition cursor-pointer"
-                        title="Tutup Panduan"
-                      >
-                        <X className="w-4 h-4 stroke-[2.5]" />
-                      </button>
-                    </div>
-                  </div>
-
-                  <h3 className="font-display text-lg sm:text-xl font-black text-[#283618] mb-1">
-                    {activeFolder.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-[#283618]/80 font-semibold mb-4">
-                    {activeFolder.summary}
-                  </p>
-
-                  <div className="space-y-2 mb-4">
-                    {activeFolder.checklist.map((item, idx) => (
-                      <div key={idx} className="flex items-start gap-2.5 text-xs font-medium text-[#283618]">
-                        <CheckCircle2 className="w-4 h-4 text-[#283618] shrink-0 mt-0.5" />
-                        <span>{item}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="p-3 rounded-2xl bg-[#FEFAE0] border border-[#283618]/20 text-xs italic text-[#283618]">
-                    {activeFolder.quote}
-                  </div>
-                </div>
-              );
-            })()}
-          </div>
-        )}
-
-        {/* The Iconic Illustrated Trash Bin using user's real assets & reference repo interaction */}
-        <div
-          onMouseEnter={handleBinMouseEnter}
-          onMouseLeave={handleBinMouseLeave}
-          onClick={toggleLid}
-          className="relative my-4 flex flex-col items-center cursor-pointer select-none group"
-          title="Arahkan mouse atau klik untuk membuka tempat sampah"
-        >
-          {/* Action Folders sticking out of bin - absolute positioned so it takes no space between lid and body */}
-          <div
-            className={`absolute top-8 sm:top-10 z-15 flex items-end justify-center gap-1 sm:gap-2 transition-all duration-500 ease-out pointer-events-none ${
+        {/* Status prompt badge above trash bin */}
+        <div className="mb-2">
+          <button
+            type="button"
+            onClick={toggleLid}
+            className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold shadow-sm transition-all cursor-pointer border ${
               isLidOpen
-                ? '-translate-y-20 sm:-translate-y-28 opacity-100 scale-100 pointer-events-auto'
-                : 'translate-y-4 opacity-0 scale-75'
+                ? 'bg-[#283618] text-[#FEFAE0] border-[#1e2a12] hover:bg-[#1e2a12]'
+                : 'bg-[#FEFAE0] text-[#283618] border-[#283618]/30 hover:bg-[#f3eed0]'
             }`}
           >
-            {/* Floating micro-hint when no document is currently open */}
-            {!selectedFolderId && (
-              <div className="absolute -top-7 z-30 flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#283618] text-[#FEFAE0] text-[10px] font-black shadow-lg animate-bounce pointer-events-none border border-[#435728]">
-                <MousePointerClick className="w-3 h-3 text-[#FEFAE0]" />
-                <span>Tekan dokumen</span>
-              </div>
+            {isLidOpen ? (
+              <>
+                <FolderOpen className="w-3.5 h-3.5 text-[#FEFAE0]" />
+                <span>Tong Terbuka • Tekan salah satu folder di bawah</span>
+              </>
+            ) : (
+              <>
+                <Sparkles className="w-3.5 h-3.5 text-amber-700 animate-pulse" />
+                <span>Tekan tong sampah untuk membuka 3 dokumen aksi</span>
+              </>
             )}
+          </button>
+        </div>
 
-            {/* Document 1: folder1.png */}
-            <div
-              onClick={(e) => {
-                e.stopPropagation();
-                toggleFolder('act-1');
-              }}
-              className={`cursor-pointer transition-all duration-300 ${
-                selectedFolderId === 'act-1'
-                  ? '-translate-y-4 scale-110 z-20 drop-shadow-2xl'
-                  : 'animate-doc-bounce-1 hover:-translate-y-3 hover:scale-105 z-10 drop-shadow-lg'
-              }`}
-              title="Klik untuk melihat Panduan Langkah 1: Bawa Wadah Sendiri"
-            >
-              <img
-                src={folder1Img}
-                alt="Dokumen Aksi 1"
-                className="w-20 h-20 sm:w-26 sm:h-26 object-contain select-none pointer-events-none"
-                draggable={false}
-                referrerPolicy="no-referrer"
-              />
-            </div>
+        {/* The Iconic Illustrated Trash Bin using authentic assets */}
+        <div className="relative my-4 flex flex-col items-center select-none">
+          {/* Action Folders sticking out of bin - neatly arranged horizontally with distinct step badges */}
+          <div
+            className={`absolute top-0 left-1/2 -translate-x-1/2 z-40 w-full max-w-xl sm:max-w-2xl px-2 flex flex-row items-end justify-center gap-3 sm:gap-6 md:gap-8 transition-all duration-500 ease-out ${
+              isLidOpen
+                ? '-translate-y-36 sm:-translate-y-44 md:-translate-y-48 opacity-100 scale-100 pointer-events-auto'
+                : 'translate-y-6 opacity-0 scale-75 pointer-events-none'
+            }`}
+          >
+            {ACTION_FOLDERS.map((folder, index) => {
+              const isSelected = selectedFolderId === folder.id;
+              const isDone = !!completedFolders[folder.id];
+              const folderImg = index === 0 ? folder1Img : index === 1 ? folder2Img : folder3Img;
+              const bounceClass =
+                index === 0
+                  ? 'animate-doc-bounce-1'
+                  : index === 1
+                  ? 'animate-doc-bounce-2'
+                  : 'animate-doc-bounce-3';
 
-            {/* Document 2: folder2.png */}
-            <div
-              onClick={(e) => {
-                e.stopPropagation();
-                toggleFolder('act-2');
-              }}
-              className={`cursor-pointer transition-all duration-300 -mx-1 sm:-mx-2 ${
-                selectedFolderId === 'act-2'
-                  ? '-translate-y-4 scale-110 z-20 drop-shadow-2xl'
-                  : 'animate-doc-bounce-2 hover:-translate-y-3 hover:scale-105 z-15 drop-shadow-xl'
-              }`}
-              title="Klik untuk melihat Panduan Langkah 2: Pojok Pilah Kamar Kos"
-            >
-              <img
-                src={folder2Img}
-                alt="Dokumen Aksi 2"
-                className="w-22 h-22 sm:w-28 sm:h-28 object-contain select-none pointer-events-none"
-                draggable={false}
-                referrerPolicy="no-referrer"
-              />
-            </div>
+              return (
+                <button
+                  key={folder.id}
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleFolder(folder.id);
+                  }}
+                  className={`group relative flex flex-col items-center cursor-pointer transition-all duration-300 focus:outline-none ${
+                    isSelected
+                      ? '-translate-y-3 scale-110 z-30'
+                      : `hover:-translate-y-2 hover:scale-105 z-10 ${bounceClass}`
+                  }`}
+                  title={`Klik untuk membuka Panduan Langkah ${folder.stepNumber}: ${folder.title}`}
+                >
+                  {/* Step Number Badge Pill above folder */}
+                  <div
+                    className={`mb-1.5 px-2.5 py-0.5 rounded-full flex items-center gap-1.5 font-display text-[10px] sm:text-xs font-black transition-all shadow-md ${
+                      isSelected
+                        ? 'bg-[#283618] text-[#FEFAE0] ring-2 ring-[#FEFAE0] scale-105'
+                        : isDone
+                        ? 'bg-[#283618] text-[#FEFAE0]'
+                        : 'bg-[#5B4436] text-[#FEFAE0]'
+                    }`}
+                  >
+                    <span>Langkah {folder.stepNumber}</span>
+                    {isDone && <CheckCircle2 className="w-3 h-3 text-emerald-300" />}
+                  </div>
 
-            {/* Document 3: folder3.png */}
-            <div
-              onClick={(e) => {
-                e.stopPropagation();
-                toggleFolder('act-3');
-              }}
-              className={`cursor-pointer transition-all duration-300 ${
-                selectedFolderId === 'act-3'
-                  ? '-translate-y-4 scale-110 z-20 drop-shadow-2xl'
-                  : 'animate-doc-bounce-3 hover:-translate-y-3 hover:scale-105 z-10 drop-shadow-lg'
-              }`}
-              title="Klik untuk melihat Panduan Langkah 3: Bagikan Semangat 3R"
-            >
-              <img
-                src={folder3Img}
-                alt="Dokumen Aksi 3"
-                className="w-20 h-20 sm:w-26 sm:h-26 object-contain select-none pointer-events-none"
-                draggable={false}
-                referrerPolicy="no-referrer"
-              />
-            </div>
+                  {/* Folder Image Container */}
+                  <div
+                    className={`relative rounded-2xl p-1 transition-all ${
+                      isSelected
+                        ? 'ring-3 ring-[#283618] bg-white/40 drop-shadow-2xl'
+                        : 'hover:drop-shadow-2xl drop-shadow-lg'
+                    }`}
+                  >
+                    <img
+                      src={folderImg}
+                      alt={`Dokumen Langkah ${folder.stepNumber}`}
+                      className="w-20 h-20 sm:w-26 sm:h-26 md:w-30 md:h-30 object-contain select-none pointer-events-none"
+                      draggable={false}
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
+
+                  {/* Action Title Label under folder */}
+                  <div
+                    className={`mt-1.5 px-2 py-0.5 rounded-lg text-center font-display text-[9px] sm:text-[11px] font-bold max-w-[90px] sm:max-w-[120px] leading-tight truncate transition-colors ${
+                      isSelected
+                        ? 'bg-[#283618] text-[#FEFAE0] shadow-sm'
+                        : 'bg-[#FEFAE0]/95 text-[#283618] border border-[#283618]/30 group-hover:bg-[#283618] group-hover:text-[#FEFAE0]'
+                    }`}
+                  >
+                    {folder.title.split(' ')[0]} {folder.title.split(' ')[1] || ''}
+                  </div>
+                </button>
+              );
+            })}
           </div>
 
-          {/* Lid of the trash bin (tilted angle on open, flush when closed, lifts high and slanted when open) */}
+          {/* Lid of the trash bin (when open: leans slanted on right flank touching the ground) */}
           <div
-            className={`relative z-30 -mb-8 sm:-mb-10 transition-all duration-500 ease-out origin-bottom-left ${
-              isLidOpen ? 'drop-shadow-2xl' : 'drop-shadow-md'
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleLid();
+            }}
+            className={`relative z-25 -mb-8 sm:-mb-10 transition-all duration-700 cubic-bezier(0.34, 1.25, 0.64, 1) cursor-pointer select-none ${
+              isLidOpen ? 'drop-shadow-2xl' : 'drop-shadow-md hover:scale-[1.02]'
             }`}
             style={{
               transform: isLidOpen
-                ? 'translate(28px, -86px) rotate(-26deg)'
+                ? 'translate(clamp(135px, 22vw, 178px), clamp(142px, 23vw, 182px)) rotate(66deg)'
                 : 'translate(0px, 0px) rotate(0deg)',
-              transformOrigin: 'bottom left',
+              transformOrigin: 'center center',
             }}
+            title={isLidOpen ? 'Klik untuk menutup tong sampah' : 'Klik untuk membuka tong sampah'}
           >
             <img
               src={tongsampahAtasImg}
@@ -277,7 +250,11 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
           </div>
 
           {/* Main Trash Bin Body using tongsampah-bawah.png */}
-          <div className="relative z-20 flex flex-col items-center">
+          <div
+            onClick={toggleLid}
+            className="relative z-20 flex flex-col items-center cursor-pointer"
+            title={isLidOpen ? 'Klik untuk menutup tong sampah' : 'Klik untuk membuka tong sampah'}
+          >
             <img
               src={tongsampahBawahImg}
               alt="Aset Asli Badan Tong Sampah"
@@ -302,7 +279,7 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
             </div>
           </div>
 
-          {/* Clustered Trash around base using sampah1.png & sampah2.png */}
+          {/* Clustered Trash around base using sampah1.png & sampah2.png (Ground level) */}
           <div className="relative -mt-6 sm:-mt-8 w-72 sm:w-88 flex justify-between items-center pointer-events-none z-25 px-2">
             <img
               src={sampah1Img}
@@ -320,11 +297,90 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
             />
           </div>
 
-          {/* Background Grass Silhouette behind trash bin matching Image 6 */}
+          {/* Background Grass Silhouette behind trash bin */}
           <div className="w-full max-w-lg -mt-12 pointer-events-none z-10 opacity-85">
             <GrassDivider variant="bottom" className="w-full h-16 sm:h-20" />
           </div>
         </div>
+
+        {/* Detailed Folder Drawer/Card when selected - positioned right below trash bin so trash bin does not jump */}
+        {activeFolder && (
+          <div className="w-full max-w-2xl mt-4 mb-8 p-6 rounded-3xl bg-white/95 border-2 border-[#283618]/25 shadow-xl text-[#283618] animate-fade-in transition-all">
+            <div>
+              <div className="flex items-center justify-between pb-3 border-b border-[#283618]/20 mb-3">
+                <div className="flex items-center gap-2">
+                  <FolderOpen className="w-5 h-5 text-[#283618]" />
+                  <span className="font-display text-sm font-black text-[#283618] uppercase tracking-wide">
+                    Panduan Langkah #{activeFolder.stepNumber}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-[#283618]/15 text-[#283618]">
+                    Aksi Mahasiswa UNM
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedFolderId(null)}
+                    className="w-7 h-7 rounded-full bg-[#283618]/15 hover:bg-[#283618]/30 text-[#283618] flex items-center justify-center transition cursor-pointer"
+                    title="Tutup Panduan"
+                  >
+                    <X className="w-4 h-4 stroke-[2.5]" />
+                  </button>
+                </div>
+              </div>
+
+              <h3 className="font-display text-lg sm:text-xl font-black text-[#283618] mb-1">
+                {activeFolder.title}
+              </h3>
+              <p className="text-xs sm:text-sm text-[#283618]/80 font-semibold mb-4">
+                {activeFolder.summary}
+              </p>
+
+              <div className="space-y-2 mb-4">
+                {activeFolder.checklist.map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-2.5 text-xs font-medium text-[#283618]">
+                    <CheckCircle2 className="w-4 h-4 text-[#283618] shrink-0 mt-0.5" />
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="p-3 rounded-2xl bg-[#FEFAE0] border border-[#283618]/20 text-xs italic text-[#283618] mb-4">
+                {activeFolder.quote}
+              </div>
+
+              {/* Step Navigation Controls */}
+              <div className="flex items-center justify-between pt-2 border-t border-[#283618]/15">
+                <button
+                  type="button"
+                  onClick={handlePrevStep}
+                  disabled={activeFolderIndex === 0}
+                  className={`flex items-center gap-1 text-xs font-bold px-3 py-1.5 rounded-xl transition ${
+                    activeFolderIndex === 0
+                      ? 'opacity-40 cursor-not-allowed text-[#283618]/50'
+                      : 'hover:bg-[#283618]/10 text-[#283618] cursor-pointer'
+                  }`}
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                  <span>Langkah Sebelumnya</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={handleNextStep}
+                  disabled={activeFolderIndex === ACTION_FOLDERS.length - 1}
+                  className={`flex items-center gap-1 text-xs font-bold px-3 py-1.5 rounded-xl transition ${
+                    activeFolderIndex === ACTION_FOLDERS.length - 1
+                      ? 'opacity-40 cursor-not-allowed text-[#283618]/50'
+                      : 'bg-[#283618] text-[#FEFAE0] hover:bg-[#1e2a12] cursor-pointer shadow-sm'
+                  }`}
+                >
+                  <span>Langkah Selanjutnya</span>
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Closing Quote from 3R DMI.jpg & Image 7 */}
         <div className="text-center my-10 max-w-lg mx-auto">

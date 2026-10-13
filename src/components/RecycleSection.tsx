@@ -27,14 +27,19 @@ export const RecycleSection: React.FC = () => {
     playRatchetSequence(4);
     const nextIndex = (activeStepIndex + 1) % RECYCLE_PHASES.length;
     setActiveStepIndex(nextIndex);
-    // Continuous rotation counter-clockwise to bring next index (i) to apex (0 deg)
-    setWheelRotation(-nextIndex * 90);
+    // Smooth forward progression by 90 degrees clockwise (never rewind backwards from 4 to 1)
+    setWheelRotation((prev) => prev - 90);
   };
 
   const handleSelectPhase = (index: number) => {
     playRatchetSequence(3);
     setActiveStepIndex(index);
-    setWheelRotation(-index * 90);
+    // Calculate shortest angular distance to target phase so it rotates smoothly without jarring rewinds
+    setWheelRotation((prev) => {
+      const baseTarget = -index * 90;
+      const diff = ((((baseTarget - prev) % 360) + 540) % 360) - 180;
+      return prev + diff;
+    });
   };
 
   // Direct Interactive Drag-to-Rotate Semicircular Half Wheel
@@ -83,10 +88,11 @@ export const RecycleSection: React.FC = () => {
     if (!isDragging) return;
     setIsDragging(false);
 
-    // Snap to closest 90 deg increment so the number sits precisely at the top
-    const snapIndex = (((Math.round(-wheelRotation / 90) % 4) + 4) % 4);
+    // Snap to closest 90 deg increment relative to current rotation so it never jerks or rewinds
+    const snappedRotation = Math.round(wheelRotation / 90) * 90;
+    const snapIndex = (((Math.round(-snappedRotation / 90) % 4) + 4) % 4);
     setActiveStepIndex(snapIndex);
-    setWheelRotation(-snapIndex * 90);
+    setWheelRotation(snappedRotation);
     sounds.playWheelClick();
 
     try {

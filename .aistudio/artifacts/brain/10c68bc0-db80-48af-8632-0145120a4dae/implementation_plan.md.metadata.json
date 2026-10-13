@@ -1,6 +1,6 @@
 {
-  "summary": "Rencana penyederhanaan visual kartu Reuse menjadi minimalis dan estetik: menghapus badge SEBELUM/SESUDAH, menghapus label 'Ganti Tampilan', serta menghilangkan bar navigasi panah di bawah kartu, sambil tetap mempertahankan interaktivitas klik kartu untuk melihat transformasi kreasi dan manfaatnya.",
-  "updatedAt": "2026-10-13T17:12:49.963322158Z",
+  "summary": "Rencana implementasi perbaikan posisi tutup tong sampah (bersandar menyentuh tanah di sisi kanan) dan penataan 3 folder aksi berjajar horizontal rapi dengan label langkah serta interaktivitas klik yang responsif.",
+  "updatedAt": "2026-10-13T17:32:08.285127254Z",
   "requestFeedback": true,
   "userFacing": true
 }

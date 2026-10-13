@@ -1,93 +1,41 @@
-# Desain Minimalis & Estetik Kartu Reuse
+# Rencana Implementasi: Perbaikan Tutup Tong Sampah & Penataan Folder Aksi
 
-Menyederhanakan tampilan kartu kreasi Reuse agar tampil ramping, bersih, dan estetik dengan menghapus elemen visual yang berlebih (*badge* Sebelum/Sesudah, label "Ganti Tampilan", dan pengontrol panah redundan), dengan tetap mempertahankan kemampuan interaktif untuk mengklik kartu guna melihat transformasi kreasi dan manfaatnya.
+Memperbaiki posisi tutup tong sampah agar saat terbuka jatuh menyentuh tanah dan bersandar miring di sebelah kanan badan tong sampah, serta menata ketiga folder aksi agar keluar berjajar horizontal secara rapi, berjarak nyaman, memiliki label langkah yang jelas, dan mudah ditekan.
 
-## User Review & Critical Decisions
+---
 
+## User Review Required
 > [!IMPORTANT]
-> Berdasarkan konfirmasi pengguna pada sesi tanya jawab:
-> - **Kartu Tetap Interaktif**: Pengguna tetap dapat mengklik kartu secara langsung untuk berganti antara bahan awal dan hasil kreasi upcycling.
-> - **Elemen yang Dihapus**: 
->   1. Label/Badge status "SEBELUM" & "SESUDAH" di bagian atas kartu.
->   2. Label "Ganti Tampilan" beserta ikon bolak-balik di atas area visual/foto.
->   3. Bar pengontrol panah (kiri/kanan) dan titik indikator di bawah kartu.
->   4. Teks footnote kaku "Klik untuk lihat kondisi awal / hasil kreasi".
-> - **Arah Visual**: Kartu berdesain ramping, lapang (*clean breathing room*), fokus pada foto/ilustrasi kreasi, judul kreasi, dan manfaat praktisnya.
+> - **Posisi Tutup Bersandar & Sentuh Tanah**: Tutup tong sampah (`tongsampah-atas.png`) akan bertransisi ke bawah menyentuh garis tanah (sejajar dengan tumpukan sampah bawah) dan miring bersandar ke sisi kanan badan tong sampah.
+> - **Penataan Folder Horizontal**: Ketiga folder (`folder1.png`, `folder2.png`, `folder3.png`) akan muncul ke atas bukaan tong sampah dalam formasi horizontal rapi dengan jarak (gap) yang lega, badge nomor langkah yang jelas ("Langkah 1", "Langkah 2", "Langkah 3"), dan layer `z-index` tinggi (`z-40`) agar bebas dari tumpang tindih serta sangat mudah diklik di desktop maupun mobile.
 
 ---
 
-## 1. Overview & Core Concept
+## Proposed Changes
 
-- **Tujuan**: Menghadirkan tampilan kartu Reuse yang elegan dan modern tanpa clutter elemen penanda teks yang berulang.
-- **Pengalaman Pengguna**: Pengguna melihat 3 kartu kreasi daur ulang yang bersih. Saat kartu disentuh atau diklik, kartu bertransisi secara halus (*smooth transition*) memperlihatkan ide transformasi limbah menjadi karya berguna beserta dampak positifnya.
+### 1. Penataan Posisi Tutup Tong Sampah (`src/components/ActionSection.tsx`)
+- Hitung ulang posisi transform saat `isLidOpen === true`:
+  - Geser horizontal ke kanan (`translate-x`) agar menempel di sisi samping badan tong sampah.
+  - Turunkan secara vertikal (`translate-y`) hingga bagian bawah tutup menyentuh garis dasar lantai/tanah (ground level di dekat aset `sampah1.png` & `sampah2.png`).
+  - Berikan sudut rotasi miring yang realistis (misalnya 55° - 65°) bersandar di bahu kanan tong sampah dengan bayangan jatuh (`drop-shadow`) yang natural.
 
----
-
-## 2. User Experience & Visual Design
-
-### A. Tata Letak Kartu yang Bersih & Ramping
-1. **Header Kartu Minimalis**:
-   - Menghapus badge pill "SEBELUM/SESUDAH".
-   - Kategori ditampilkan sebagai teks kecil bersih dan rapi (misal: `KERAJINAN RUMAH TANGGA` atau `UPCYCLE KOS`) tanpa kotak pill yang tebal.
-2. **Visual Showcase Utama**:
-   - Menghapus stiker/badge "Ganti Tampilan" di pojok visual.
-   - Kotak visual fokus menampilkan ikon/ilustrasi barang dengan kontras warna alam yang hangat.
-   - Efek hover subtle yang memberikan isyarat interaktif tanpa perlu teks instruksi yang mengganggu estetika.
-3. **Plakat Judul Kreasi**:
-   - Label judul kreasi (misal: "KREASI POT TANAMAN", "KREASI ORGANIZER MEJA", "KREASI SELIMUT PERCA") disajikan ramping dan terintegrasi harmonis di bawah visual.
-4. **Deskripsi & Manfaat**:
-   - Menampilkan deskripsi ringkas dan poin manfaat utama secara elegan.
-5. **Penghapusan Bagian Bawah Kartu**:
-   - Menghilangkan kontrol panah samping (`<` dan `>`) serta baris dot di bawah kartu yang membuat tampilan tampak berat.
-
-```
-┌──────────────────────────────────────────────────┐
-│ KATEGORI · UPCYCLE                               │
-│                                                  │
-│ Pot Hidroponik Meja Kos                          │
-│ Dari botol kaca bekas minuman                    │
-│                                                  │
-│  ┌────────────────────────────────────────────┐  │
-│  │                                            │  │
-│  │         [ Visual / Ilustrasi ]             │  │
-│  │                                            │  │
-│  └────────────────────────────────────────────┘  │
-│                                                  │
-│  ┌─ KREASI POT TANAMAN HIDROPONIK ───────────┐  │
-│                                                  │
-│  Hemat biaya beli pot, mempercantik ruangan kos  │
-│  dengan sirkulasi air mandiri.                  │
-└──────────────────────────────────────────────────┘
-```
+### 2. Penataan Rapi & Interaktivitas 3 Folder Aksi (`src/components/ActionSection.tsx`)
+- Ubah kontainer folder yang muncul saat tong terbuka:
+  - Angkat posisi kemunculan lebih tinggi di atas mulut tong sampah sehingga tidak tertutup bibir tong.
+  - Terapkan layout flex horizontal yang rapi: `flex-row items-end justify-center gap-4 sm:gap-6 md:gap-8`.
+  - Berikan badge nomor langkah di bawah/atas tiap folder (Langkah 1: Bawa Wadah, Langkah 2: Pilah Sampah, Langkah 3: Bagikan Semangat) agar jelas dan berstruktur rapi.
+  - Pastikan `z-index: 40` dan `pointer-events-auto` serta `stopPropagation` aktif sehingga klik pada folder langsung membuka modul panduan aksi tanpa memicu penutupan tutup tong sampah.
+  - Berikan efek hover yang menyenangkan (mengangkat, highlight border, kursor pointer) dan state aktif yang kontras.
 
 ---
 
-## 3. Key Product Decisions & Trade-Offs
+## Verification Plan
 
-- **Mempertahankan Fungsi Klik Kartu (Click-to-Toggle)**:
-  - *Keputusan*: Kartu tetap merespons klik (`onClick`) untuk beralih antara melihat bahan asal dan hasil kreasi.
-  - *Alasan*: Pengguna menegaskan "bukan berarti gak bisa ditekan, tetap bisa ganti tampilan, cuma yang dihilangkan visualnya". Interaksi tetap hidup namun antarmukanya jauh lebih bersih dan estetik.
-- **Menghilangkan Tombol Ekstra**:
-  - *Keputusan*: Menghilangkan tombol panah bawah dan badge status.
-  - *Alasan*: Elemen-elemen tersebut redundant dengan interaksi kartu dan merusak estetika minimalis.
+### Automated Verification
+- Jalankan `compile_applet` untuk memastikan tidak ada kesalahan TypeScript, CSS class, atau build issue.
 
----
-
-## 4. Technical Architecture & Data Strategy
-
-```
-ReuseSection (React)
- │
- ├── Container Grid (3 Kolom Responsif)
- │    └── MinimalistReuseCard (per item)
- │         ├── Header: Category subtle text
- │         ├── Title & Subtitle
- │         ├── Visual Showcase Area (Clean, no 'Ganti Tampilan' pill)
- │         ├── Kreasi Caption Banner
- │         └── Description & Benefit text
- └── State Management
-      └── cardStates: Toggle flip / transition state saat kartu diklik
-```
-
-- **File Terdampak**: `src/components/ReuseSection.tsx`
-- **Verifikasi**: Build & lint check memastikan tidak ada error kompilasi dan tampilan sesuai standar estetika web modern.
+### Manual Verification
+1. **Buka / Tutup Tong Sampah**: Klik atau hover tempat sampah, amati bahwa tutup tong turun mulus ke tanah di sisi kanan dan bersandar miring pada badan tong sampah.
+2. **Kerapian Folder**: Pastikan ketiga folder keluar dengan rapi, berjarak teratur secara horizontal, dan tidak berhimpitan.
+3. **Interaktivitas Klik**: Klik masing-masing folder (1, 2, dan 3) dan verifikasi bahwa kartu panduan aksi terbuka dengan benar dan folder aktif ditandai secara visual.
+4. **Responsivitas**: Periksa tampilan pada layar mobile dan desktop agar tidak ada elemen yang terpotong.
