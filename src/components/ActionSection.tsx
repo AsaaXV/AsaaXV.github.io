@@ -221,94 +221,14 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
         </div>
 
         {/* The Iconic Illustrated Trash Bin using authentic assets */}
-        <div className="relative my-4 pt-4 sm:pt-6 flex flex-col items-center select-none">
-          {/* Action Folders sticking out of bin - neatly arranged horizontally with distinct step badges */}
-          <div
-            className={`absolute top-0 left-1/2 -translate-x-1/2 z-40 w-full max-w-xl sm:max-w-2xl px-2 flex flex-row items-end justify-center gap-3 sm:gap-6 md:gap-8 transition-all duration-500 ease-out ${
-              isLidOpen
-                ? '-translate-y-20 sm:-translate-y-24 md:-translate-y-28 opacity-100 scale-100 pointer-events-auto'
-                : 'translate-y-6 opacity-0 scale-75 pointer-events-none'
-            }`}
-          >
-            {ACTION_FOLDERS.map((folder, index) => {
-              const isSelected = selectedFolderId === folder.id;
-              const isDone = !!completedFolders[folder.id];
-              const folderImg = index === 0 ? folder1Img : index === 1 ? folder2Img : folder3Img;
-              const bounceClass =
-                index === 0
-                  ? 'animate-doc-bounce-1'
-                  : index === 1
-                  ? 'animate-doc-bounce-2'
-                  : 'animate-doc-bounce-3';
-
-              return (
-                <button
-                  key={folder.id}
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    toggleFolder(folder.id);
-                  }}
-                  className={`group relative flex flex-col items-center cursor-pointer transition-all duration-300 focus:outline-none ${
-                    isSelected
-                      ? '-translate-y-3 scale-110 z-30'
-                      : `hover:-translate-y-2 hover:scale-105 z-10 ${bounceClass}`
-                  }`}
-                  title={`Klik untuk membuka Panduan Langkah ${folder.stepNumber}: ${folder.title}`}
-                >
-                  {/* Step Number Badge Pill above folder */}
-                  <div
-                    className={`mb-1.5 px-2.5 py-0.5 rounded-full flex items-center gap-1.5 font-display text-[10px] sm:text-xs font-black transition-all shadow-md ${
-                      isSelected
-                        ? 'bg-[#283618] text-[#FEFAE0] ring-2 ring-[#FEFAE0] scale-105'
-                        : isDone
-                        ? 'bg-[#283618] text-[#FEFAE0]'
-                        : 'bg-[#5B4436] text-[#FEFAE0]'
-                    }`}
-                  >
-                    <span>Langkah {folder.stepNumber}</span>
-                    {isDone && <CheckCircle2 className="w-3 h-3 text-emerald-300" />}
-                  </div>
-
-                  {/* Folder Image Container */}
-                  <div
-                    className={`relative rounded-2xl p-1 transition-all ${
-                      isSelected
-                        ? 'ring-3 ring-[#283618] bg-white/40 drop-shadow-2xl'
-                        : 'hover:drop-shadow-2xl drop-shadow-lg'
-                    }`}
-                  >
-                    <img
-                      src={folderImg}
-                      alt={`Dokumen Langkah ${folder.stepNumber}`}
-                      className="w-22 h-22 sm:w-28 sm:h-28 md:w-32 md:h-32 object-contain select-none pointer-events-none"
-                      draggable={false}
-                      referrerPolicy="no-referrer"
-                    />
-                  </div>
-
-                  {/* Action Title Label under folder */}
-                  <div
-                    className={`mt-1.5 px-2 py-0.5 rounded-lg text-center font-display text-[9px] sm:text-[11px] font-bold max-w-[95px] sm:max-w-[125px] leading-tight truncate transition-colors ${
-                      isSelected
-                        ? 'bg-[#283618] text-[#FEFAE0] shadow-sm'
-                        : 'bg-[#FEFAE0]/95 text-[#283618] border border-[#283618]/30 group-hover:bg-[#283618] group-hover:text-[#FEFAE0]'
-                    }`}
-                  >
-                    {folder.title.split(' ')[0]} {folder.title.split(' ')[1] || ''}
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-
+        <div className="relative mt-20 sm:mt-28 md:mt-32 my-4 pt-4 sm:pt-6 flex flex-col items-center select-none">
           {/* Lid of the trash bin (when open: leans slanted on right flank touching the ground) */}
           <div
             onClick={(e) => {
               e.stopPropagation();
               toggleLid();
             }}
-            className={`relative z-25 -mb-8 sm:-mb-10 transition-all duration-700 cubic-bezier(0.34, 1.25, 0.64, 1) cursor-pointer select-none ${
+            className={`relative z-30 -mb-8 sm:-mb-10 transition-all duration-700 cubic-bezier(0.34, 1.25, 0.64, 1) cursor-pointer select-none ${
               isLidOpen ? 'drop-shadow-2xl' : 'drop-shadow-md hover:scale-[1.02]'
             }`}
             style={{
@@ -328,16 +248,77 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
             />
           </div>
 
-          {/* Main Trash Bin Body using tongsampah-bawah.png */}
+          {/* Main Trash Bin Body & Cavity with Embedded Action Folders */}
           <div
             onClick={toggleLid}
             className="relative z-20 flex flex-col items-center cursor-pointer"
             title={isLidOpen ? 'Klik untuk menutup tong sampah' : 'Klik untuk membuka tong sampah'}
           >
+            {/* Dark Interior Cavity at Mouth of the Bin */}
+            <div
+              className={`absolute top-0 left-1/2 -translate-x-1/2 w-48 sm:w-60 h-7 sm:h-9 bg-[#202914]/75 rounded-full blur-[1px] transition-opacity duration-300 pointer-events-none z-10 ${
+                isLidOpen ? 'opacity-100' : 'opacity-0'
+              }`}
+            />
+
+            {/* 3 Action Folders: Menumpuk ke atas, memanjang ke atas menyembul dari bibir tong, polos murni tanpa teks langkah 1 2 3 */}
+            <div
+              className={`absolute -top-36 sm:-top-48 md:-top-56 left-1/2 -translate-x-1/2 flex flex-col items-center -space-y-16 sm:-space-y-22 md:-space-y-26 transition-all duration-500 ease-out z-15 ${
+                isLidOpen
+                  ? 'translate-y-0 opacity-100 scale-100 pointer-events-auto'
+                  : 'translate-y-24 sm:translate-y-32 opacity-0 scale-75 pointer-events-none'
+              }`}
+            >
+              {ACTION_FOLDERS.map((folder, index) => {
+                const isSelected = selectedFolderId === folder.id;
+                const folderImg = index === 0 ? folder1Img : index === 1 ? folder2Img : folder3Img;
+
+                // Subtle upright tilt: nearly vertical with organic variation
+                const baseRotation = index === 0 ? '-rotate-1' : index === 1 ? 'rotate-1' : '-rotate-2';
+                // Cascading z-index from top to bottom (Folder 2 overlaps 1, Folder 3 overlaps 2, Bin overlaps 3; selected folder rises to front of stack)
+                const folderZIndex = isSelected ? 'z-[18]' : index === 0 ? 'z-[11]' : index === 1 ? 'z-[12]' : 'z-[13]';
+
+                return (
+                  <button
+                    key={folder.id}
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleFolder(folder.id);
+                    }}
+                    className={`group relative flex flex-col items-center cursor-pointer transition-all duration-300 focus:outline-none ${folderZIndex} ${baseRotation} ${
+                      isSelected
+                        ? '-translate-y-2.5 sm:-translate-y-3.5 scale-105'
+                        : 'hover:-translate-y-1.5 hover:scale-102'
+                    }`}
+                    title={folder.title}
+                  >
+                    {/* Pure Folder Graphic: Clean, without any step number or badge */}
+                    <div
+                      className={`relative rounded-2xl p-1 transition-all ${
+                        isSelected
+                          ? 'ring-2 sm:ring-3 ring-[#283618] bg-white/25 drop-shadow-2xl'
+                          : 'drop-shadow-lg group-hover:drop-shadow-2xl'
+                      }`}
+                    >
+                      <img
+                        src={folderImg}
+                        alt={folder.title}
+                        className="w-32 sm:w-40 md:w-44 h-auto object-contain select-none pointer-events-none"
+                        draggable={false}
+                        referrerPolicy="no-referrer"
+                      />
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Main Trash Bin Body using authentic tongsampah-bawah.png */}
             <img
               src={tongsampahBawahImg}
               alt="Aset Asli Badan Tong Sampah"
-              className="w-56 sm:w-72 h-auto drop-shadow-2xl select-none pointer-events-none"
+              className="relative z-20 w-56 sm:w-72 h-auto drop-shadow-2xl select-none pointer-events-none"
               draggable={false}
               referrerPolicy="no-referrer"
             />
