@@ -141,15 +141,12 @@ export const FactsSection: React.FC = () => {
           return (
             <div
               key={fact.id}
-              className="rounded-3xl p-6 bg-[#5B4436] text-[#FEFAE0] border-2 border-[#433126] shadow-xl flex flex-col justify-between h-full min-h-[320px] select-none transform hover:-translate-y-2 hover:scale-[1.02] hover:shadow-2xl transition-all duration-300 group"
+              className="rounded-3xl p-6 bg-[#5B4436] text-[#FEFAE0] border-2 border-[#433126] shadow-xl flex flex-col justify-between h-full min-h-[250px] sm:min-h-[270px] select-none transform hover:-translate-y-2 hover:scale-[1.02] hover:shadow-2xl transition-all duration-300 group"
             >
               <div>
-                <div className="h-7 flex items-center justify-between mb-4">
+                <div className="flex items-center mb-4">
                   <span className="text-[11px] font-black uppercase tracking-wider px-3 py-1 rounded-full bg-black/30 text-[#FEFAE0] border border-white/10">
                     {fact.badge}
-                  </span>
-                  <span className="text-[11px] font-bold text-[#FEFAE0]/75 uppercase tracking-wide">
-                    {fact.source}
                   </span>
                 </div>
 
@@ -173,12 +170,6 @@ export const FactsSection: React.FC = () => {
                     {fact.title}
                   </p>
                 </div>
-              </div>
-
-              {/* Bottom Card Footer subtle indicator */}
-              <div className="pt-3 mt-4 border-t border-white/10 flex items-center justify-between text-[10px] font-bold text-[#FEFAE0]/60">
-                <span className="uppercase tracking-wider">Data Riil 3R</span>
-                <span className="text-amber-200/80">3R UNM Project</span>
               </div>
             </div>
           );

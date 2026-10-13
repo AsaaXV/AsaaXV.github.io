@@ -142,12 +142,12 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
         </div>
 
         {/* The Iconic Illustrated Trash Bin using authentic assets */}
-        <div className="relative my-4 flex flex-col items-center select-none">
+        <div className="relative my-4 pt-4 sm:pt-6 flex flex-col items-center select-none">
           {/* Action Folders sticking out of bin - neatly arranged horizontally with distinct step badges */}
           <div
             className={`absolute top-0 left-1/2 -translate-x-1/2 z-40 w-full max-w-xl sm:max-w-2xl px-2 flex flex-row items-end justify-center gap-3 sm:gap-6 md:gap-8 transition-all duration-500 ease-out ${
               isLidOpen
-                ? '-translate-y-36 sm:-translate-y-44 md:-translate-y-48 opacity-100 scale-100 pointer-events-auto'
+                ? '-translate-y-20 sm:-translate-y-24 md:-translate-y-28 opacity-100 scale-100 pointer-events-auto'
                 : 'translate-y-6 opacity-0 scale-75 pointer-events-none'
             }`}
           >
@@ -234,7 +234,7 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
             }`}
             style={{
               transform: isLidOpen
-                ? 'translate(clamp(135px, 22vw, 178px), clamp(142px, 23vw, 182px)) rotate(66deg)'
+                ? 'translate(clamp(142px, 22.5vw, 190px), clamp(195px, 29vw, 252px)) rotate(76deg)'
                 : 'translate(0px, 0px) rotate(0deg)',
               transformOrigin: 'center center',
             }}
@@ -406,22 +406,6 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
           <p className="text-[11px] text-[#FEFAE0]/75">
             Mata Kuliah Desain Media Interaktif • Fakultas Seni dan Desain • Universitas Negeri Makassar
           </p>
-
-          {/* Discrete Secret Easter Egg Trigger */}
-          {onOpenSecret && (
-            <div className="mt-2.5">
-              <button
-                type="button"
-                onClick={onOpenSecret}
-                className="text-[10px] font-bold text-[#FEFAE0]/70 hover:text-amber-200 transition-colors inline-flex items-center gap-1.5 py-1 px-3 rounded-full hover:bg-black/25 cursor-pointer border border-[#FEFAE0]/20"
-                title="Ketik 'UNM' di keyboard atau klik untuk membuka Ruang Rahasia"
-              >
-                <span>🤫</span>
-                <span>Ruang Rahasia DKV (Ketik: "UNM")</span>
-                <span>✨</span>
-              </button>
-            </div>
-          )}
         </div>
       </footer>
 
