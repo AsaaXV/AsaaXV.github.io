@@ -8,6 +8,7 @@ export interface FlipCardItem {
   backTips: string[];
   impactMetric: string;
   campusContext: string;
+  flipBackText?: string;
 }
 
 export interface ComparisonItem {
@@ -15,6 +16,7 @@ export interface ComparisonItem {
   title: string;
   subtitle: string;
   category: string;
+  captionUnderPhoto?: string;
   before: {
     label: string;
     description: string;
@@ -32,10 +34,11 @@ export interface ComparisonItem {
 export interface RecyclePhase {
   step: number;
   title: string;
-  subtitle: string;
-  description: string;
-  campusAction: string;
-  material: string;
+  subtitle?: string;
+  description?: string;
+  campusAction?: string;
+  action?: string;
+  material?: string;
 }
 
 export interface FactItem {

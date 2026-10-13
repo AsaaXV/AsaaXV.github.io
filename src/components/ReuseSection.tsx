@@ -1,24 +1,23 @@
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, Sparkles, ArrowRightLeft, Check, AlertCircle, Package, Wine, Shirt } from 'lucide-react';
+import { Sparkles, Check, Package, Wine, Shirt } from 'lucide-react';
 import { REUSE_ITEMS } from '../data/content';
 import { sounds } from '../utils/audio';
-import { TotebagIllustration } from './HandDrawnIllustrations';
 import { GrassDivider } from './GrassDivider';
 
 export const ReuseSection: React.FC = () => {
-  // Store state for each card: 0 = Before (Limbah), 1 = After (Upcycled)
+  // Store state for each card: 0 = Origin/Limbah, 1 = Upcycled/Hasil Kreasi
+  // Default to 1 (Hasil Kreasi) so the cards immediately focus on the creative outcomes and benefits
   const [cardStates, setCardStates] = useState<Record<string, number>>({
-    'reuse-1': 0,
-    'reuse-2': 0,
-    'reuse-3': 0,
+    'reuse-1': 1,
+    'reuse-2': 1,
+    'reuse-3': 1,
   });
 
-  const toggleCardState = (id: string, targetState?: number) => {
+  const toggleCardState = (id: string) => {
     sounds.playPop();
     setCardStates((prev) => {
-      const current = prev[id] || 0;
-      const next = targetState !== undefined ? targetState : current === 0 ? 1 : 0;
-      return { ...prev, [id]: next };
+      const current = prev[id] ?? 1;
+      return { ...prev, [id]: current === 1 ? 0 : 1 };
     });
   };
 
@@ -37,207 +36,156 @@ export const ReuseSection: React.FC = () => {
         </p>
       </div>
 
-      {/* 3 Cards matching Screenshot_2026_1001_021639.jpg.jpeg */}
-      <div className="grid grid-cols-3 gap-6 w-full max-w-4xl items-stretch">
+      {/* 3 Cards: Ramping, Bersih, Berfokus pada Hasil Kreasi & Manfaat */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl items-stretch">
         {REUSE_ITEMS.map((item) => {
-          const isAfter = (cardStates[item.id] || 0) === 1;
+          const isAfter = (cardStates[item.id] ?? 1) === 1;
 
           return (
             <div key={item.id} className="flex flex-col items-center justify-between h-full w-full">
-              {/* Card Container without protruding side arrows */}
+              {/* Card Container */}
               <div className="relative w-full flex-1 flex flex-col items-center">
-                {/* Main Card with exact desktop proportions & hover micro-interactions */}
+                {/* Main Card with exact minimalist aesthetic */}
                 <div
                   onClick={() => toggleCardState(item.id)}
-                  className={`w-full h-full min-h-[460px] rounded-3xl p-5 flex flex-col justify-between transition-all duration-300 shadow-xl cursor-pointer border-2 select-none transform hover:-translate-y-2.5 hover:scale-[1.025] hover:shadow-2xl group ${
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      toggleCardState(item.id);
+                    }
+                  }}
+                  className={`w-full h-full min-h-[440px] rounded-3xl p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 shadow-lg cursor-pointer border select-none transform hover:-translate-y-2 hover:shadow-2xl group ${
                     isAfter
-                      ? 'bg-[#283618] text-[#FEFAE0] border-[#1e2a12] hover:border-[#FEFAE0]/60'
-                      : 'bg-[#5B4436] text-[#FEFAE0] border-[#433126] hover:border-[#FEFAE0]/60'
+                      ? 'bg-[#283618] text-[#FEFAE0] border-[#394c25] hover:border-[#FEFAE0]/40'
+                      : 'bg-[#4A3525] text-[#FEFAE0] border-[#5e4432] hover:border-[#FEFAE0]/40'
                   }`}
                 >
-                  {/* Top Bar inside Card */}
+                  {/* Top Bar inside Card: Clean and minimalist, without SEBELUM / SESUDAH badge */}
                   <div>
-                    <div className="h-7 flex items-center justify-between gap-2 mb-3">
-                      <span className="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-black/25 text-[#FEFAE0] truncate max-w-[130px]">
+                    <div className="flex items-center justify-between gap-2 mb-4">
+                      <span className="text-[11px] font-black uppercase tracking-widest px-3 py-1 rounded-full bg-white/10 text-[#FEFAE0]">
                         {item.category}
                       </span>
-                      {/* State Badge: Sebelum vs Sesudah */}
-                      <span
-                        className={`text-[11px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full shrink-0 whitespace-nowrap inline-flex items-center gap-1 ${
-                          isAfter ? 'bg-[#FEFAE0] text-[#283618]' : 'bg-[#FEFAE0]/20 text-white'
-                        }`}
-                      >
-                        {isAfter ? (
-                          <>
-                            <Sparkles className="w-3 h-3 text-[#283618] shrink-0" />
-                            <span>SESUDAH</span>
-                          </>
-                        ) : (
-                          <>
-                            <AlertCircle className="w-3 h-3 text-white shrink-0" />
-                            <span>SEBELUM</span>
-                          </>
-                        )}
+                      <span className="text-[11px] font-medium text-[#FEFAE0]/60 group-hover:text-[#FEFAE0]/90 transition-colors">
+                        {isAfter ? 'Hasil Kreasi' : 'Bahan Asal'}
                       </span>
                     </div>
 
-                    {/* Title & Subtitle with fixed minimum height */}
-                    <div className="min-h-[56px] flex flex-col justify-start">
-                      <h3 className="font-display text-lg font-black text-white leading-snug line-clamp-1">
+                    {/* Title & Subtitle */}
+                    <div className="mb-3">
+                      <h3 className="font-display text-xl font-black text-white leading-tight">
                         {item.title}
                       </h3>
-                      <p className="text-xs text-[#FEFAE0]/85 font-medium mt-0.5 line-clamp-1">
+                      <p className="text-xs text-[#FEFAE0]/80 font-medium mt-1">
                         {item.subtitle}
                       </p>
                     </div>
 
-                    {/* Visual Art Box */}
-                    <div className="my-3 h-36 rounded-2xl bg-black/25 flex flex-col items-center justify-center p-3 relative overflow-hidden group border border-white/10">
+                    {/* Visual Art Box: Clean without 'Ganti Tampilan' pill */}
+                    <div className="my-2 h-36 rounded-2xl bg-black/20 flex flex-col items-center justify-center p-3 relative overflow-hidden border border-white/10 transition-colors">
                       {item.id === 'reuse-1' && (
                         !isAfter ? (
-                          <div className="flex flex-col items-center justify-center text-center">
-                            <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-1 text-[#FEFAE0]">
+                          <div className="flex flex-col items-center justify-center text-center animate-fade-in">
+                            <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-2 text-[#FEFAE0]">
                               <Wine className="w-7 h-7 stroke-[2]" />
                             </div>
                             <span className="text-xs font-bold text-[#FEFAE0]">Botol Kaca Bekas Kopi</span>
-                            <span className="text-[10px] text-[#FEFAE0]/70">Limbah tak terurai</span>
+                            <span className="text-[10px] text-[#FEFAE0]/70 mt-0.5">Limbah tak terurai</span>
                           </div>
                         ) : (
                           <div className="flex flex-col items-center justify-center text-center animate-fade-in">
-                            <div className="w-12 h-12 rounded-xl bg-emerald-900/40 flex items-center justify-center mb-1 text-emerald-200">
+                            <div className="w-12 h-12 rounded-xl bg-emerald-900/40 flex items-center justify-center mb-2 text-emerald-200">
                               <Sparkles className="w-7 h-7 stroke-[2]" />
                             </div>
                             <span className="text-xs font-bold text-white">Pot Hidroponik Meja Kos</span>
-                            <span className="text-[10px] text-[#FEFAE0]">Estetik & hemat beli pot</span>
+                            <span className="text-[10px] text-[#FEFAE0]/85 mt-0.5">Estetik & hemat beli pot</span>
                           </div>
                         )
                       )}
 
                       {item.id === 'reuse-2' && (
                         !isAfter ? (
-                          <div className="flex flex-col items-center justify-center text-center">
-                            <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-1 text-[#FEFAE0]">
+                          <div className="flex flex-col items-center justify-center text-center animate-fade-in">
+                            <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-2 text-[#FEFAE0]">
                               <Package className="w-7 h-7 stroke-[2]" />
                             </div>
                             <span className="text-xs font-bold text-[#FEFAE0]">Kardus Paket Ekspedisi</span>
-                            <span className="text-[10px] text-[#FEFAE0]/70">Menumpuk di sudut kos</span>
+                            <span className="text-[10px] text-[#FEFAE0]/70 mt-0.5">Menumpuk di sudut kos</span>
                           </div>
                         ) : (
                           <div className="flex flex-col items-center justify-center text-center animate-fade-in">
-                            <div className="w-12 h-12 rounded-xl bg-emerald-900/40 flex items-center justify-center mb-1 text-emerald-200">
+                            <div className="w-12 h-12 rounded-xl bg-emerald-900/40 flex items-center justify-center mb-2 text-emerald-200">
                               <Sparkles className="w-7 h-7 stroke-[2]" />
                             </div>
                             <span className="text-xs font-bold text-white">Organizer Modul Bersekat</span>
-                            <span className="text-[10px] text-[#FEFAE0]">Rapi minimalis tanpa biaya</span>
+                            <span className="text-[10px] text-[#FEFAE0]/85 mt-0.5">Rapi minimalis tanpa biaya</span>
                           </div>
                         )
                       )}
 
                       {item.id === 'reuse-3' && (
                         !isAfter ? (
-                          <div className="flex flex-col items-center justify-center text-center">
-                            <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-1 text-[#FEFAE0]">
+                          <div className="flex flex-col items-center justify-center text-center animate-fade-in">
+                            <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-2 text-[#FEFAE0]">
                               <Shirt className="w-7 h-7 stroke-[2]" />
                             </div>
-                            <span className="text-xs font-bold text-[#FEFAE0]">Kaos Panitia Lama</span>
-                            <span className="text-[10px] text-[#FEFAE0]/70">Hanya diam di lemari</span>
+                            <span className="text-xs font-bold text-[#FEFAE0]">Baju Bayi Bekas</span>
+                            <span className="text-[10px] text-[#FEFAE0]/70 mt-0.5">Pakaian tak terpakai</span>
                           </div>
                         ) : (
                           <div className="flex flex-col items-center justify-center text-center animate-fade-in">
-                            <TotebagIllustration className="w-20 h-20 drop-shadow-lg -my-1" />
-                            <span className="text-xs font-bold text-white mt-1">Totebag Tanpa Jahit</span>
-                            <span className="text-[10px] text-[#FEFAE0]">Praktis & estetik dibawa belanja</span>
+                            <div className="w-12 h-12 rounded-xl bg-emerald-900/40 flex items-center justify-center mb-2 text-emerald-200">
+                              <Sparkles className="w-7 h-7 stroke-[2]" />
+                            </div>
+                            <span className="text-xs font-bold text-white">Selimut Hangat</span>
+                            <span className="text-[10px] text-[#FEFAE0]/85 mt-0.5">Kreasi kain perca lembut</span>
                           </div>
                         )
                       )}
-
-                      {/* Tap to switch indicator */}
-                      <div className="absolute bottom-2 right-2 text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/20 text-white flex items-center gap-1 backdrop-blur-xs">
-                        <ArrowRightLeft className="w-2.5 h-2.5" />
-                        <span>Ganti Tampilan</span>
-                      </div>
                     </div>
 
-                    {/* Description Area */}
-                    <div className="min-h-[115px] text-xs leading-relaxed flex flex-col justify-start">
+                    {/* Transformasi Caption - Bersih & Estetik */}
+                    {item.captionUnderPhoto && (
+                      <div className="py-2 px-3 rounded-xl bg-black/25 border border-white/10 text-center my-3">
+                        <span className="font-display text-xs font-bold text-amber-200/90 tracking-wide block">
+                          {item.captionUnderPhoto}
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Deskripsi & Manfaat Kreasi */}
+                    <div className="text-xs leading-relaxed mt-2 min-h-[95px]">
                       {isAfter ? (
-                        <div>
-                          <p className="text-white font-medium mb-2 line-clamp-2">{item.after.description}</p>
-                          <div className="p-2 rounded-xl bg-white/15 text-[11px] text-[#FEFAE0] flex items-start gap-1.5">
-                            <Check className="w-3.5 h-3.5 text-[#FEFAE0] shrink-0 mt-0.5" />
-                            <span className="line-clamp-2"><strong>Manfaat:</strong> {item.after.benefit}</span>
+                        <div className="space-y-2">
+                          <p className="text-white/90 font-normal leading-relaxed line-clamp-2">
+                            {item.after.description}
+                          </p>
+                          <div className="p-2.5 rounded-xl bg-white/10 text-[11px] text-[#FEFAE0] flex items-start gap-2">
+                            <Check className="w-3.5 h-3.5 text-emerald-300 shrink-0 mt-0.5" />
+                            <span className="leading-snug"><strong>Manfaat:</strong> {item.after.benefit}</span>
                           </div>
                         </div>
                       ) : (
-                        <div>
-                          <p className="text-[#FEFAE0]/95 font-medium mb-2 line-clamp-2">{item.before.description}</p>
-                          <div className="p-2 rounded-xl bg-black/25 text-[11px] text-amber-200 flex items-start gap-1.5">
-                            <AlertCircle className="w-3.5 h-3.5 text-amber-300 shrink-0 mt-0.5" />
-                            <span className="line-clamp-2">{item.before.drawback}</span>
+                        <div className="space-y-2">
+                          <p className="text-[#FEFAE0]/90 font-normal leading-relaxed line-clamp-2">
+                            {item.before.description}
+                          </p>
+                          <div className="p-2.5 rounded-xl bg-black/25 text-[11px] text-amber-200 flex items-start gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0 mt-1.5" />
+                            <span className="leading-snug">{item.before.drawback}</span>
                           </div>
                         </div>
                       )}
                     </div>
                   </div>
 
-                  {/* Footnote inside card */}
-                  <div className="pt-2 text-center text-[10px] font-bold text-[#FEFAE0]/75 border-t border-white/10">
-                    {isAfter ? 'Klik untuk lihat kondisi awal' : 'Klik panah kanan untuk lihat hasil kreasi'}
+                  {/* Minimal subtle hint on hover */}
+                  <div className="pt-3 mt-2 text-center text-[10px] text-[#FEFAE0]/50 group-hover:text-[#FEFAE0]/80 transition-colors border-t border-white/10">
+                    {isAfter ? 'Ketuk kartu untuk melihat bahan asal' : 'Ketuk kartu untuk melihat hasil kreasi'}
                   </div>
                 </div>
-              </div>
-
-              {/* Pengontrol Sebelum/Sesudah Terpadu di Bawah Kartu - Rapi & Bebas Tumpang Tindih */}
-              <div className="flex items-center justify-center gap-2.5 mt-3.5">
-                <button
-                  type="button"
-                  onClick={() => toggleCardState(item.id, 0)}
-                  aria-label="Lihat Sebelum"
-                  className={`w-7 h-7 rounded-full flex items-center justify-center shadow transition-all cursor-pointer ${
-                    !isAfter
-                      ? 'bg-black/15 text-[#FEFAE0]/40 cursor-default'
-                      : 'bg-[#283618] hover:bg-[#1e2a12] text-white active:scale-95 hover:scale-110'
-                  }`}
-                  title="Kondisi Sebelum"
-                >
-                  <ChevronLeft className="w-4 h-4 stroke-[3]" />
-                </button>
-
-                {/* Indicator Dots */}
-                <div className="flex items-center gap-1.5">
-                  <button
-                    type="button"
-                    onClick={() => toggleCardState(item.id, 0)}
-                    aria-label="Ke Sebelum"
-                    className={`h-2.5 rounded-full transition-all cursor-pointer ${
-                      !isAfter ? 'w-6 bg-[#5B4436] shadow' : 'w-2.5 bg-[#283618]/30 hover:bg-[#283618]'
-                    }`}
-                    title="Kondisi Sebelum"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => toggleCardState(item.id, 1)}
-                    aria-label="Ke Sesudah"
-                    className={`h-2.5 rounded-full transition-all cursor-pointer ${
-                      isAfter ? 'w-6 bg-[#283618] shadow' : 'w-2.5 bg-[#283618]/30 hover:bg-[#283618]'
-                    }`}
-                    title="Kondisi Sesudah (Kreasi)"
-                  />
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => toggleCardState(item.id, 1)}
-                  aria-label="Lihat Sesudah"
-                  className={`w-7 h-7 rounded-full flex items-center justify-center shadow transition-all cursor-pointer ${
-                    isAfter
-                      ? 'bg-black/15 text-[#FEFAE0]/40 cursor-default'
-                      : 'bg-[#283618] hover:bg-[#1e2a12] text-white active:scale-95 hover:scale-110'
-                  }`}
-                  title="Lihat Hasil Kreasi Sesudah"
-                >
-                  <ChevronRight className="w-4 h-4 stroke-[3]" />
-                </button>
               </div>
             </div>
           );

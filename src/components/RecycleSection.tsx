@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { RotateCw, RefreshCw, Sparkles, ArrowRight } from 'lucide-react';
+import { RefreshCw } from 'lucide-react';
 import { RECYCLE_PHASES } from '../data/content';
 import { sounds } from '../utils/audio';
 import { GrassDivider } from './GrassDivider';
@@ -28,13 +28,13 @@ export const RecycleSection: React.FC = () => {
     const nextIndex = (activeStepIndex + 1) % RECYCLE_PHASES.length;
     setActiveStepIndex(nextIndex);
     // Continuous rotation counter-clockwise to bring next index (i) to apex (0 deg)
-    setWheelRotation(-nextIndex * 72);
+    setWheelRotation(-nextIndex * 90);
   };
 
   const handleSelectPhase = (index: number) => {
     playRatchetSequence(3);
     setActiveStepIndex(index);
-    setWheelRotation(-index * 72);
+    setWheelRotation(-index * 90);
   };
 
   // Direct Interactive Drag-to-Rotate Semicircular Half Wheel
@@ -66,14 +66,14 @@ export const RecycleSection: React.FC = () => {
     const newRotation = startRotationRef.current + deltaAngle;
     setWheelRotation(newRotation);
 
-    // Play click sound every 20 degrees of rotation
-    if (Math.abs(newRotation - lastClickAngleRef.current) >= 20) {
+    // Play click sound every 22.5 degrees of rotation
+    if (Math.abs(newRotation - lastClickAngleRef.current) >= 22.5) {
       sounds.playWheelClick();
       lastClickAngleRef.current = newRotation;
     }
 
-    // Determine current active phase while rotating (whichever spoke is closest to top 0 deg)
-    const activeIdx = (((Math.round(-newRotation / 72) % 5) + 5) % 5);
+    // Determine current active phase while rotating (whichever spoke is closest to top 0 deg, 90 deg step)
+    const activeIdx = (((Math.round(-newRotation / 90) % 4) + 4) % 4);
     if (activeIdx !== activeStepIndex) {
       setActiveStepIndex(activeIdx);
     }
@@ -83,10 +83,10 @@ export const RecycleSection: React.FC = () => {
     if (!isDragging) return;
     setIsDragging(false);
 
-    // Snap to closest 72 deg increment so the number sits precisely at the top
-    const snapIndex = (((Math.round(-wheelRotation / 72) % 5) + 5) % 5);
+    // Snap to closest 90 deg increment so the number sits precisely at the top
+    const snapIndex = (((Math.round(-wheelRotation / 90) % 4) + 4) % 4);
     setActiveStepIndex(snapIndex);
-    setWheelRotation(-snapIndex * 72);
+    setWheelRotation(-snapIndex * 90);
     sounds.playWheelClick();
 
     try {
@@ -109,88 +109,60 @@ export const RecycleSection: React.FC = () => {
           UBAH JADI BARU
         </div>
         <p className="font-body text-[#283618]/90 text-sm sm:text-base font-semibold mt-2 max-w-md mx-auto">
-          sampah bukan akhir cerita, bisa jadi awal dari sesuatu yang baru.
+          alur pemrosesan sampah daur ulang menjadi produk baru bernilai guna.
         </p>
       </div>
 
-      {/* Roda Siklus Interaktif Visual */}
+      {/* Roda Siklus Interaktif Visual (4 Tahap Kuadran 90 Derajat) */}
       <div className="w-full relative flex flex-col items-center">
-        {/* Dual Cards - 2 Columns side-by-side on mobile and desktop */}
-        <div className="grid grid-cols-2 gap-2 sm:gap-4 md:gap-6 w-full mb-6 items-stretch">
-          {/* Left Card: Input Bahan Sampah */}
-          <div className="p-2.5 sm:p-5 rounded-2xl sm:rounded-3xl bg-[#5B4436] text-[#FEFAE0] shadow-md sm:shadow-xl border-2 border-[#433126] flex flex-col justify-between min-h-[140px] sm:min-h-[170px] transform hover:-translate-y-2 hover:scale-[1.025] hover:shadow-2xl transition-all duration-300 group cursor-default">
-            <div>
-              <div className="h-5 sm:h-6 flex items-center justify-between mb-1 sm:mb-2">
-                <span className="text-[7.5px] sm:text-[11px] font-bold uppercase tracking-wider px-1.5 sm:px-2.5 py-0.5 rounded-full bg-black/25 text-[#FEFAE0] truncate group-hover:scale-105 transition-transform">
-                  Bahan Masuk
-                </span>
-                <span className="font-display text-[8px] sm:text-xs font-black text-[#FEFAE0] whitespace-nowrap group-hover:scale-110 transition-transform">
-                  Tahap {currentPhase.step}/5
-                </span>
-              </div>
-              <h4 className="font-display text-xs sm:text-lg font-black text-white leading-tight group-hover:text-amber-100 transition-colors">{currentPhase.title}</h4>
-              <p className="text-[8px] sm:text-xs text-[#FEFAE0]/90 mt-1 leading-tight sm:leading-relaxed line-clamp-3 sm:line-clamp-none">
-                {currentPhase.description}
-              </p>
-            </div>
-            <div className="pt-1.5 sm:pt-2 text-[7px] sm:text-[10px] text-[#FEFAE0]/80 font-bold uppercase tracking-wider truncate">
-              {currentPhase.material}
-            </div>
-          </div>
-
-          {/* Right Card: Transformasi Hasil */}
-          <div className="p-2.5 sm:p-5 rounded-2xl sm:rounded-3xl bg-[#283618] text-[#FEFAE0] shadow-md sm:shadow-xl border-2 border-[#1e2a12] flex flex-col justify-between min-h-[140px] sm:min-h-[170px] transform hover:-translate-y-2 hover:scale-[1.025] hover:shadow-2xl transition-all duration-300 group cursor-default">
-            <div>
-              <div className="h-5 sm:h-6 flex items-center justify-between mb-1 sm:mb-2">
-                <span className="text-[7.5px] sm:text-[11px] font-bold uppercase tracking-wider px-1.5 sm:px-2.5 py-0.5 rounded-full bg-black/25 text-[#FEFAE0] truncate group-hover:scale-105 transition-transform">
-                  Aksi & Hasil
-                </span>
-                <span className="text-[8px] sm:text-xs font-bold text-white flex items-center gap-0.5 whitespace-nowrap group-hover:scale-110 transition-transform">
-                  <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#FEFAE0] shrink-0 animate-spin" style={{ animationDuration: '8s' }} /> Sirkular
-                </span>
-              </div>
-              <h4 className="font-display text-xs sm:text-lg font-black text-white leading-tight group-hover:text-amber-100 transition-colors">{currentPhase.subtitle}</h4>
-              <p className="text-[8px] sm:text-xs text-white/95 mt-1 leading-tight sm:leading-relaxed line-clamp-3 sm:line-clamp-none">
-                {currentPhase.campusAction}
-              </p>
-            </div>
-            <div className="pt-1.5 sm:pt-2 text-[7px] sm:text-[10px] text-emerald-100 font-bold uppercase tracking-wider truncate">
-              Output: Nilai Tambah
-            </div>
-          </div>
-        </div>
-
-        {/* SETIR SETENGAH LINGKARAN DENGAN KOTAK ANGKA DI ATASNYA (Sesuai Sketsa Pengguna) */}
-        <div className="relative my-4 flex flex-col items-center select-none w-full max-w-lg">
+        {/* SETIR SETENGAH LINGKARAN DENGAN KOTAK ANGKA DI ATASNYA */}
+        <div className="relative my-2 flex flex-col items-center select-none w-full max-w-lg">
           
-          {/* 1. KOTAK ANGKA DI ATAS RODA (Matching the "ANGKA" rectangle in user's sketch) */}
-          <div className="w-full max-w-xs sm:max-w-sm rounded-3xl bg-[#283618] text-[#FEFAE0] p-4 sm:p-5 shadow-2xl border-4 border-[#1e2a12] flex flex-col items-center text-center relative z-30 transition-all duration-300 transform hover:scale-[1.04] hover:-translate-y-1.5 hover:shadow-2xl cursor-default group">
-            {/* Top tiny label */}
-            <span className="text-[10px] font-black uppercase tracking-widest text-[#FEFAE0]/80 mb-1 group-hover:text-white transition-colors">
-              INDIKATOR TAHAP TERPILIH
-            </span>
-
-            {/* BIG PROMINENT NUMBER (ANGKA) */}
-            <div className="font-display text-5xl sm:text-6xl font-black text-white leading-none tracking-tight my-1 tabular-nums drop-shadow-md group-hover:scale-110 group-hover:text-[#FEFAE0] transition-all">
-              0{currentPhase.step}
+          {/* 1. KOTAK INDIKATOR TAHAP: BAHAN & AKSI DIGABUNGKAN */}
+          <div className="w-full max-w-sm sm:max-w-md rounded-3xl bg-[#283618] text-[#FEFAE0] p-4 sm:p-5 shadow-2xl border-4 border-[#1e2a12] flex flex-col items-center relative z-30 transition-all duration-300">
+            {/* Header: Indikator Nomor Tahap */}
+            <div className="flex items-center justify-between w-full border-b border-white/15 pb-2.5 mb-2.5">
+              <span className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-[#FEFAE0]/80">
+                INDIKATOR TAHAP
+              </span>
+              <span className="px-2.5 py-0.5 rounded-full bg-amber-300 text-[#283618] font-display font-black text-xs sm:text-sm shadow-sm">
+                0{currentPhase.step} / 04
+              </span>
             </div>
 
-            {/* Title corresponding to this number */}
-            <h4 className="font-display text-sm sm:text-base font-black text-[#FEFAE0] mt-1 uppercase tracking-wide group-hover:scale-105 transition-transform">
-              {currentPhase.title.split('. ')[1] || currentPhase.title}
-            </h4>
-            <p className="text-xs text-white/90 font-medium mt-1 line-clamp-1">
-              {currentPhase.subtitle}
-            </p>
+            {/* Gabungan Aksi & Bahan */}
+            <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-left">
+              {/* Kolom Aksi */}
+              <div className="bg-black/25 rounded-2xl p-3 border border-white/10 flex flex-col justify-center">
+                <span className="text-[10px] font-black uppercase tracking-wider text-amber-300 mb-1 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-300" />
+                  Aksi
+                </span>
+                <span className="font-display text-sm sm:text-base font-black text-white leading-snug">
+                  {currentPhase.action || currentPhase.title}
+                </span>
+              </div>
+
+              {/* Kolom Bahan */}
+              <div className="bg-black/25 rounded-2xl p-3 border border-white/10 flex flex-col justify-center">
+                <span className="text-[10px] font-black uppercase tracking-wider text-[#DDA15E] mb-1 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#DDA15E]" />
+                  Bahan
+                </span>
+                <span className="font-display text-xs sm:text-sm font-bold text-[#FEFAE0]/95 leading-snug">
+                  {currentPhase.material}
+                </span>
+              </div>
+            </div>
 
             {/* Downward indicator notch pointing to the top number on the half-wheel */}
             <div className="absolute -bottom-3.5 left-1/2 -translate-x-1/2 w-0 h-0 border-x-8 border-x-transparent border-t-[14px] border-t-[#1e2a12] drop-shadow" />
           </div>
 
-          {/* 2. RODA SETENGAH LINGKARAN (Setir Lebih Besar, Poros Hijau Ringkas & Elegan) */}
+          {/* 2. RODA SETENGAH LINGKARAN (4 Kuadran: 0, 90, 180, 270) */}
           <div className="relative mt-6 flex flex-col items-center w-full">
             
-            {/* Semicircular Viewport (Top half of the wheel arch - Big & Prominent) */}
+            {/* Semicircular Viewport */}
             <div className="relative w-[390px] h-[200px] sm:w-[460px] sm:h-[235px] overflow-hidden flex justify-center items-start">
               {/* Full circular wheel positioned so its top half fills the viewport */}
               <div
@@ -199,13 +171,13 @@ export const RecycleSection: React.FC = () => {
                 onPointerMove={handlePointerMove}
                 onPointerUp={handlePointerUp}
                 onPointerCancel={handlePointerUp}
-                title="Seret roda setengah lingkaran atau klik angka untuk memilih tahap"
+                title="Seret roda atau klik angka untuk memilih tahap"
                 className={`relative w-[390px] h-[390px] sm:w-[460px] sm:h-[460px] rounded-full flex items-center justify-center touch-none select-none ${
                   isDragging ? 'cursor-grabbing' : 'cursor-grab'
                 }`}
                 style={{ touchAction: 'none' }}
               >
-                {/* Rotating Wheel Group (Outer Rim, Radial Spokes, and Number Badges) */}
+                {/* Rotating Wheel Group */}
                 <div
                   className={`absolute inset-0 rounded-full flex items-center justify-center ${
                     isDragging ? 'transition-none' : 'transition-transform duration-500 ease-out'
@@ -214,30 +186,76 @@ export const RecycleSection: React.FC = () => {
                     transform: `rotate(${wheelRotation}deg)`,
                   }}
                 >
-                  {/* Outer Circular Steering Rim (Setir Bulat Besar & Megah) */}
+                  {/* Outer Circular Steering Rim */}
                   <div
                     className="w-full h-full rounded-full border-[22px] sm:border-[26px] border-[#5B4436] shadow-2xl relative flex items-center justify-center bg-[#FEFAE0]/20"
                     style={{
                       boxShadow: '0 14px 35px -4px rgba(0, 0, 0, 0.4), inset 0 2px 8px 0 rgba(255, 255, 255, 0.25)',
                     }}
                   >
+                    {/* 8 Gagang Kemudi Luar (Handles / Pegs di Luar Lingkar Setir) */}
+                    {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => {
+                      const isCardinal = angle % 90 === 0;
+                      return (
+                        <div
+                          key={`handle-${i}`}
+                          className="absolute pointer-events-none flex items-center justify-center"
+                          style={{
+                            height: '100%',
+                            width: '100%',
+                            transform: `rotate(${angle}deg)`,
+                          }}
+                        >
+                          {/* Gagang kayu atas */}
+                          <div
+                            className={`absolute -top-4 sm:-top-5 rounded-t-lg bg-gradient-to-b from-[#6f5342] to-[#433126] border border-[#2e2119] shadow-md ${
+                              isCardinal ? 'w-3.5 sm:w-4 h-6 sm:h-7' : 'w-2.5 sm:w-3 h-5 sm:h-6 opacity-85'
+                            }`}
+                          >
+                            {/* Knob bulat di ujung gagang */}
+                            <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-4 h-3 sm:w-5 sm:h-3.5 rounded-full bg-[#5B4436] border border-[#2e2119] shadow-sm" />
+                          </div>
+                        </div>
+                      );
+                    })}
+
                     {/* Subtle inner grip groove */}
                     <div className="absolute inset-[-4px] rounded-full border border-dashed border-[#FEFAE0]/40 pointer-events-none" />
 
-                    {/* 5 Long Radial Spokes (Jeruji Setir Panjang Menuju Puncak) */}
-                    {[0, 72, 144, 216, 288].map((angle, i) => (
-                      <div
-                        key={`spoke-${i}`}
-                        className="absolute w-4 sm:w-5 bg-[#433126] rounded-full shadow-inner"
-                        style={{
-                          height: '100%',
-                          transform: `rotate(${angle}deg)`,
-                        }}
-                      />
-                    ))}
+                    {/* Jeruji / Spokes Padat (8 Jeruji: 4 Utama Tebal + 4 Diagonal) */}
+                    {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => {
+                      const isCardinal = angle % 90 === 0;
+                      return (
+                        <div
+                          key={`spoke-${i}`}
+                          className={`absolute rounded-full shadow-inner ${
+                            isCardinal
+                              ? 'w-4 sm:w-5 bg-gradient-to-r from-[#38281e] via-[#4d392c] to-[#38281e] border-x border-[#2b1f17]/60'
+                              : 'w-2.5 sm:w-3 bg-[#3d2b20] opacity-90'
+                          }`}
+                          style={{
+                            height: '100%',
+                            transform: `rotate(${angle}deg)`,
+                          }}
+                        >
+                          {/* Aksen Rivet Kuningan di jeruji */}
+                          {isCardinal && (
+                            <>
+                              <div className="absolute top-[22%] left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-amber-300/80 shadow-sm" />
+                              <div className="absolute bottom-[22%] left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-amber-300/80 shadow-sm" />
+                            </>
+                          )}
+                        </div>
+                      );
+                    })}
 
-                    {/* 5 Step Indicator Studs / Numbers on the wheel */}
-                    {[0, 72, 144, 216, 288].map((angle, i) => {
+                    {/* Cincin Lingkar Dalam (Golden/Brass Inner Concentric Ring persis seperti di referensi) */}
+                    <div className="absolute w-[60%] h-[60%] rounded-full border-2 sm:border-[2.5px] border-amber-400/90 pointer-events-none flex items-center justify-center shadow-sm">
+                      <div className="w-full h-full rounded-full border border-dashed border-amber-200/40" />
+                    </div>
+
+                    {/* 4 Step Indicator Studs / Numbers on the wheel */}
+                    {[0, 90, 180, 270].map((angle, i) => {
                       const stepNum = i + 1;
                       const isStepActive = currentPhase.step === stepNum;
                       const rad = (angle - 90) * (Math.PI / 180);
@@ -256,12 +274,12 @@ export const RecycleSection: React.FC = () => {
                           className={`absolute w-10 h-10 sm:w-11 sm:h-11 rounded-full font-display font-black text-xs sm:text-sm flex items-center justify-center transition-all cursor-pointer ${
                             isStepActive
                               ? 'bg-[#283618] text-[#FEFAE0] ring-4 ring-[#FEFAE0] scale-125 z-20 shadow-xl'
-                              : 'bg-[#433126] text-[#FEFAE0] hover:bg-[#5B4436] hover:scale-110 z-10 shadow-md'
+                              : 'bg-[#433126] text-[#FEFAE0] hover:bg-[#5B4436] hover:scale-110 z-10 shadow-md border-2 border-[#5B4436]'
                           }`}
                           style={{
                             transform: `translate(${x}px, ${y}px) rotate(${-wheelRotation}deg)`,
                           }}
-                          title={`Pilih Tahap 0${stepNum}`}
+                          title={`Pilih Tahap 0${stepNum}: ${RECYCLE_PHASES[i]?.title}`}
                         >
                           {stepNum}
                         </button>
@@ -271,7 +289,7 @@ export const RecycleSection: React.FC = () => {
                 </div>
               </div>
 
-              {/* POROS HIJAU STATIS BERUKURAN KECIL & RINGKAS (TIDAK MENGHALANGI JERUJI SETIR) */}
+              {/* POROS HIJAU STATIS */}
               <button
                 type="button"
                 onClick={(e) => {
@@ -291,45 +309,31 @@ export const RecycleSection: React.FC = () => {
               </button>
             </div>
 
-            {/* 3. HORIZONTAL BASELINE BAR (Garis Dasar Sesuai Sketsa Pengguna) */}
+            {/* 3. HORIZONTAL BASELINE BAR */}
             <div className="w-full max-w-[410px] sm:max-w-[480px] h-4 bg-[#433126] rounded-full border-t-2 border-[#5B4436] shadow-lg -mt-2 z-20 flex items-center justify-center relative">
               <div className="w-28 h-1.5 rounded-full bg-[#5B4436]/60" />
             </div>
-          </div>
 
-          {/* Quick Step Buttons (1, 2, 3, 4, 5) & Turn Button */}
-          <div className="flex flex-col items-center gap-3 w-full mt-4">
-            {/* Direct Step Pills */}
-            <div className="flex items-center justify-center gap-2">
-              {RECYCLE_PHASES.map((p, idx) => (
-                <button
-                  key={p.step}
-                  type="button"
-                  onClick={() => handleSelectPhase(idx)}
-                  className={`w-9 h-9 sm:w-10 sm:h-10 rounded-2xl font-display font-black text-xs sm:text-sm flex items-center justify-center transition-all cursor-pointer shadow-sm ${
-                    activeStepIndex === idx
-                      ? 'bg-[#283618] text-[#FEFAE0] scale-110 shadow-md ring-2 ring-[#283618]/40'
-                      : 'bg-[#5B4436] text-[#FEFAE0] hover:bg-[#433126]'
-                  }`}
-                >
-                  {p.step}
-                </button>
-              ))}
+            {/* 4. PENANDA POSISI SETIR (KECIL & NON-INTERAKTIF, MURNI PENANDA POSISI) */}
+            <div className="mt-4 flex flex-col items-center select-none pointer-events-none">
+              <div className="flex items-center gap-2.5 sm:gap-3">
+                {RECYCLE_PHASES.map((phase, idx) => {
+                  const isActive = activeStepIndex === idx;
+                  return (
+                    <div
+                      key={`step-mark-${phase.step}`}
+                      className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center font-display font-black text-xs transition-all duration-300 ${
+                        isActive
+                          ? 'bg-[#283618] text-[#FEFAE0] ring-3 ring-amber-300 scale-110 shadow-md'
+                          : 'bg-[#5B4436]/35 text-[#283618]/70 border border-[#5B4436]/40'
+                      }`}
+                    >
+                      {phase.step}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-
-            {/* Main Action Spin Button */}
-            <button
-              type="button"
-              onClick={handleNextPhase}
-              className="flex items-center gap-2 px-7 py-3 rounded-full bg-[#5B4436] text-[#FEFAE0] font-display font-black text-sm tracking-wide shadow-lg hover:bg-[#433126] active:scale-95 transition-all transform hover:-translate-y-0.5 cursor-pointer border border-[#433126]"
-            >
-              <RotateCw className="w-4 h-4 stroke-[2.5]" />
-              <span>Putar Setir ke Tahap Berikutnya</span>
-            </button>
-
-            <span className="text-[11px] font-semibold text-[#283618]/80 text-center max-w-sm">
-              Angka di puncak atas setir adalah tahap yang dipilih. Seret roda atau klik angka untuk memutar.
-            </span>
           </div>
         </div>
       </div>
