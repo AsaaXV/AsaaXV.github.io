@@ -82,22 +82,6 @@ export const ReduceSection: React.FC = () => {
     }
   };
 
-  // Interactive simulation state matching Screenshot_2026_1001_021639.jpg.jpeg
-  const [simTumbler, setSimTumbler] = useState(true);
-  const [simTotebag, setSimTotebag] = useState(true);
-  const [simFood, setSimFood] = useState(true);
-
-  // Calculation per semester (120 active campus days)
-  const semesterDays = 120;
-  const plasticCount = (simTumbler ? 2 * semesterDays : 0) + (simTotebag ? 3 * semesterDays : 0);
-  const moneySaved = (simTumbler ? 10000 * semesterDays : 0) + (simFood ? 6000 * semesterDays : 0);
-  const foodSavedKg = simFood ? Math.round(0.3 * semesterDays) : 0;
-
-  const toggleSim = (setter: React.Dispatch<React.SetStateAction<boolean>>) => {
-    sounds.playPop();
-    setter((prev) => !prev);
-  };
-
   return (
     <section id="reduce" className="py-8 sm:py-12 px-2 sm:px-4 max-w-4xl mx-auto flex flex-col items-center">
       {/* Header matching 3R DMI.jpg */}
@@ -337,133 +321,8 @@ export const ReduceSection: React.FC = () => {
         </div>
       )}
 
-      {/* Interactive Impact Simulator matching Screenshot_2026_1001_021639.jpg.jpeg */}
-      <div className="w-full max-w-4xl mt-6 p-4 sm:p-6 rounded-3xl bg-[#5B4436]/15 border-2 border-[#5B4436]/30 shadow-lg">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-          <div>
-            <span className="text-[10px] font-black uppercase tracking-widest text-[#5B4436]">
-              SIMULASI INTERAKTIF
-            </span>
-            <h3 className="font-display text-base sm:text-lg font-black text-[#283618]">
-              Kalkulator Jejak Kampus Pribadi
-            </h3>
-            <p className="text-xs text-[#5B4436] mt-0.5">
-              Simulasi pengurangan sampah Anda selama 1 semester (120 hari kuliah di UNM)
-            </p>
-          </div>
-          <div className="text-[11px] font-bold text-[#283618] bg-white/70 px-3 py-1 rounded-full self-start sm:self-auto border border-[#283618]/20">
-            Pilih kebiasaan Anda:
-          </div>
-        </div>
-
-        {/* 3 Toggle Toggles */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
-          <button
-            type="button"
-            onClick={() => toggleSim(setSimTumbler)}
-            className={`p-3.5 rounded-2xl border-2 text-left transition-all cursor-pointer flex items-center justify-between ${
-              simTumbler
-                ? 'bg-[#283618] text-[#FEFAE0] border-[#1e2a12] shadow-md scale-[1.02]'
-                : 'bg-white/60 text-[#283618] border-stone-300 opacity-60 hover:opacity-80'
-            }`}
-          >
-            <div className="flex items-center gap-2.5">
-              <TumblerIllustration className="w-6 h-6 shrink-0" />
-              <div>
-                <div className="font-display text-xs font-bold leading-tight">Bawa Tumbler Sendiri</div>
-                <div className="text-[10px] opacity-80 mt-0.5">Hemat 2 cup/hari</div>
-              </div>
-            </div>
-            <div
-              className={`w-5 h-5 rounded-full border-2 flex items-center justify-center font-black text-[10px] ${
-                simTumbler ? 'bg-[#FEFAE0] text-[#283618] border-[#FEFAE0]' : 'border-[#283618]'
-              }`}
-            >
-              {simTumbler ? '✓' : ''}
-            </div>
-          </button>
-
-          <button
-            type="button"
-            onClick={() => toggleSim(setSimTotebag)}
-            className={`p-3.5 rounded-2xl border-2 text-left transition-all cursor-pointer flex items-center justify-between ${
-              simTotebag
-                ? 'bg-[#283618] text-[#FEFAE0] border-[#1e2a12] shadow-md scale-[1.02]'
-                : 'bg-white/60 text-[#283618] border-stone-300 opacity-60 hover:opacity-80'
-            }`}
-          >
-            <div className="flex items-center gap-2.5">
-              <TotebagIllustration className="w-6 h-6 shrink-0" />
-              <div>
-                <div className="font-display text-xs font-bold leading-tight">Bawa Totebag Belanja</div>
-                <div className="text-[10px] opacity-80 mt-0.5">Hemat 3 kresek/hari</div>
-              </div>
-            </div>
-            <div
-              className={`w-5 h-5 rounded-full border-2 flex items-center justify-center font-black text-[10px] ${
-                simTotebag ? 'bg-[#FEFAE0] text-[#283618] border-[#FEFAE0]' : 'border-[#283618]'
-              }`}
-            >
-              {simTotebag ? '✓' : ''}
-            </div>
-          </button>
-
-          <button
-            type="button"
-            onClick={() => toggleSim(setSimFood)}
-            className={`p-3.5 rounded-2xl border-2 text-left transition-all cursor-pointer flex items-center justify-between ${
-              simFood
-                ? 'bg-[#283618] text-[#FEFAE0] border-[#1e2a12] shadow-md scale-[1.02]'
-                : 'bg-white/60 text-[#283618] border-stone-300 opacity-60 hover:opacity-80'
-            }`}
-          >
-            <div className="flex items-center gap-2.5">
-              <SedotanBesiIllustration className="w-6 h-6 shrink-0" />
-              <div>
-                <div className="font-display text-xs font-bold leading-tight">Habiskan Porsi Makan</div>
-                <div className="text-[10px] opacity-80 mt-0.5">0.3 kg food waste/hari</div>
-              </div>
-            </div>
-            <div
-              className={`w-5 h-5 rounded-full border-2 flex items-center justify-center font-black text-[10px] ${
-                simFood ? 'bg-[#FEFAE0] text-[#283618] border-[#FEFAE0]' : 'border-[#283618]'
-              }`}
-            >
-              {simFood ? '✓' : ''}
-            </div>
-          </button>
-        </div>
-
-        {/* Dynamic Impact Counters */}
-        <div className="grid grid-cols-3 gap-2 sm:gap-4 p-4 rounded-2xl bg-[#5B4436] text-[#FEFAE0] text-center border-2 border-[#433126] shadow-inner">
-          <div className="flex flex-col items-center">
-            <span className="text-[10px] sm:text-xs font-bold text-[#FEFAE0]/80">Sampah Plastik Ditekan</span>
-            <span className="font-display text-2xl sm:text-3xl font-black text-white my-0.5">
-              {plasticCount.toLocaleString('id-ID')}
-            </span>
-            <span className="text-[9px] sm:text-[10px] text-[#FEFAE0]/80">pcs sampah sekali pakai</span>
-          </div>
-
-          <div className="flex flex-col items-center border-x border-[#FEFAE0]/30 px-1">
-            <span className="text-[10px] sm:text-xs font-bold text-[#FEFAE0]/80">Uang Saku Dihemat</span>
-            <span className="font-display text-2xl sm:text-3xl font-black text-emerald-300 my-0.5">
-              Rp {moneySaved.toLocaleString('id-ID')}
-            </span>
-            <span className="text-[9px] sm:text-[10px] text-[#FEFAE0]/80">selama 1 semester</span>
-          </div>
-
-          <div className="flex flex-col items-center">
-            <span className="text-[10px] sm:text-xs font-bold text-[#FEFAE0]/80">Pencegahan Food Waste</span>
-            <span className="font-display text-2xl sm:text-3xl font-black text-white my-0.5">
-              {foodSavedKg} kg
-            </span>
-            <span className="text-[9px] sm:text-[10px] text-[#FEFAE0]/80">mencegah gas metana TPA</span>
-          </div>
-        </div>
-      </div>
-
       {/* Grass Silhouette Line Divider matching reference images */}
-      <GrassDivider variant="bottom" className="w-full mt-8" />
+      <GrassDivider variant="bottom" className="w-full mt-10" />
     </section>
   );
 };

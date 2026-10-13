@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { X, Volume2, VolumeX, BookOpen, Smartphone, Monitor } from 'lucide-react';
+import { X, Volume2, VolumeX, Smartphone, Monitor } from 'lucide-react';
 import { sounds } from '../utils/audio';
 
 interface NavbarProps {
-  onOpenReport: () => void;
+  onOpenReport?: () => void;
   isMobileFrame?: boolean;
   onToggleFrame?: () => void;
   onOpenSecret?: () => void;
@@ -77,19 +77,6 @@ export const Navbar: React.FC<NavbarProps> = ({
           <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-[#283618]/15 text-[#283618] group-hover:bg-[#283618]/25 transition-colors">
             DKV UNM
           </span>
-        </div>
-
-        {/* Right actions: clean button without icon or asset button on top bar */}
-        <div className="flex items-center">
-          <button
-            onClick={() => {
-              sounds.playPop();
-              onOpenReport();
-            }}
-            className="px-4 py-2 rounded-full text-xs sm:text-sm font-bold bg-[#5B4436] text-[#FEFAE0] hover:bg-[#433126] shadow-sm transition active:scale-95 cursor-pointer"
-          >
-            Laporan DKV
-          </button>
         </div>
       </header>
 
@@ -175,18 +162,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <span className="text-[11px] font-semibold text-[#5B4436]">Ubah</span>
                   </button>
                 )}
-
-                <button
-                  onClick={() => {
-                    sounds.playPop();
-                    setIsOpen(false);
-                    onOpenReport();
-                  }}
-                  className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#5B4436] text-[#FEFAE0] font-display font-bold text-sm shadow hover:bg-[#433126] transition cursor-pointer mt-1"
-                >
-                  <BookOpen className="w-4 h-4" />
-                  <span>Buka Data Hasil Riset DKV</span>
-                </button>
               </div>
             </div>
 

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { RotateCw, RefreshCw, Sparkles, Leaf, Package, AlertTriangle, Check, ArrowRight } from 'lucide-react';
+import { RotateCw, RefreshCw, Sparkles, ArrowRight } from 'lucide-react';
 import { RECYCLE_PHASES } from '../data/content';
 import { sounds } from '../utils/audio';
 import { GrassDivider } from './GrassDivider';
@@ -8,25 +8,11 @@ export const RecycleSection: React.FC = () => {
   const [activeStepIndex, setActiveStepIndex] = useState(0);
   const [wheelRotation, setWheelRotation] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
-  const [showGame, setShowGame] = useState(false);
 
   const wheelRef = useRef<HTMLDivElement>(null);
   const startAngleRef = useRef(0);
   const startRotationRef = useRef(0);
   const lastClickAngleRef = useRef(0);
-
-  // Waste sorting mini-game state
-  const [gameScore, setGameScore] = useState(0);
-  const [gameFeedback, setGameFeedback] = useState<string | null>(null);
-  const [currentWasteIndex, setCurrentWasteIndex] = useState(0);
-
-  const wasteItems = [
-    { name: 'Botol Plastik PET Air Mineral', category: 'anorganik', hint: 'Bilas & remukkan' },
-    { name: 'Kulit Buah & Daun Kering', category: 'organik', hint: 'Bisa jadi kompos' },
-    { name: 'Baterai Bekas Jam Dinding', category: 'b3', hint: 'Limbah berbahaya beracun' },
-    { name: 'Kertas Draft Tugas & HVS', category: 'anorganik', hint: 'Bisa didaur ulang jadi kertas baru' },
-    { name: 'Sisa Nasi & Tulang Ayam', category: 'organik', hint: 'Sampah sisa makanan' },
-  ];
 
   // Sound sequence for animated turn
   const playRatchetSequence = (steps = 4) => {
@@ -111,29 +97,6 @@ export const RecycleSection: React.FC = () => {
   };
 
   const currentPhase = RECYCLE_PHASES[activeStepIndex];
-
-  const handleSortItem = (selectedCategory: string) => {
-    sounds.playPop();
-    const currentItem = wasteItems[currentWasteIndex];
-    if (selectedCategory === currentItem.category) {
-      sounds.playSuccess();
-      setGameScore((prev) => prev + 10);
-      setGameFeedback(`Benar! ${currentItem.name} termasuk sampah ${selectedCategory.toUpperCase()}.`);
-    } else {
-      setGameFeedback(`Kurang tepat. ${currentItem.name} harusnya masuk kategori ${currentItem.category.toUpperCase()}!`);
-    }
-
-    if (currentWasteIndex < wasteItems.length - 1) {
-      setTimeout(() => {
-        setCurrentWasteIndex((prev) => prev + 1);
-        setGameFeedback(null);
-      }, 1200);
-    } else {
-      setTimeout(() => {
-        setGameFeedback(`Selesai! Skormu: ${gameScore + (selectedCategory === currentItem.category ? 10 : 0)}/50.`);
-      }, 1000);
-    }
-  };
 
   return (
     <section id="recycle" className="py-12 px-4 max-w-4xl mx-auto flex flex-col items-center">
@@ -369,110 +332,10 @@ export const RecycleSection: React.FC = () => {
             </span>
           </div>
         </div>
-
-        {/* Mini Game Toggle Button addressing survey finding */}
-        <div className="w-full mt-8 p-6 rounded-3xl bg-[#5B4436]/15 border-2 border-[#283618]/20 shadow-sm">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div>
-              <span className="text-[11px] font-black uppercase text-[#5B4436]">
-                Tantangan Interaktif Mahasiswa
-              </span>
-              <h4 className="font-display text-lg font-black text-[#283618]">
-                Uji Kemampuan: Masih Bingung Memilah Sampah?
-              </h4>
-              <p className="text-xs text-[#283618]/80 font-medium mt-0.5">
-                Riset DKV UNM membuktikan 18,8% mahasiswa masih bingung membedakan kategori sampah.
-              </p>
-            </div>
-            <button
-              onClick={() => {
-                sounds.playPop();
-                setShowGame(!showGame);
-              }}
-              className="px-4 py-2 rounded-xl bg-[#283618] text-[#FEFAE0] font-display text-xs font-black shadow hover:bg-[#1e2a12] transition self-start sm:self-auto cursor-pointer"
-            >
-              {showGame ? 'Tutup Game' : 'Mulai Latihan Pilah (5 Soal)'}
-            </button>
-          </div>
-
-          {showGame && (
-            <div className="mt-5 pt-4 border-t border-[#283618]/20">
-              {currentWasteIndex < wasteItems.length ? (
-                <div>
-                  <div className="flex items-center justify-between mb-3 text-xs font-bold text-[#283618]">
-                    <span>Pertanyaan {currentWasteIndex + 1} dari {wasteItems.length}</span>
-                    <span>Skor: {gameScore}</span>
-                  </div>
-
-                  {/* Card with waste item */}
-                  <div className="p-4 rounded-2xl bg-white/80 text-center mb-4">
-                    <p className="text-[11px] text-[#5B4436] font-bold uppercase tracking-wider">Sampah apa ini?</p>
-                    <h5 className="font-display text-xl font-black text-[#283618] my-1">
-                      {wasteItems[currentWasteIndex].name}
-                    </h5>
-                    <p className="text-xs text-slate-500 italic">Petunjuk: {wasteItems[currentWasteIndex].hint}</p>
-                  </div>
-
-                  {/* Feedback display */}
-                  {gameFeedback && (
-                    <div className="mb-4 p-2.5 rounded-xl bg-[#283618]/15 text-center font-bold text-xs text-[#283618] animate-fade-in">
-                      {gameFeedback}
-                    </div>
-                  )}
-
-                  {/* Bin category buttons - CLEAN NO EMOJIS */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    <button
-                      onClick={() => handleSortItem('organik')}
-                      className="p-3 rounded-2xl bg-emerald-700 text-white font-display text-xs font-bold hover:bg-emerald-800 transition cursor-pointer shadow flex items-center justify-center gap-1.5"
-                    >
-                      <Leaf className="w-4 h-4 text-emerald-200 shrink-0" />
-                      <span>Organik (Basah)</span>
-                    </button>
-                    <button
-                      onClick={() => handleSortItem('anorganik')}
-                      className="p-3 rounded-2xl bg-amber-700 text-white font-display text-xs font-bold hover:bg-amber-800 transition cursor-pointer shadow flex items-center justify-center gap-1.5"
-                    >
-                      <Package className="w-4 h-4 text-amber-200 shrink-0" />
-                      <span>Anorganik (Kering)</span>
-                    </button>
-                    <button
-                      onClick={() => handleSortItem('b3')}
-                      className="p-3 rounded-2xl bg-rose-700 text-white font-display text-xs font-bold hover:bg-rose-800 transition cursor-pointer shadow flex items-center justify-center gap-1.5"
-                    >
-                      <AlertTriangle className="w-4 h-4 text-rose-200 shrink-0" />
-                      <span>Sampah B3 (Bahaya)</span>
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                <div className="text-center py-4">
-                  <div className="w-12 h-12 rounded-full bg-[#283618] text-[#FEFAE0] flex items-center justify-center mx-auto mb-2 font-display text-xl font-bold">
-                    <Check className="w-6 h-6 stroke-[3]" />
-                  </div>
-                  <h5 className="font-display text-xl font-black text-[#283618]">Latihan Selesai!</h5>
-                  <p className="text-xs text-[#283618]/90 font-medium mt-1">
-                    Kamu mendapatkan skor <strong>{gameScore} dari 50</strong>. Sekarang kamu siap memilah sampah di kampus!
-                  </p>
-                  <button
-                    onClick={() => {
-                      setCurrentWasteIndex(0);
-                      setGameScore(0);
-                      setGameFeedback(null);
-                    }}
-                    className="mt-3 px-5 py-2 rounded-full bg-[#5B4436] text-[#FEFAE0] text-xs font-bold hover:bg-[#433126] cursor-pointer"
-                  >
-                    Main Lagi
-                  </button>
-                </div>
-              )}
-            </div>
-          )}
-        </div>
       </div>
 
       {/* Grass Silhouette Line Divider matching reference images */}
-      <GrassDivider variant="bottom" className="w-full mt-8" />
+      <GrassDivider variant="bottom" className="w-full mt-10" />
     </section>
   );
 };

@@ -1,0 +1,6 @@
+{
+  "summary": "Rencana implementasi penghapusan 5 elemen spesifik yang ditandai pengguna pada foto:\n1. Tombol 'Laporan DKV' di navbar desktop\n2. Tombol 'Buka Data Hasil Riset DKV' di menu navigasi mobile\n3. Komponen 'Kalkulator Jejak Kampus Pribadi' di bagian Reduce\n4. Komponen 'Waktu Dekomposisi Sampah di Alam Bebas' di bagian Fakta & Data\n5. Komponen tantangan 'Uji Kemampuan: Masih Bingung Memilah Sampah?' di bagian Recycle\nSerta perapian tata letak agar mengalir mulus tanpa ruang kosong.",
+  "updatedAt": "2026-10-13T16:10:03.175394027Z",
+  "requestFeedback": true,
+  "userFacing": true
+}

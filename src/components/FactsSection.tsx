@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronDown, ChevronUp, Clock } from 'lucide-react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { FACTS_DATA } from '../data/content';
 import { sounds } from '../utils/audio';
 import { GrassDivider } from './GrassDivider';
@@ -84,41 +84,8 @@ export const FactsSection: React.FC = () => {
         })}
       </div>
 
-      {/* Decomposition Timeline Table with Hover Highlights */}
-      <div className="w-full max-w-4xl mt-8 p-6 rounded-3xl bg-[#5B4436]/15 border-2 border-[#5B4436]/30 shadow-lg">
-        <div className="flex items-center gap-2 mb-4">
-          <Clock className="w-5 h-5 text-[#5B4436]" />
-          <h3 className="font-display text-base font-black text-[#283618] uppercase tracking-wide">
-            Waktu Dekomposisi Sampah di Alam Bebas
-          </h3>
-        </div>
-
-        <div className="divide-y divide-[#5B4436]/20 text-sm">
-          <div className="py-2.5 px-2.5 rounded-xl flex items-center justify-between transition-all duration-200 hover:bg-[#5B4436]/15 hover:scale-[1.01] hover:pl-4 cursor-default group">
-            <span className="font-semibold text-[#283618] group-hover:text-[#5B4436] transition-colors">Kertas HVS / Catatan Kuliah</span>
-            <span className="font-bold text-[#283618] bg-[#283618]/15 px-3 py-1 rounded-full text-xs group-hover:scale-105 group-hover:bg-[#283618] group-hover:text-white transition-all">2 – 6 Minggu</span>
-          </div>
-          <div className="py-2.5 px-2.5 rounded-xl flex items-center justify-between transition-all duration-200 hover:bg-[#5B4436]/15 hover:scale-[1.01] hover:pl-4 cursor-default group">
-            <span className="font-semibold text-[#283618] group-hover:text-[#5B4436] transition-colors">Kantong Kresek Plastik</span>
-            <span className="font-bold text-[#5B4436] bg-[#5B4436]/15 px-3 py-1 rounded-full text-xs group-hover:scale-105 group-hover:bg-[#5B4436] group-hover:text-white transition-all">20 – 50 Tahun</span>
-          </div>
-          <div className="py-2.5 px-2.5 rounded-xl flex items-center justify-between transition-all duration-200 hover:bg-[#5B4436]/15 hover:scale-[1.01] hover:pl-4 cursor-default group">
-            <span className="font-semibold text-[#283618] group-hover:text-[#5B4436] transition-colors">Botol Plastik PET (Air Mineral / Es Teh)</span>
-            <span className="font-bold text-[#5B4436] bg-[#5B4436]/20 px-3 py-1 rounded-full text-xs group-hover:scale-105 group-hover:bg-[#5B4436] group-hover:text-white transition-all">450 Tahun (Berbahaya)</span>
-          </div>
-          <div className="py-2.5 px-2.5 rounded-xl flex items-center justify-between transition-all duration-200 hover:bg-[#5B4436]/15 hover:scale-[1.01] hover:pl-4 cursor-default group">
-            <span className="font-semibold text-[#283618] group-hover:text-[#5B4436] transition-colors">Botol Kaca Kopi / Minuman</span>
-            <span className="font-bold text-[#5B4436] bg-[#5B4436]/25 px-3 py-1 rounded-full text-xs group-hover:scale-105 group-hover:bg-[#5B4436] group-hover:text-white transition-all">1.000.000+ Tahun</span>
-          </div>
-          <div className="py-2.5 px-2.5 rounded-xl flex items-center justify-between transition-all duration-200 hover:bg-[#5B4436]/15 hover:scale-[1.01] hover:pl-4 cursor-default group">
-            <span className="font-semibold text-[#283618] group-hover:text-[#5B4436] transition-colors">Styrofoam Kotak Makanan</span>
-            <span className="font-bold text-red-700 bg-red-700/15 px-3 py-1 rounded-full text-xs group-hover:scale-105 group-hover:bg-red-700 group-hover:text-white transition-all">Tidak Pernah Terurai Alami</span>
-          </div>
-        </div>
-      </div>
-
       {/* Grass Silhouette Line Divider matching reference images */}
-      <GrassDivider variant="bottom" className="w-full mt-8" />
+      <GrassDivider variant="bottom" className="w-full mt-10" />
     </section>
   );
 };
