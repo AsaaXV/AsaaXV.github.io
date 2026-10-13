@@ -1,6 +1,6 @@
 {
-  "summary": "Rencana implementasi perbaikan berdasarkan 3 gambar anotasi pengguna:\n1. Menyesuaikan posisi tutup tong sampah agar menyentuh tanah dan bersandar di sisi kanan, serta merapikan posisi 3 folder aksi agar tidak terpotong header.\n2. Menghapus tombol Ruang Rahasia DKV dari footer banner.\n3. Menghapus label sumber pojok kanan atas dan baris footer dari 3 kartu fakta di FactsSection.",
-  "updatedAt": "2026-10-13T22:23:33.523640711Z",
+  "summary": "Rencana penataan susunan 3 folder aksi di dalam tong sampah sesuai gambar referensi (6.png):\n1. Menata 3 folder dengan susunan menumpuk bertingkat saling tindih dari kiri ke kanan (overlapping cascade).\n2. Memposisikan folder separuh tertanam di bibir mulut tong sampah yang menyembul keluar secara alami.\n3. Menampilkan folder secara bersih dengan nomor langkah minimalis tanpa pill/teks berlebih.\n4. Mempertahankan posisi dan animasi tutup tong sampah yang sudah disetujui pengguna.",
+  "updatedAt": "2026-10-13T23:18:17.152227304Z",
   "requestFeedback": true,
   "userFacing": true
 }

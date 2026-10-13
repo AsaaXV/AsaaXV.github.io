@@ -2,6 +2,7 @@ import React from 'react';
 import { ArrowDown, Sparkles } from 'lucide-react';
 import { GrassDivider } from './GrassDivider';
 import { sounds } from '../utils/audio';
+import bumiImg from '../assets/bumi.png';
 
 interface HeroSectionProps {
   onStartExplore: () => void;
@@ -18,13 +19,25 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onStartExplore }) => {
       {/* Background warm aesthetic texture */}
       <div className="max-w-xl mx-auto px-4 flex flex-col items-center">
         
-        {/* Massive 3R Title matching 3R DMI.jpg exactly */}
-        <div className="relative my-2 select-none group">
-          <h1 className="font-display text-[96px] sm:text-[132px] md:text-[150px] font-black leading-none text-[#283618] tracking-tight drop-shadow-sm transition-transform duration-300 hover:scale-105 cursor-default">
-            3R
-          </h1>
-          <div className="absolute -top-1 -right-3 text-[#5B4436] animate-bounce">
-            <Sparkles className="w-6 h-6 fill-[#5B4436]" />
+        {/* Massive 3R Title accompanied by bumi.png */}
+        <div className="relative my-2 select-none flex items-center justify-center gap-3 sm:gap-6 group">
+          <div className="relative">
+            <h1 className="font-display text-[84px] sm:text-[124px] md:text-[144px] font-black leading-none text-[#283618] tracking-tight drop-shadow-sm transition-transform duration-300 hover:scale-105 cursor-default">
+              3R
+            </h1>
+            <div className="absolute -top-1 -right-3 text-[#5B4436] animate-bounce">
+              <Sparkles className="w-6 h-6 fill-[#5B4436]" />
+            </div>
+          </div>
+
+          {/* Earth Illustration (bumi.png) mendampingi judul - diperbesar proporsional */}
+          <div className="flex flex-col items-center group-hover:scale-105 transition-transform duration-300">
+            <img
+              src={bumiImg}
+              alt="Ilustrasi Bumi Hijau Lestari - bumi.png"
+              className="w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 object-contain drop-shadow-xl select-none pointer-events-none"
+              draggable={false}
+            />
           </div>
         </div>
 

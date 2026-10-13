@@ -116,6 +116,85 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
           })}
         </div>
 
+        {/* Detailed Folder Drawer/Card when selected - positioned right ABOVE the trash bin and BELOW Tahap 1-2-3 buttons */}
+        {activeFolder && (
+          <div className="w-full max-w-2xl mt-2 mb-6 p-5 sm:p-6 rounded-3xl bg-white/95 border-2 border-[#283618]/25 shadow-xl text-[#283618] animate-fade-in transition-all">
+            <div>
+              <div className="flex items-center justify-between pb-3 border-b border-[#283618]/20 mb-3">
+                <div className="flex items-center gap-2">
+                  <FolderOpen className="w-5 h-5 text-[#283618]" />
+                  <span className="font-display text-sm sm:text-base font-black text-[#283618] uppercase tracking-wide">
+                    Panduan Langkah #{activeFolder.stepNumber}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-[#283618]/15 text-[#283618]">
+                    Aksi Mahasiswa UNM
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedFolderId(null)}
+                    className="w-7 h-7 rounded-full bg-[#283618]/15 hover:bg-[#283618]/30 text-[#283618] flex items-center justify-center transition cursor-pointer"
+                    title="Tutup Panduan"
+                  >
+                    <X className="w-4 h-4 stroke-[2.5]" />
+                  </button>
+                </div>
+              </div>
+
+              <h3 className="font-display text-lg sm:text-xl font-black text-[#283618] mb-1">
+                {activeFolder.title}
+              </h3>
+              <p className="text-xs sm:text-sm text-[#283618]/80 font-semibold mb-4">
+                {activeFolder.summary}
+              </p>
+
+              <div className="space-y-2 mb-4">
+                {activeFolder.checklist.map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-2.5 text-xs font-medium text-[#283618]">
+                    <CheckCircle2 className="w-4 h-4 text-[#283618] shrink-0 mt-0.5" />
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="p-3 rounded-2xl bg-[#FEFAE0] border border-[#283618]/20 text-xs italic text-[#283618] mb-4">
+                {activeFolder.quote}
+              </div>
+
+              {/* Step Navigation Controls */}
+              <div className="flex items-center justify-between pt-2 border-t border-[#283618]/15">
+                <button
+                  type="button"
+                  onClick={handlePrevStep}
+                  disabled={activeFolderIndex === 0}
+                  className={`flex items-center gap-1 text-xs font-bold px-3 py-1.5 rounded-xl transition ${
+                    activeFolderIndex === 0
+                      ? 'opacity-40 cursor-not-allowed text-[#283618]/50'
+                      : 'hover:bg-[#283618]/10 text-[#283618] cursor-pointer'
+                  }`}
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                  <span>Langkah Sebelumnya</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={handleNextStep}
+                  disabled={activeFolderIndex === ACTION_FOLDERS.length - 1}
+                  className={`flex items-center gap-1 text-xs font-bold px-3 py-1.5 rounded-xl transition ${
+                    activeFolderIndex === ACTION_FOLDERS.length - 1
+                      ? 'opacity-40 cursor-not-allowed text-[#283618]/50'
+                      : 'bg-[#283618] text-[#FEFAE0] hover:bg-[#1e2a12] cursor-pointer shadow-sm'
+                  }`}
+                >
+                  <span>Langkah Selanjutnya</span>
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Status prompt badge above trash bin */}
         <div className="mb-2">
           <button
@@ -202,7 +281,7 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
                     <img
                       src={folderImg}
                       alt={`Dokumen Langkah ${folder.stepNumber}`}
-                      className="w-20 h-20 sm:w-26 sm:h-26 md:w-30 md:h-30 object-contain select-none pointer-events-none"
+                      className="w-22 h-22 sm:w-28 sm:h-28 md:w-32 md:h-32 object-contain select-none pointer-events-none"
                       draggable={false}
                       referrerPolicy="no-referrer"
                     />
@@ -210,7 +289,7 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
 
                   {/* Action Title Label under folder */}
                   <div
-                    className={`mt-1.5 px-2 py-0.5 rounded-lg text-center font-display text-[9px] sm:text-[11px] font-bold max-w-[90px] sm:max-w-[120px] leading-tight truncate transition-colors ${
+                    className={`mt-1.5 px-2 py-0.5 rounded-lg text-center font-display text-[9px] sm:text-[11px] font-bold max-w-[95px] sm:max-w-[125px] leading-tight truncate transition-colors ${
                       isSelected
                         ? 'bg-[#283618] text-[#FEFAE0] shadow-sm'
                         : 'bg-[#FEFAE0]/95 text-[#283618] border border-[#283618]/30 group-hover:bg-[#283618] group-hover:text-[#FEFAE0]'
@@ -302,85 +381,6 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
             <GrassDivider variant="bottom" className="w-full h-16 sm:h-20" />
           </div>
         </div>
-
-        {/* Detailed Folder Drawer/Card when selected - positioned right below trash bin so trash bin does not jump */}
-        {activeFolder && (
-          <div className="w-full max-w-2xl mt-4 mb-8 p-6 rounded-3xl bg-white/95 border-2 border-[#283618]/25 shadow-xl text-[#283618] animate-fade-in transition-all">
-            <div>
-              <div className="flex items-center justify-between pb-3 border-b border-[#283618]/20 mb-3">
-                <div className="flex items-center gap-2">
-                  <FolderOpen className="w-5 h-5 text-[#283618]" />
-                  <span className="font-display text-sm font-black text-[#283618] uppercase tracking-wide">
-                    Panduan Langkah #{activeFolder.stepNumber}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-[#283618]/15 text-[#283618]">
-                    Aksi Mahasiswa UNM
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => setSelectedFolderId(null)}
-                    className="w-7 h-7 rounded-full bg-[#283618]/15 hover:bg-[#283618]/30 text-[#283618] flex items-center justify-center transition cursor-pointer"
-                    title="Tutup Panduan"
-                  >
-                    <X className="w-4 h-4 stroke-[2.5]" />
-                  </button>
-                </div>
-              </div>
-
-              <h3 className="font-display text-lg sm:text-xl font-black text-[#283618] mb-1">
-                {activeFolder.title}
-              </h3>
-              <p className="text-xs sm:text-sm text-[#283618]/80 font-semibold mb-4">
-                {activeFolder.summary}
-              </p>
-
-              <div className="space-y-2 mb-4">
-                {activeFolder.checklist.map((item, idx) => (
-                  <div key={idx} className="flex items-start gap-2.5 text-xs font-medium text-[#283618]">
-                    <CheckCircle2 className="w-4 h-4 text-[#283618] shrink-0 mt-0.5" />
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
-
-              <div className="p-3 rounded-2xl bg-[#FEFAE0] border border-[#283618]/20 text-xs italic text-[#283618] mb-4">
-                {activeFolder.quote}
-              </div>
-
-              {/* Step Navigation Controls */}
-              <div className="flex items-center justify-between pt-2 border-t border-[#283618]/15">
-                <button
-                  type="button"
-                  onClick={handlePrevStep}
-                  disabled={activeFolderIndex === 0}
-                  className={`flex items-center gap-1 text-xs font-bold px-3 py-1.5 rounded-xl transition ${
-                    activeFolderIndex === 0
-                      ? 'opacity-40 cursor-not-allowed text-[#283618]/50'
-                      : 'hover:bg-[#283618]/10 text-[#283618] cursor-pointer'
-                  }`}
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                  <span>Langkah Sebelumnya</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={handleNextStep}
-                  disabled={activeFolderIndex === ACTION_FOLDERS.length - 1}
-                  className={`flex items-center gap-1 text-xs font-bold px-3 py-1.5 rounded-xl transition ${
-                    activeFolderIndex === ACTION_FOLDERS.length - 1
-                      ? 'opacity-40 cursor-not-allowed text-[#283618]/50'
-                      : 'bg-[#283618] text-[#FEFAE0] hover:bg-[#1e2a12] cursor-pointer shadow-sm'
-                  }`}
-                >
-                  <span>Langkah Selanjutnya</span>
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* Closing Quote from 3R DMI.jpg & Image 7 */}
         <div className="text-center my-10 max-w-lg mx-auto">

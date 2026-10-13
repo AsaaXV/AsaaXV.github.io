@@ -1,92 +1,97 @@
-# Perbaikan Visual Tong Sampah, Footer, dan Kartu Fakta 3R
+# Penataan Susunan Folder Dokumen Tong Sampah (Sesuai Referensi Gambar)
 
-Rencana perbaikan menyeluruh berdasarkan 3 gambar anotasi yang diberikan pengguna: menyempurnakan posisi tutup tempat sampah hingga menyentuh tanah, merapikan letak 3 folder aksi, serta menghapus elemen-elemen yang dicoret merah pada footer dan kartu fakta.
+Mengatur tata letak dan kedalaman 3 folder dokumen aksi agar tersusun menumpuk bertingkat saling tindih dari kiri ke kanan, tertanam separuh di dalam mulut tong sampah, dengan visual bersih dan nomor langkah minimalis sesuai konfirmasi gambar referensi.
 
 ## User Review & Critical Decisions
 
 > [!IMPORTANT]
-> Seluruh poin perubahan telah diidentifikasi langsung dari 3 gambar tangkapan layar yang dicoret merah oleh pengguna:
-> 1. **Image 1**: Tutup tempat sampah diturunkan posisinya hingga menyentuh tanah (*ground level*) dan bersandar di sisi kanan tong sampah, serta posisi ketiga folder diturunkan agar tidak terpotong atau menabrak header.
-> 2. **Image 2**: Tombol `Ruang Rahasia DKV (Ketik: "UNM")` di dalam footer dihapus sepenuhnya.
-> 3. **Image 3**: Label sumber di pojok kanan atas (`DATA GLOBAL`, `DATA NASIONAL 2025`, `KOMPOSISI SAMPAH`) serta baris footer bawah (`DATA RIIL 3R` dan `3R UNM Project`) pada ketiga kartu fakta dihapus.
+> Seluruh keputusan telah diselaraskan langsung melalui klarifikasi dengan pengguna:
+> - **Susunan & Kemiringan Folder**: Menumpuk bertingkat saling tindih dari kiri ke kanan (overlapping staggered cascade) dengan sedikit variasi sudut rotasi natural.
+> - **Kedalaman Folder**: Separuh tertanam di dalam mulut tong sampah dan menyembul keluar (bukan melayang tinggi di atas tong).
+> - **Tampilan Label**: Hanya gambar folder dengan nomor langkah minimalis (menghilangkan pill dan teks judul panjang di bawah folder agar tidak mengaburkan visual).
+> - **Tutup Tong Sampah**: Tetap dipertahankan persis seperti saat ini karena sudah disukai dan disetujui oleh pengguna ("tutup sampah sudah bagus").
 
 ---
 
 ## 1. Overview & Core Concept
 
-- **Apa yang Dilakukan**:
-  - **Tong Sampah & Tutup (Image 1)**: Menyesuaikan translasi vertikal dan rotasi tutup tong sampah (`ActionSection.tsx`) agar saat terbuka, tutup benar-benar mendarat menyentuh tanah di samping kanan tong sampah. Mengatur ulang ketinggian kemunculan 3 folder dokumen agar muncul rapi tepat di atas bukaan tong tanpa menabrak navbar atas.
-  - **Pembersihan Footer (Image 2)**: Menghapus tombol trigger rahasia di bagian bawah banner footer cokelat, sehingga footer tampil bersih hanya menampilkan nama mata kuliah dan instansi.
-  - **Minimalisasi Kartu Fakta (Image 3)**: Menghapus metadata sekunder (kategori sumber di kanan atas dan label footer bawah kartu) pada 3 kartu statistik, mempertahankan badge fakta, angka animasi stopwatch, dan narasi utama.
-- **Target Audiens**: Mahasiswa dan sivitas akademika UNM yang mengakses situs edukasi kampanye 3R DKV UNM dengan tampilan visual yang presisi, proporsional, dan rapi.
+- **Apa yang Dikerjakan**: Menyesuaikan penataan 3 folder aksi (`folder1.png`, `folder2.png`, `folder3.png`) di dalam `ActionSection.tsx` agar terlihat menyembul keluar dari mulut tong sampah dalam formasi tumpukan bertingkat (*cascading layered stack*) yang rapi dan estetis.
+- **Interaktivitas**: Folder tetap dapat diklik untuk membuka panduan langkah detail pada kotak drawer di atas tong sampah (di bawah tombol Tahap 1-2-3).
+- **Hasil Akhir**: Tampilan ilustrasi visual menjadi kohesif, proporsional, dan identik dengan komposisi pada gambar referensi `6.png`.
 
 ---
 
 ## 2. User Experience & Visual Design
 
-### A. Penyesuaian Interaksi Tong Sampah & Tutup
-- **Posisi Tutup Bersandar & Menempel Tanah**:
-  - Translasi vertikal disesuaikan dari ketinggian sebelumnya (~184px) menjadi ~255px–320px sesuai ukuran layar, dengan sudut rotasi ~76°–78°.
-  - Bagian bawah tutup mendarat sejajar tumpukan sampah & rumput dasar, sementara sisi kiri tutup bersandar pada dinding kanan tong.
-- **Tata Letak 3 Folder Aksi**:
-  - Mengurangi translasi negatif folder saat tong terbuka (dari `-translate-y-44` menjadi tingkat translasi yang pas di atas bibir tong).
-  - Folder, badge langkah, dan label aksi tampil utuh, tidak terpotong oleh viewport atas maupun header, dan tetap responsif serta mudah diklik.
+### Susunan Visual & Geometri Folder
+```
+          [TUTUP TONGSAMPAH] (Miring terbuka di samping kanan)
+                    \
+       Mulut Tong    \
+     ┌────────────────────────┐
+     │   [Folder 1]           │  <- Tahap 1 (kiri depan, sedikit miring -6°, badge angka 1)
+     │       [Folder 2]       │  <- Tahap 2 (tengah sedikit overlap, miring -2°, badge angka 2)
+     │           [Folder 3]   │  <- Tahap 3 (kanan belakang, miring +4°, badge angka 3)
+     │════════════════════════│  <- Bibir mulut tong sampah (half-embedded)
+     │                        │
+     │   [BADAN TONG SAMPAH]  │
+     │                        │
+     └────────────────────────┘
+```
 
-### B. Pembersihan Kartu Fakta (FactsSection)
-- Tampilan kartu fakta menjadi lebih lapang dan minimalis:
-  - Header kartu hanya menyisakan badge hitam pill: `FAKTA 1`, `FAKTA 2`, `FAKTA 3`.
-  - Area tengah mempertahankan animasi angka besar (2.000, 25,14, 40,76%), satuan teks kuning, dan teks penjelasan fakta.
-  - Garis pemisah bawah dan teks "DATA RIIL 3R • 3R UNM Project" dihilangkan.
+1. **Tata Letak & Overlapping**:
+   - Tiga item folder ditata menggunakan container flex/relative terpusat dengan negative horizontal margin (`-mr-4` / `-ml-4` atau `relative -left-...`) sehingga ketiga folder saling menindih (*overlapping stack*).
+   - Indeks susunan z-index bertingkat (`z-10`, `z-20`, `z-30`) atau sebaliknya sehingga tercipta ilusi kedalaman ruang dokumen di dalam tong.
+   - Rotasi halus masing-masing folder: Folder 1 (-6deg), Folder 2 (-1deg), Folder 3 (+5deg) untuk kesan dokumen nyata yang dimasukkan ke dalam tong sampah.
 
-### C. Pembersihan Footer (ActionSection)
-- Footer hanya memuat:
-  - `Craft 4 Earth - DKV UNM 2024`
-  - `Mata Kuliah Desain Media Interaktif • Fakultas Seni dan Desain • Universitas Negeri Makassar`
-- Elemen tombol rahasia yang dicoret merah dihapus.
+2. **Kedalaman Relatif Terhadap Bibir Tong**:
+   - Memposisikan container folder agar titik bawah folder masuk sekitar 40–50% ke dalam rongga atas badan tong sampah (`tongsampah-bawah.png`).
+   - Saat tong sampah dibuka (`isLidOpen = true`), folder menyembul naik dengan animasi mulus `transform translate-y` ke posisi bibir tong.
+
+3. **Tipografi & Ornamen Minimalis**:
+   - Menghilangkan badge pill besar dan label teks multi-baris di bawah masing-masing folder.
+   - Menggantinya dengan penanda nomor langkah minimalis yang elegan (lingkaran nomor kecil `1`, `2`, `3` di sudut folder atau badge ringkas).
+   - Efek hover: Folder yang disorot kursor akan sedikit terangkat (`-translate-y-2`) dan naik ke layer paling atas (`z-40`) tanpa merusak susunan tumpukan tetangganya.
 
 ---
 
 ## 3. Key Product Decisions & Trade-Offs
 
-- **Translasi Tutup Sampah**:
-  - *Keputusan*: Menggunakan kalkulasi presisi geometri berdasarkan rasio aspek aset asli tong sampah (`tongsampah-atas.png` dan `tongsampah-bawah.png`) sehingga sudut miring dan titik terendah tutup selalu presisi menyentuh tanah pada mobile (`w-56`) maupun desktop (`w-72`).
-- **Posisi 3 Folder Dokumen**:
-  - *Keputusan*: Menempatkan folder mengambang persis di mulut tong sampah (bukan melayang terlalu tinggi hingga keluar batas section), memberi ruang vertikal yang cukup agar tidak menabrak tombol toggle di atasnya.
-- **Penghapusan Elemen Visual**:
-  - *Keputusan*: Menghapus elemen yang dicoret tanpa mengubah fungsi logika (kode easter egg melalui keyboard tetap dapat diakses di background jika diinginkan, namun tombol visual di footer ditiadakan).
+- **Keputusan 1: Format Tumpukan Bertingkat (*Cascading Overlap*)**
+  - *Pilihan*: Folder disusun bertumpuk saling tindih dengan sedikit rotasi natural, bukan berjejer lurus kaku horizontal.
+  - *Alasan*: Sesuai dengan instruksi pengguna dan visual referensi `6.png`, memberikan estetika hand-drawn yang hidup.
+- **Keputusan 2: Mempertahankan Tutup Sampah & Posisi Drawer Langkah**
+  - *Pilihan*: Tutup sampah dan posisi drawer di atas tong sampah tidak diubah.
+  - *Alasan*: Pengguna secara eksplisit memuji posisi tutup tong sampah dan telah menyetujui letak panduan langkah sebelumnya.
 
 ---
 
-## 4. Technical Architecture & Data Strategy
+## 4. Technical Architecture & Implementation Steps
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                       Hero & 3R Sections                    │
-└──────────────────────────────┬──────────────────────────────┘
-                               │
-                               ▼
-┌─────────────────────────────────────────────────────────────┐
-│                    FactsSection.tsx                         │
-│  - Hapus: fact.source ("DATA GLOBAL", dst.)                 │
-│  - Hapus: Footer kartu ("DATA RIIL 3R", dst.)               │
-│  - Pertahankan: Badge FAKTA, Stopwatch Count-up, Narasi      │
-└──────────────────────────────┬──────────────────────────────┘
-                               │
-                               ▼
-┌─────────────────────────────────────────────────────────────┐
-│                    ActionSection.tsx                        │
-│  - Folder Dokumen: Sesuaikan translateY agar rapi & utuh    │
-│  - Tutup Tong: Naikkan translateY & sesuaikan rotasi        │
-│    sehingga ujung bawah menyentuh tanah di samping kanan    │
-│  - Footer: Hapus tombol "Ruang Rahasia DKV"                 │
-└─────────────────────────────────────────────────────────────┘
+[Tahap 1, 2, 3 Pill Buttons]
+            │
+            ▼
+[Panduan Langkah Detail Drawer (muncul saat folder dipilih)]
+            │
+            ▼
+[Status Bar: Tong Terbuka / Tekan untuk membuka]
+            │
+            ▼
+[Komponen Tong Sampah Interaktif]
+ ├── Tutup Sampah (Animasi miring di sisi kanan saat terbuka)
+ ├── 3 Folder Aksi Bertingkat (Half-embedded, overlapping stack)
+ │    ├── Folder 1 (Step 1, rotasi -6°, z-10)
+ │    ├── Folder 2 (Step 2, rotasi -1°, z-20)
+ │    └── Folder 3 (Step 3, rotasi +5°, z-30)
+ ├── Badan Tong Sampah (tongsampah-bawah.png)
+ └── Sampah di Lantai (sampah1.png & sampah2.png)
 ```
 
-### Rincian Perubahan File:
-1. `src/components/ActionSection.tsx`:
-   - Modifikasi transform CSS pada elemen `Lid` saat `isLidOpen === true` (tambah jarak Y ke level tanah dan atur kemiringan bersandar).
-   - Modifikasi transform CSS pada elemen container `ACTION_FOLDERS` saat `isLidOpen === true` (posisi pas di mulut tong, tidak menabrak header).
-   - Hapus blok JSX tombol rahasia di dalam tag `<footer>`.
-2. `src/components/FactsSection.tsx`:
-   - Hapus rendering `fact.source` di baris atas kartu.
-   - Hapus rendering div footer bawah kartu (`border-t border-white/10 ... Data Riil 3R`).
+### Rencana File yang Dikerjakan:
+1. **`src/components/ActionSection.tsx`**:
+   - Perbarui styling container `ACTION_FOLDERS` di dalam blok tong sampah.
+   - Ubah layout dari `flex-row justify-center gap-6` menjadi overlapping relative stack dengan negative margins dan subtle rotation angles.
+   - Sesuaikan posisi vertikal (`top` / `translate-y`) agar bagian bawah folder masuk separuh ke dalam bibir mulut tong sampah.
+   - Sederhanakan indikator langkah pada folder menjadi nomor langkah minimalis.
+   - Uji kompilasi (`compile_applet`) dan linter (`lint_applet`) untuk memastikan aplikasi berjalan sempurna tanpa regresi.

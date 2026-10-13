@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
-import { Sparkles, Check, Package, Wine, Shirt } from 'lucide-react';
+import { Sparkles, Check } from 'lucide-react';
 import { REUSE_ITEMS } from '../data/content';
 import { sounds } from '../utils/audio';
 import { GrassDivider } from './GrassDivider';
+
+import reuseImg from '../assets/reuse.png';
+import botolBekasImg from '../assets/botol bekas.png';
+import potBungaImg from '../assets/Pot-Bunga-dari-Botol.png';
+import kardusBekasImg from '../assets/kardus-bekas.png';
+import rakBukuKardusImg from '../assets/Rak-Buku-Mini-Dari-Kardus.png';
+import bajuBayiBekasImg from '../assets/baju_bayi_bekas.png';
+import kainDariBajuBekasImg from '../assets/Kain_Dari_Baju_Bekas_Bayi.png';
 
 export const ReuseSection: React.FC = () => {
   // Store state for each card: 0 = Origin/Limbah, 1 = Upcycled/Hasil Kreasi
@@ -23,11 +31,19 @@ export const ReuseSection: React.FC = () => {
 
   return (
     <section id="reuse" className="py-12 px-4 max-w-4xl mx-auto flex flex-col items-center">
-      {/* Header matching 3R DMI.jpg & Screenshot */}
-      <div className="text-center mb-8">
-        <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-black text-[#283618] leading-tight tracking-tight uppercase">
-          REUSE
-        </h2>
+      {/* Header with reuse.png badge positioned next to section title */}
+      <div className="flex flex-col items-center text-center mb-8">
+        <div className="flex items-center justify-center gap-3 sm:gap-4.5 flex-wrap">
+          <img
+            src={reuseImg}
+            alt="Logo Reuse - Gunakan Kembali"
+            className="w-14 h-14 sm:w-18 sm:h-18 md:w-20 md:h-20 object-contain drop-shadow-lg hover:scale-105 transition-transform duration-300 select-none pointer-events-none"
+            draggable={false}
+          />
+          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-black text-[#283618] leading-tight tracking-tight uppercase">
+            REUSE
+          </h2>
+        </div>
         <div className="font-display text-xl sm:text-2xl md:text-3xl font-black text-[#283618] tracking-wider uppercase mt-1">
           MASIH BISA DI PAKAI NGGAK?
         </div>
@@ -56,7 +72,7 @@ export const ReuseSection: React.FC = () => {
                       toggleCardState(item.id);
                     }
                   }}
-                  className={`w-full h-full min-h-[440px] rounded-3xl p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 shadow-lg cursor-pointer border select-none transform hover:-translate-y-2 hover:shadow-2xl group ${
+                  className={`w-full h-full min-h-[460px] rounded-3xl p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 shadow-lg cursor-pointer border select-none transform hover:-translate-y-2 hover:shadow-2xl group ${
                     isAfter
                       ? 'bg-[#283618] text-[#FEFAE0] border-[#394c25] hover:border-[#FEFAE0]/40'
                       : 'bg-[#4A3525] text-[#FEFAE0] border-[#5e4432] hover:border-[#FEFAE0]/40'
@@ -83,64 +99,82 @@ export const ReuseSection: React.FC = () => {
                       </p>
                     </div>
 
-                    {/* Visual Art Box: Clean without 'Ganti Tampilan' pill */}
-                    <div className="my-2 h-36 rounded-2xl bg-black/20 flex flex-col items-center justify-center p-3 relative overflow-hidden border border-white/10 transition-colors">
+                    {/* Visual Art Box: Menampilkan foto asli bahan asal vs hasil kreasi (Enlarged) */}
+                    <div className="my-2 h-52 rounded-2xl bg-black/25 flex flex-col items-center justify-center p-3 relative overflow-hidden border border-white/10 transition-colors">
                       {item.id === 'reuse-1' && (
                         !isAfter ? (
-                          <div className="flex flex-col items-center justify-center text-center animate-fade-in">
-                            <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-2 text-[#FEFAE0]">
-                              <Wine className="w-7 h-7 stroke-[2]" />
-                            </div>
-                            <span className="text-xs font-bold text-[#FEFAE0]">Botol Kaca Bekas Kopi</span>
-                            <span className="text-[10px] text-[#FEFAE0]/70 mt-0.5">Limbah tak terurai</span>
+                          <div className="flex flex-col items-center justify-center text-center animate-fade-in w-full h-full">
+                            <img
+                              src={botolBekasImg}
+                              alt="Bahan Asal: botol bekas.png"
+                              className="h-30 sm:h-34 w-auto object-contain drop-shadow-md select-none pointer-events-none mb-1.5"
+                              draggable={false}
+                            />
+                            <span className="text-xs font-bold text-[#FEFAE0]">Botol Plastik Bekas Minum</span>
+                            <span className="text-[10px] text-[#FEFAE0]/70">Bahan Asal: botol bekas.png</span>
                           </div>
                         ) : (
-                          <div className="flex flex-col items-center justify-center text-center animate-fade-in">
-                            <div className="w-12 h-12 rounded-xl bg-emerald-900/40 flex items-center justify-center mb-2 text-emerald-200">
-                              <Sparkles className="w-7 h-7 stroke-[2]" />
-                            </div>
-                            <span className="text-xs font-bold text-white">Pot Hidroponik Meja Kos</span>
-                            <span className="text-[10px] text-[#FEFAE0]/85 mt-0.5">Estetik & hemat beli pot</span>
+                          <div className="flex flex-col items-center justify-center text-center animate-fade-in w-full h-full">
+                            <img
+                              src={potBungaImg}
+                              alt="Hasil Kreasi: Pot-Bunga-dari-Botol.png"
+                              className="h-30 sm:h-34 w-auto object-contain drop-shadow-md select-none pointer-events-none mb-1.5"
+                              draggable={false}
+                            />
+                            <span className="text-xs font-bold text-white">Pot Bunga Meja Cantik</span>
+                            <span className="text-[10px] text-[#FEFAE0]/90">Hasil Kreasi: Pot-Bunga-dari-Botol.png</span>
                           </div>
                         )
                       )}
 
                       {item.id === 'reuse-2' && (
                         !isAfter ? (
-                          <div className="flex flex-col items-center justify-center text-center animate-fade-in">
-                            <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-2 text-[#FEFAE0]">
-                              <Package className="w-7 h-7 stroke-[2]" />
-                            </div>
+                          <div className="flex flex-col items-center justify-center text-center animate-fade-in w-full h-full">
+                            <img
+                              src={kardusBekasImg}
+                              alt="Bahan Asal: kardus-bekas.png"
+                              className="h-30 sm:h-34 w-auto object-contain drop-shadow-md select-none pointer-events-none mb-1.5"
+                              draggable={false}
+                            />
                             <span className="text-xs font-bold text-[#FEFAE0]">Kardus Paket Ekspedisi</span>
-                            <span className="text-[10px] text-[#FEFAE0]/70 mt-0.5">Menumpuk di sudut kos</span>
+                            <span className="text-[10px] text-[#FEFAE0]/70">Bahan Asal: kardus-bekas.png</span>
                           </div>
                         ) : (
-                          <div className="flex flex-col items-center justify-center text-center animate-fade-in">
-                            <div className="w-12 h-12 rounded-xl bg-emerald-900/40 flex items-center justify-center mb-2 text-emerald-200">
-                              <Sparkles className="w-7 h-7 stroke-[2]" />
-                            </div>
-                            <span className="text-xs font-bold text-white">Organizer Modul Bersekat</span>
-                            <span className="text-[10px] text-[#FEFAE0]/85 mt-0.5">Rapi minimalis tanpa biaya</span>
+                          <div className="flex flex-col items-center justify-center text-center animate-fade-in w-full h-full">
+                            <img
+                              src={rakBukuKardusImg}
+                              alt="Hasil Kreasi: Rak-Buku-Mini-Dari-Kardus.png"
+                              className="h-30 sm:h-34 w-auto object-contain drop-shadow-md select-none pointer-events-none mb-1.5"
+                              draggable={false}
+                            />
+                            <span className="text-xs font-bold text-white">Rak Buku Mini Meja</span>
+                            <span className="text-[10px] text-[#FEFAE0]/90">Hasil Kreasi: Rak-Buku-Mini-Dari-Kardus.png</span>
                           </div>
                         )
                       )}
 
                       {item.id === 'reuse-3' && (
                         !isAfter ? (
-                          <div className="flex flex-col items-center justify-center text-center animate-fade-in">
-                            <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-2 text-[#FEFAE0]">
-                              <Shirt className="w-7 h-7 stroke-[2]" />
-                            </div>
-                            <span className="text-xs font-bold text-[#FEFAE0]">Baju Bayi Bekas</span>
-                            <span className="text-[10px] text-[#FEFAE0]/70 mt-0.5">Pakaian tak terpakai</span>
+                          <div className="flex flex-col items-center justify-center text-center animate-fade-in w-full h-full">
+                            <img
+                              src={bajuBayiBekasImg}
+                              alt="Bahan Asal: baju_bayi_bekas.png"
+                              className="h-30 sm:h-34 w-auto object-contain drop-shadow-md select-none pointer-events-none mb-1.5"
+                              draggable={false}
+                            />
+                            <span className="text-xs font-bold text-[#FEFAE0]">Baju Bayi Katun Bekas</span>
+                            <span className="text-[10px] text-[#FEFAE0]/70">Bahan Asal: baju_bayi_bekas.png</span>
                           </div>
                         ) : (
-                          <div className="flex flex-col items-center justify-center text-center animate-fade-in">
-                            <div className="w-12 h-12 rounded-xl bg-emerald-900/40 flex items-center justify-center mb-2 text-emerald-200">
-                              <Sparkles className="w-7 h-7 stroke-[2]" />
-                            </div>
-                            <span className="text-xs font-bold text-white">Selimut Hangat</span>
-                            <span className="text-[10px] text-[#FEFAE0]/85 mt-0.5">Kreasi kain perca lembut</span>
+                          <div className="flex flex-col items-center justify-center text-center animate-fade-in w-full h-full">
+                            <img
+                              src={kainDariBajuBekasImg}
+                              alt="Hasil Kreasi: Kain_Dari_Baju_Bekas_Bayi.png"
+                              className="h-30 sm:h-34 w-auto object-contain drop-shadow-md select-none pointer-events-none mb-1.5"
+                              draggable={false}
+                            />
+                            <span className="text-xs font-bold text-white">Lap Serbaguna Katun Halus</span>
+                            <span className="text-[10px] text-[#FEFAE0]/90">Hasil Kreasi: Kain_Dari_Baju_Bekas_Bayi.png</span>
                           </div>
                         )
                       )}

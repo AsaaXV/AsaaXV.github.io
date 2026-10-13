@@ -3,6 +3,7 @@ import { RefreshCw } from 'lucide-react';
 import { RECYCLE_PHASES } from '../data/content';
 import { sounds } from '../utils/audio';
 import { GrassDivider } from './GrassDivider';
+import recycleImg from '../assets/recycle.png';
 
 export const RecycleSection: React.FC = () => {
   const [activeStepIndex, setActiveStepIndex] = useState(0);
@@ -106,11 +107,19 @@ export const RecycleSection: React.FC = () => {
 
   return (
     <section id="recycle" className="py-12 px-4 max-w-4xl mx-auto flex flex-col items-center">
-      {/* Header matching 3R DMI.jpg */}
-      <div className="text-center mb-8">
-        <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-black text-[#283618] leading-tight tracking-tight uppercase">
-          RECYCLE
-        </h2>
+      {/* Header with recycle.png badge positioned next to section title */}
+      <div className="flex flex-col items-center text-center mb-8">
+        <div className="flex items-center justify-center gap-3 sm:gap-4.5 flex-wrap">
+          <img
+            src={recycleImg}
+            alt="Logo Recycle - Ubah Jadi Baru"
+            className="w-14 h-14 sm:w-18 sm:h-18 md:w-20 md:h-20 object-contain drop-shadow-lg hover:scale-105 transition-transform duration-300 select-none pointer-events-none"
+            draggable={false}
+          />
+          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-black text-[#283618] leading-tight tracking-tight uppercase">
+            RECYCLE
+          </h2>
+        </div>
         <div className="font-display text-xl sm:text-2xl md:text-3xl font-black text-[#283618] tracking-wider uppercase mt-1">
           UBAH JADI BARU
         </div>

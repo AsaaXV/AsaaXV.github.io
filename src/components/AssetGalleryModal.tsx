@@ -13,6 +13,17 @@ import sampah2Img from '../assets/sampah2.png';
 import tongsampahAtasImg from '../assets/tongsampah-atas.png';
 import tongsampahBawahImg from '../assets/tongsampah-bawah.png';
 
+import bumiImg from '../assets/bumi.png';
+import reduceImg from '../assets/reduce.png';
+import reuseImg from '../assets/reuse.png';
+import recycleImg from '../assets/recycle.png';
+import botolBekasImg from '../assets/botol bekas.png';
+import potBungaImg from '../assets/Pot-Bunga-dari-Botol.png';
+import kardusBekasImg from '../assets/kardus-bekas.png';
+import rakBukuKardusImg from '../assets/Rak-Buku-Mini-Dari-Kardus.png';
+import bajuBayiBekasImg from '../assets/baju_bayi_bekas.png';
+import kainDariBajuBekasImg from '../assets/Kain_Dari_Baju_Bekas_Bayi.png';
+
 interface AssetGalleryModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -118,6 +129,106 @@ export const ASSETS_LIST = [
     usedIn: 'Action Section (Dasar Tong Sampah Kanan)',
     sectionId: 'action',
     badge: 'Action Sekitar Tong',
+  },
+  {
+    id: 'bumi',
+    fileName: 'bumi.png',
+    name: 'Ilustrasi Bumi Hijau Ceria',
+    description: 'Ilustrasi bumi tersenyum ramah lingkungan yang mendampingi judul utama 3R di Hero Section.',
+    image: bumiImg,
+    usedIn: 'Hero Section (Mendampingi Judul Utama 3R)',
+    sectionId: 'hero',
+    badge: 'Hero Section',
+  },
+  {
+    id: 'reduce-badge',
+    fileName: 'reduce.png',
+    name: 'Ikon & Emblem Reduce',
+    description: 'Logo aksi Reduce (Kurangi dari awal) dengan warna hijau alami.',
+    image: reduceImg,
+    usedIn: 'Reduce Section Header & Kartu Folder Tong Sampah #01',
+    sectionId: 'reduce',
+    badge: '3R Core & Action',
+  },
+  {
+    id: 'reuse-badge',
+    fileName: 'reuse.png',
+    name: 'Ikon & Emblem Reuse',
+    description: 'Logo aksi Reuse (Gunakan kembali) dengan simbol panah sirkular ramah lingkungan.',
+    image: reuseImg,
+    usedIn: 'Reuse Section Header & Kartu Folder Tong Sampah #02',
+    sectionId: 'reuse',
+    badge: '3R Core & Action',
+  },
+  {
+    id: 'recycle-badge',
+    fileName: 'recycle.png',
+    name: 'Ikon & Emblem Recycle',
+    description: 'Logo aksi Recycle (Daur ulang jadi bernilai) dengan siklus panah pemrosesan.',
+    image: recycleImg,
+    usedIn: 'Recycle Section Header & Kartu Folder Tong Sampah #03',
+    sectionId: 'recycle',
+    badge: '3R Core & Action',
+  },
+  {
+    id: 'botol-bekas',
+    fileName: 'botol bekas.png',
+    name: 'Botol Plastik Bekas Minum',
+    description: 'Foto bahan asal limbah botol plastik sebelum di-upcycle.',
+    image: botolBekasImg,
+    usedIn: 'Reuse Section (Kartu Kreasi 1: Bahan Asal)',
+    sectionId: 'reuse',
+    badge: 'Reuse Bahan Asal',
+  },
+  {
+    id: 'pot-bunga',
+    fileName: 'Pot-Bunga-dari-Botol.png',
+    name: 'Pot Bunga dari Botol Bekas',
+    description: 'Foto hasil kreasi pot tanaman sukulen/hias cantik dari botol plastik upcycled.',
+    image: potBungaImg,
+    usedIn: 'Reuse Section (Kartu Kreasi 1: Hasil Kreasi)',
+    sectionId: 'reuse',
+    badge: 'Reuse Hasil Kreasi',
+  },
+  {
+    id: 'kardus-bekas',
+    fileName: 'kardus-bekas.png',
+    name: 'Kardus Paket Ekspedisi Bekas',
+    description: 'Foto bahan asal limbah kardus tebal cokelat yang dapat dimanfaatkan ulang.',
+    image: kardusBekasImg,
+    usedIn: 'Reuse Section (Kartu Kreasi 2: Bahan Asal)',
+    sectionId: 'reuse',
+    badge: 'Reuse Bahan Asal',
+  },
+  {
+    id: 'rak-buku-mini',
+    fileName: 'Rak-Buku-Mini-Dari-Kardus.png',
+    name: 'Rak Buku Mini dari Kardus',
+    description: 'Foto hasil kreasi rak buku mini meja dan organizer bersekat yang kokoh dari kardus upcycled.',
+    image: rakBukuKardusImg,
+    usedIn: 'Reuse Section (Kartu Kreasi 2: Hasil Kreasi)',
+    sectionId: 'reuse',
+    badge: 'Reuse Hasil Kreasi',
+  },
+  {
+    id: 'baju-bayi-bekas',
+    fileName: 'baju_bayi_bekas.png',
+    name: 'Baju Bayi Bekas (Katun)',
+    description: 'Foto bahan asal pakaian bayi katun lembut yang sudah tidak terpakai.',
+    image: bajuBayiBekasImg,
+    usedIn: 'Reuse Section (Kartu Kreasi 3: Bahan Asal)',
+    sectionId: 'reuse',
+    badge: 'Reuse Bahan Asal',
+  },
+  {
+    id: 'kain-lap',
+    fileName: 'Kain_Dari_Baju_Bekas_Bayi.png',
+    name: 'Kain Lap Serbaguna dari Baju Bayi',
+    description: 'Foto hasil kreasi lap mikrofiber/katun serbaguna yang lembut dan berdaya serap tinggi.',
+    image: kainDariBajuBekasImg,
+    usedIn: 'Reuse Section (Kartu Kreasi 3: Hasil Kreasi)',
+    sectionId: 'reuse',
+    badge: 'Reuse Hasil Kreasi',
   },
 ];
 

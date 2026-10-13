@@ -4,6 +4,7 @@ import { REDUCE_CARDS } from '../data/content';
 import { sounds } from '../utils/audio';
 import { TotebagIllustration, SedotanBesiIllustration, TumblerIllustration } from './HandDrawnIllustrations';
 import { GrassDivider } from './GrassDivider';
+import reduceImg from '../assets/reduce.png';
 
 export const ReduceSection: React.FC = () => {
   // Store flipped state for each card independently (false = front, true = back)
@@ -23,12 +24,20 @@ export const ReduceSection: React.FC = () => {
 
   return (
     <section id="reduce" className="py-8 sm:py-12 px-3 sm:px-4 max-w-4xl mx-auto flex flex-col items-center">
-      {/* Header matching 3R DMI.jpg */}
-      <div className="text-center mb-6 sm:mb-8">
-        <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-black text-[#283618] leading-tight tracking-tight uppercase">
-          REDUCE
-        </h2>
-        <div className="font-display text-lg sm:text-2xl md:text-3xl font-black text-[#283618] tracking-wider uppercase mt-0.5 sm:mt-1">
+      {/* Header with reduce.png badge positioned next to the section title */}
+      <div className="flex flex-col items-center text-center mb-6 sm:mb-8">
+        <div className="flex items-center justify-center gap-3 sm:gap-4.5 flex-wrap">
+          <img
+            src={reduceImg}
+            alt="Logo Reduce - Kurangi Dari Awal"
+            className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 object-contain drop-shadow-lg hover:scale-105 transition-transform duration-300 select-none pointer-events-none"
+            draggable={false}
+          />
+          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-black text-[#283618] leading-tight tracking-tight uppercase">
+            REDUCE
+          </h2>
+        </div>
+        <div className="font-display text-lg sm:text-2xl md:text-3xl font-black text-[#283618] tracking-wider uppercase mt-1">
           KURANGI DARI AWAL
         </div>
         <p className="font-body text-[#283618]/90 text-xs sm:text-base font-semibold mt-1 sm:mt-2 max-w-md mx-auto">
@@ -44,7 +53,7 @@ export const ReduceSection: React.FC = () => {
           return (
             <div
               key={card.id}
-              className="perspective-1200 w-full min-h-[460px] sm:min-h-[490px] md:min-h-[510px] flex flex-col"
+              className="perspective-1200 w-full min-h-[500px] sm:min-h-[530px] md:min-h-[550px] flex flex-col"
             >
               {/* Inner 3D Flip Card Container */}
               <div
@@ -68,8 +77,8 @@ export const ReduceSection: React.FC = () => {
                       </span>
                     </div>
 
-                    {/* Stylized Illustrated Icon Badge */}
-                    <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-26 md:h-26 rounded-2xl bg-[#FEFAE0]/15 mx-auto flex items-center justify-center my-1 group-hover:scale-105 transition-transform shadow-inner border border-[#FEFAE0]/25 p-2.5">
+                    {/* Stylized Illustrated Icon Badge (Enlarged for clear visibility) */}
+                    <div className="w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-2xl bg-[#FEFAE0]/15 mx-auto flex items-center justify-center my-1.5 group-hover:scale-105 transition-transform shadow-inner border border-[#FEFAE0]/25 p-3">
                       {card.iconType === 'tumbler' && <TumblerIllustration className="w-full h-full drop-shadow-md" />}
                       {card.iconType === 'plastic' && <TotebagIllustration className="w-full h-full drop-shadow-md" />}
                       {card.iconType === 'food' && <SedotanBesiIllustration className="w-full h-full drop-shadow-md" />}
