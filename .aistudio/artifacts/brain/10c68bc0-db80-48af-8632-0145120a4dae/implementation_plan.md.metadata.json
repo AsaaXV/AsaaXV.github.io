@@ -1,6 +1,6 @@
 {
-  "summary": "Penataan posisi planet bumi di kiri, teks 3R di kanan, serta penyesuaian ukuran aset:\n1. Menukar posisi gambar planet (bumi.png) ke sebelah KIRI dan tulisan 3R ke sebelah KANAN pada HeroSection.\n2. Memperkecil ukuran aset planet bumi (dari w-28..w-44 menjadi w-14..w-22) dan menyesuaikan ukuran teks 3R agar tampil proporsional, rapi, dan tidak kebesaran.\n3. Memperkecil ukuran aset logo reduce.png di judul section Reduce (dari w-16..w-24 menjadi w-9..w-13) serta menyesuaikan proporsi aset logo section terkait (reuse & recycle) dan ikon kartu.",
-  "updatedAt": "2026-10-14T00:15:56.035185672Z",
+  "summary": "Status tong sampah saat pertama kali website dibuka diubah menjadi tertutup (isLidOpen = false). Pengunjung dapat mengeklik tong sampah atau memilih tombol tahap aksi untuk membuka tutupnya secara interaktif dengan animasi halus.",
+  "updatedAt": "2026-10-14T00:40:08.759827357Z",
   "requestFeedback": true,
   "userFacing": true
 }

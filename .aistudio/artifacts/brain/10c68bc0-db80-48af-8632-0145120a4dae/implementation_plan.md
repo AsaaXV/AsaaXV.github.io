@@ -1,17 +1,13 @@
-# Penyesuaian Tata Letak & Ukuran Aset (Planet & Reduce) Selesai
+# Penyesuaian Status Awal Tong Sampah Selesai
 
-Telah dilakukan penyesuaian posisi dan ukuran aset sesuai permintaan:
+Status awal tong sampah saat website pertama kali dibuka telah disesuaikan:
 
 ## Detail Perubahan:
-1. **Posisi Planet di Kiri & Tulisan 3R di Kanan**:
-   - Gambar ilustrasi planet bumi (`bumi.png`) kini berada di sebelah **KIRI**.
-   - Tulisan judul **3R** beserta aksen sparkles kini berada di sebelah **KANAN**.
+1. **Tong Sampah Tertutup saat Website Dibuka**:
+   - Nilai inisial state `isLidOpen` diubah dari `true` menjadi `false`.
+   - Ketika halaman dibuka, tutup tong sampah berada tepat di atas badan tong sampah dalam posisi tertutup rapi.
+   - Folder aksi berada di dalam tong sampah dan tidak langsung mencuat keluar.
 
-2. **Ukuran Aset Planet Proporsional (Tidak Kebesaran)**:
-   - Dimensi aset planet `bumi.png` diperkecil dari sebelumnya `w-28..w-44` menjadi `w-14 h-14 sm:w-18 sm:h-18 md:w-22 md:h-22` sehingga tidak mendominasi atau terasa terlalu besar.
-   - Ukuran font teks judul 3R diselaraskan (`64px`–`108px`) agar seimbang dan harmonis mendampingi ilustrasi bumi.
-
-3. **Ukuran Aset pada Tulisan / Section REDUCE Diperkecil**:
-   - Logo `reduce.png` di samping tulisan judul REDUCE diperkecil dari `w-16..w-24` menjadi `w-9 h-9 sm:w-11 sm:h-11 md:w-13 md:h-13` sehingga seimbang dengan tinggi huruf judul.
-   - Ikon ilustrasi kartu reduce dioptimalkan ukurannya agar lebih pas dan tidak memakan ruang berlebih.
-   - Logo `reuse.png` dan `recycle.png` pada bagian pilar lainnya juga diselaraskan ukurannya agar desain konsisten dan rapi di seluruh halaman.
+2. **Interaksi Membuka**:
+   - Pengunjung dapat mengklik badan tong sampah, tutupnya, atau tombol tahap aksi (Tahap 1, 2, 3) untuk membuka tutup secara dinamis dengan animasi halus (tutup miring ke samping dan folder-folder aksi terangkat keluar).
+   - Label petunjuk juga otomatis menampilkan status *"Tekan tong sampah untuk membuka 3 dokumen aksi"* saat tertutup.

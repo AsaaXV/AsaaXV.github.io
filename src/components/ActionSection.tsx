@@ -23,8 +23,8 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
   const [completedFolders, setCompletedFolders] = useState<Record<string, boolean>>({
     'act-1': true,
   });
-  // Bin starts open or can be toggled; kept stable while interacting
-  const [isLidOpen, setIsLidOpen] = useState(true);
+  // Bin starts closed when website is opened, and opens smoothly on click/interaction
+  const [isLidOpen, setIsLidOpen] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   const toggleFolder = (id: string) => {
