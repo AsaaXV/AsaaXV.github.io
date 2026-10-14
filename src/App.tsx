@@ -8,10 +8,12 @@ import { FactsSection } from './components/FactsSection';
 import { ActionSection } from './components/ActionSection';
 import { AcademicReportModal } from './components/AcademicReportModal';
 import { SecretEasterEggModal } from './components/SecretEasterEggModal';
+import { EarthRescueGameModal } from './components/EarthRescueGameModal';
 
 export default function App() {
   const [isReportOpen, setIsReportOpen] = useState(false);
   const [isSecretOpen, setIsSecretOpen] = useState(false);
+  const [isGameOpen, setIsGameOpen] = useState(false);
   const [isMobileFrame, setIsMobileFrame] = useState(false);
 
   // Secret Easter Egg Key Listener: Mengetik "unm", "3r", atau "rahasia" membuka ruang rahasia
@@ -64,6 +66,7 @@ export default function App() {
           {/* Section 0: Hero 3R */}
           <HeroSection
             onStartExplore={handleScrollToReduce}
+            onOpenGame={() => setIsGameOpen(true)}
           />
 
           {/* Section 1: REDUCE */}
@@ -93,6 +96,12 @@ export default function App() {
       <SecretEasterEggModal
         isOpen={isSecretOpen}
         onClose={() => setIsSecretOpen(false)}
+      />
+
+      {/* Game Penyelamatan Bumi: Earth Pollution Defense Arcade */}
+      <EarthRescueGameModal
+        isOpen={isGameOpen}
+        onClose={() => setIsGameOpen(false)}
       />
     </div>
   );

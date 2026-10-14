@@ -6,12 +6,18 @@ import bumiImg from '../assets/bumi.png';
 
 interface HeroSectionProps {
   onStartExplore: () => void;
+  onOpenGame: () => void;
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ onStartExplore }) => {
+export const HeroSection: React.FC<HeroSectionProps> = ({ onStartExplore, onOpenGame }) => {
   const handleClick = () => {
     sounds.playWheelClick();
     onStartExplore();
+  };
+
+  const handleEarthClick = () => {
+    sounds.playAlert();
+    onOpenGame();
   };
 
   return (
@@ -21,15 +27,20 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onStartExplore }) => {
         
         {/* Planet di sebelah KIRI, tulisan 3R di sebelah KANAN */}
         <div className="relative my-2 select-none flex items-center justify-center gap-2.5 sm:gap-4 md:gap-5 group">
-          {/* Earth Illustration (bumi.png) di KIRI - ukuran proporsional & tidak kebesaran */}
-          <div className="flex flex-col items-center group-hover:scale-105 transition-transform duration-300">
+          {/* Earth Illustration (bumi.png) di KIRI - Easter Egg misterius saat diklik */}
+          <button
+            type="button"
+            onClick={handleEarthClick}
+            className="relative flex flex-col items-center group-hover:scale-105 active:scale-95 transition-transform duration-300 cursor-pointer focus:outline-none"
+            aria-label="Ilustrasi Bumi Hijau Lestari"
+          >
             <img
               src={bumiImg}
-              alt="Ilustrasi Bumi Hijau Lestari - bumi.png"
-              className="w-14 h-14 sm:w-18 sm:h-18 md:w-22 md:h-22 object-contain drop-shadow-md select-none pointer-events-none"
+              alt="Ilustrasi Bumi Hijau Lestari"
+              className="w-14 h-14 sm:w-18 sm:h-18 md:w-22 md:h-22 object-contain drop-shadow-md select-none transition-transform duration-300 pointer-events-none"
               draggable={false}
             />
-          </div>
+          </button>
 
           {/* Tulisan 3R di KANAN */}
           <div className="relative">

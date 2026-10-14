@@ -1,13 +1,11 @@
-# Penyesuaian Status Awal Tong Sampah Selesai
+# Penyesuaian Selesai: Fitur Misterius (Easter Egg) Game Penyelamatan Bumi
 
-Status awal tong sampah saat website pertama kali dibuka telah disesuaikan:
+Pop-up badge penanda klik telah dihilangkan sesuai permintaan:
 
 ## Detail Perubahan:
-1. **Tong Sampah Tertutup saat Website Dibuka**:
-   - Nilai inisial state `isLidOpen` diubah dari `true` menjadi `false`.
-   - Ketika halaman dibuka, tutup tong sampah berada tepat di atas badan tong sampah dalam posisi tertutup rapi.
-   - Folder aksi berada di dalam tong sampah dan tidak langsung mencuat keluar.
-
-2. **Interaksi Membuka**:
-   - Pengunjung dapat mengklik badan tong sampah, tutupnya, atau tombol tahap aksi (Tahap 1, 2, 3) untuk membuka tutup secara dinamis dengan animasi halus (tutup miring ke samping dan folder-folder aksi terangkat keluar).
-   - Label petunjuk juga otomatis menampilkan status *"Tekan tong sampah untuk membuka 3 dokumen aksi"* saat tertutup.
+1. **Penghilangan Badge & Tooltip**:
+   - Badge mengambang `[🎮 KLIK BUMI!]` di atas gambar bumi telah dihapus sepenuhnya.
+   - Tooltip bawaan browser yang mencolok juga telah ditiadakan.
+2. **Kesan Misterius / Rahasia (Easter Egg)**:
+   - Gambar bumi (`bumi.png`) kini tampak bersih dan natural menyatu dengan komposisi visual 3R.
+   - Interaksi klik tetap aktif di latar belakang, sehingga game penyelamatan bumi menjadi kejutan rahasia yang hanya bisa dimainkan oleh pengunjung yang tahu atau tidak sengaja menekan gambar bumi.

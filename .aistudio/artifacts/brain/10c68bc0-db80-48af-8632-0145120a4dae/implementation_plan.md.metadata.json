@@ -1,6 +1,6 @@
 {
-  "summary": "Status tong sampah saat pertama kali website dibuka diubah menjadi tertutup (isLidOpen = false). Pengunjung dapat mengeklik tong sampah atau memilih tombol tahap aksi untuk membuka tutupnya secara interaktif dengan animasi halus.",
-  "updatedAt": "2026-10-14T00:40:08.759827357Z",
+  "summary": "Pop-up badge 'KLIK BUMI!' dan tooltip telah dihilangkan dari tampilan hero section. Tampilan bumi kini bersih dan menyatu secara alami dengan desain, menjadikannya fitur Easter Egg misterius yang hanya terbuka jika pengunjung tahu atau tidak sengaja mengklik gambar bumi.",
+  "updatedAt": "2026-10-14T10:19:44.800404900Z",
   "requestFeedback": true,
   "userFacing": true
 }
