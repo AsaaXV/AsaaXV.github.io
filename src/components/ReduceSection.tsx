@@ -30,7 +30,7 @@ export const ReduceSection: React.FC = () => {
           <img
             src={reduceImg}
             alt="Logo Reduce - Kurangi Dari Awal"
-            className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 object-contain drop-shadow-lg hover:scale-105 transition-transform duration-300 select-none pointer-events-none"
+            className="w-9 h-9 sm:w-11 sm:h-11 md:w-13 md:h-13 object-contain drop-shadow-md hover:scale-105 transition-transform duration-300 select-none pointer-events-none"
             draggable={false}
           />
           <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-black text-[#283618] leading-tight tracking-tight uppercase">
@@ -53,7 +53,7 @@ export const ReduceSection: React.FC = () => {
           return (
             <div
               key={card.id}
-              className="perspective-1200 w-full min-h-[500px] sm:min-h-[530px] md:min-h-[550px] flex flex-col"
+              className="perspective-1200 w-full min-h-[460px] sm:min-h-[490px] md:min-h-[510px] flex flex-col"
             >
               {/* Inner 3D Flip Card Container */}
               <div
@@ -77,8 +77,8 @@ export const ReduceSection: React.FC = () => {
                       </span>
                     </div>
 
-                    {/* Stylized Illustrated Icon Badge (Enlarged for clear visibility) */}
-                    <div className="w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-2xl bg-[#FEFAE0]/15 mx-auto flex items-center justify-center my-1.5 group-hover:scale-105 transition-transform shadow-inner border border-[#FEFAE0]/25 p-3">
+                    {/* Stylized Illustrated Icon Badge (Proporsional & Seimbang) */}
+                    <div className="w-20 h-20 sm:w-22 sm:h-22 md:w-24 md:h-24 rounded-2xl bg-[#FEFAE0]/15 mx-auto flex items-center justify-center my-1 group-hover:scale-105 transition-transform shadow-inner border border-[#FEFAE0]/25 p-2.5">
                       {card.iconType === 'tumbler' && <TumblerIllustration className="w-full h-full drop-shadow-md" />}
                       {card.iconType === 'plastic' && <TotebagIllustration className="w-full h-full drop-shadow-md" />}
                       {card.iconType === 'food' && <SedotanBesiIllustration className="w-full h-full drop-shadow-md" />}

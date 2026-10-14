@@ -1,21 +1,17 @@
-# Penataan Folder Dokumen Menumpuk ke Atas Selesai Diimplementasikan
+# Penyesuaian Tata Letak & Ukuran Aset (Planet & Reduce) Selesai
 
-Revisi penataan folder aksi di tong sampah telah selesai dikerjakan sesuai seluruh arahan Anda:
+Telah dilakukan penyesuaian posisi dan ukuran aset sesuai permintaan:
 
-## Rangkuman Perubahan yang Telah Diterapkan:
-1. **Susunan Menumpuk ke Atas (*Vertically Stacked Upwards*)**:
-   - Ketiga folder kini tersusun bertumpuk secara vertikal (*memanjang ke atas*) dengan *negative vertical margin* presisi (`-space-y-16 sm:-space-y-22 md:-space-y-26`).
-   - Folder bagian bawah separuh tertanam di dalam mulut tong sampah (di belakang dinding badan tong sampah ber-z-index 20), sementara bagian atasnya menyembul tegak memanjang ke atas.
+## Detail Perubahan:
+1. **Posisi Planet di Kiri & Tulisan 3R di Kanan**:
+   - Gambar ilustrasi planet bumi (`bumi.png`) kini berada di sebelah **KIRI**.
+   - Tulisan judul **3R** beserta aksen sparkles kini berada di sebelah **KANAN**.
 
-2. **Ukuran Folder Sedikit Lebih Besar & Proporsional**:
-   - Skala folder dinaikkan menjadi `w-32 sm:w-40 md:w-44` sehingga tampak seimbang dan proporsional dengan lebar mulut tong sampah (`w-56 sm:w-72`).
+2. **Ukuran Aset Planet Proporsional (Tidak Kebesaran)**:
+   - Dimensi aset planet `bumi.png` diperkecil dari sebelumnya `w-28..w-44` menjadi `w-14 h-14 sm:w-18 sm:h-18 md:w-22 md:h-22` sehingga tidak mendominasi atau terasa terlalu besar.
+   - Ukuran font teks judul 3R diselaraskan (`64px`–`108px`) agar seimbang dan harmonis mendampingi ilustrasi bumi.
 
-3. **Polos Murni Tanpa Teks Langkah 1 2 3**:
-   - Seluruh badge teks "Langkah #1", "Langkah #2", dan "Langkah #3" pada folder telah dihapus sepenuhnya.
-   - Menghasilkan tampilan visual ilustrasi folder yang bersih, murni, dan otentik.
-
-4. **Tutup Sampah Tetap Sempurna**:
-   - Mekanisme dan estetika tutup tong sampah yang bersandar miring di sebelah kanan bawah tetap dipertahankan persis seperti sebelumnya.
-
-5. **Interaktivitas Tetap Terintegrasi**:
-   - Mengklik folder mana pun akan membuka panduan aksi detail lengkap dengan *checklist* dan navigasi langkah di panel atas.
+3. **Ukuran Aset pada Tulisan / Section REDUCE Diperkecil**:
+   - Logo `reduce.png` di samping tulisan judul REDUCE diperkecil dari `w-16..w-24` menjadi `w-9 h-9 sm:w-11 sm:h-11 md:w-13 md:h-13` sehingga seimbang dengan tinggi huruf judul.
+   - Ikon ilustrasi kartu reduce dioptimalkan ukurannya agar lebih pas dan tidak memakan ruang berlebih.
+   - Logo `reuse.png` dan `recycle.png` pada bagian pilar lainnya juga diselaraskan ukurannya agar desain konsisten dan rapi di seluruh halaman.

@@ -19,25 +19,26 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onStartExplore }) => {
       {/* Background warm aesthetic texture */}
       <div className="max-w-xl mx-auto px-4 flex flex-col items-center">
         
-        {/* Massive 3R Title accompanied by bumi.png */}
-        <div className="relative my-2 select-none flex items-center justify-center gap-3 sm:gap-6 group">
-          <div className="relative">
-            <h1 className="font-display text-[84px] sm:text-[124px] md:text-[144px] font-black leading-none text-[#283618] tracking-tight drop-shadow-sm transition-transform duration-300 hover:scale-105 cursor-default">
-              3R
-            </h1>
-            <div className="absolute -top-1 -right-3 text-[#5B4436] animate-bounce">
-              <Sparkles className="w-6 h-6 fill-[#5B4436]" />
-            </div>
-          </div>
-
-          {/* Earth Illustration (bumi.png) mendampingi judul - diperbesar proporsional */}
+        {/* Planet di sebelah KIRI, tulisan 3R di sebelah KANAN */}
+        <div className="relative my-2 select-none flex items-center justify-center gap-2.5 sm:gap-4 md:gap-5 group">
+          {/* Earth Illustration (bumi.png) di KIRI - ukuran proporsional & tidak kebesaran */}
           <div className="flex flex-col items-center group-hover:scale-105 transition-transform duration-300">
             <img
               src={bumiImg}
               alt="Ilustrasi Bumi Hijau Lestari - bumi.png"
-              className="w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 object-contain drop-shadow-xl select-none pointer-events-none"
+              className="w-14 h-14 sm:w-18 sm:h-18 md:w-22 md:h-22 object-contain drop-shadow-md select-none pointer-events-none"
               draggable={false}
             />
+          </div>
+
+          {/* Tulisan 3R di KANAN */}
+          <div className="relative">
+            <h1 className="font-display text-[64px] sm:text-[90px] md:text-[108px] font-black leading-none text-[#283618] tracking-tight drop-shadow-sm transition-transform duration-300 hover:scale-105 cursor-default">
+              3R
+            </h1>
+            <div className="absolute -top-1 -right-2.5 text-[#5B4436] animate-bounce">
+              <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 fill-[#5B4436]" />
+            </div>
           </div>
         </div>
 

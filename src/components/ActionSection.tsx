@@ -221,7 +221,7 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
         </div>
 
         {/* The Iconic Illustrated Trash Bin using authentic assets */}
-        <div className="relative mt-20 sm:mt-28 md:mt-32 my-4 pt-4 sm:pt-6 flex flex-col items-center select-none">
+        <div className="relative mt-16 sm:mt-22 md:mt-28 my-4 pt-4 sm:pt-6 flex flex-col items-center select-none">
           {/* Lid of the trash bin (when open: leans slanted on right flank touching the ground) */}
           <div
             onClick={(e) => {
@@ -261,13 +261,16 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
               }`}
             />
 
-            {/* 3 Action Folders: Menumpuk ke atas, memanjang ke atas menyembul dari bibir tong, polos murni tanpa teks langkah 1 2 3 */}
+            {/* 3 Action Folders: Menumpuk ke atas dengan gap rapat, masuk ke dalam bibir mulut tong sampah */}
             <div
-              className={`absolute -top-36 sm:-top-48 md:-top-56 left-1/2 -translate-x-1/2 flex flex-col items-center -space-y-16 sm:-space-y-22 md:-space-y-26 transition-all duration-500 ease-out z-15 ${
+              className={`absolute left-1/2 -translate-x-1/2 flex flex-col items-center -space-y-[65px] sm:-space-y-[82px] md:-space-y-[94px] transition-all duration-500 ease-out z-15 ${
                 isLidOpen
                   ? 'translate-y-0 opacity-100 scale-100 pointer-events-auto'
                   : 'translate-y-24 sm:translate-y-32 opacity-0 scale-75 pointer-events-none'
               }`}
+              style={{
+                bottom: 'calc(100% - clamp(48px, 7.5vw, 62px))',
+              }}
             >
               {ACTION_FOLDERS.map((folder, index) => {
                 const isSelected = selectedFolderId === folder.id;
@@ -275,7 +278,7 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
 
                 // Subtle upright tilt: nearly vertical with organic variation
                 const baseRotation = index === 0 ? '-rotate-1' : index === 1 ? 'rotate-1' : '-rotate-2';
-                // Cascading z-index from top to bottom (Folder 2 overlaps 1, Folder 3 overlaps 2, Bin overlaps 3; selected folder rises to front of stack)
+                // Cascading z-index: bottom folder sits behind front rim (z-20), selected folder rises
                 const folderZIndex = isSelected ? 'z-[18]' : index === 0 ? 'z-[11]' : index === 1 ? 'z-[12]' : 'z-[13]';
 
                 return (
@@ -288,8 +291,8 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
                     }}
                     className={`group relative flex flex-col items-center cursor-pointer transition-all duration-300 focus:outline-none ${folderZIndex} ${baseRotation} ${
                       isSelected
-                        ? '-translate-y-2.5 sm:-translate-y-3.5 scale-105'
-                        : 'hover:-translate-y-1.5 hover:scale-102'
+                        ? '-translate-y-2 sm:-translate-y-3 scale-105'
+                        : 'hover:-translate-y-1 hover:scale-102'
                     }`}
                     title={folder.title}
                   >
@@ -304,7 +307,7 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
                       <img
                         src={folderImg}
                         alt={folder.title}
-                        className="w-32 sm:w-40 md:w-44 h-auto object-contain select-none pointer-events-none"
+                        className="w-28 sm:w-34 md:w-38 h-auto object-contain select-none pointer-events-none"
                         draggable={false}
                         referrerPolicy="no-referrer"
                       />
