@@ -175,9 +175,6 @@ export const FactsSection: React.FC = () => {
           );
         })}
       </div>
-
-      {/* Grass Silhouette Line Divider matching reference images */}
-      <GrassDivider variant="bottom" className="w-full mt-10" />
     </section>
   );
 };

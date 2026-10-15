@@ -15,6 +15,11 @@ class SoundEffectsManager {
     }
   }
 
+  toggle(): boolean {
+    this.enabled = !this.enabled;
+    return this.enabled;
+  }
+
   playPop() {
     if (!this.enabled) return;
     try {
@@ -270,6 +275,88 @@ class SoundEffectsManager {
         osc.start(now + idx * 0.1);
         osc.stop(now + idx * 0.1 + 0.12);
       });
+    } catch {
+      // ignore
+    }
+  }
+
+  // Arcade: Tangkap sampah masuk tong (Pop / Plop chime yang renyah)
+  playTrashCatch(multiplier: number = 1) {
+    if (!this.enabled) return;
+    try {
+      this.initCtx();
+      if (!this.ctx) return;
+      const now = this.ctx.currentTime;
+      const baseFreq = 420 + Math.min(multiplier * 40, 500);
+
+      // Bubble pop effect
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(baseFreq * 0.7, now);
+      osc.frequency.exponentialRampToValueAtTime(baseFreq * 1.6, now + 0.05);
+
+      gain.gain.setValueAtTime(0.12, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.07);
+    } catch {
+      // ignore
+    }
+  }
+
+  // Arcade: Terkena Asap Hitam Beracun (Buzzer batuk / toxic zap)
+  playToxicHurt() {
+    if (!this.enabled) return;
+    try {
+      this.initCtx();
+      if (!this.ctx) return;
+      const now = this.ctx.currentTime;
+
+      // Heavy low buzz
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(140, now);
+      osc.frequency.linearRampToValueAtTime(50, now + 0.22);
+
+      gain.gain.setValueAtTime(0.16, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.22);
+    } catch {
+      // ignore
+    }
+  }
+
+  // Arcade: Combo streak sound
+  playCombo(combo: number) {
+    if (!this.enabled) return;
+    try {
+      this.initCtx();
+      if (!this.ctx) return;
+      const now = this.ctx.currentTime;
+      const notes = [523.25, 659.25, 783.99, 1046.5];
+      const note = notes[Math.min(combo - 1, notes.length - 1)] || 1046.5;
+
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(note, now);
+
+      gain.gain.setValueAtTime(0.1, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.15);
     } catch {
       // ignore
     }

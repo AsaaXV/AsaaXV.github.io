@@ -171,10 +171,10 @@ export const RecycleSection: React.FC = () => {
             </div>
 
             {/* Downward indicator notch pointing to the top number on the half-wheel */}
-            <div className="absolute -bottom-3.5 left-1/2 -translate-x-1/2 w-0 h-0 border-x-8 border-x-transparent border-t-[14px] border-t-[#1e2a12] drop-shadow" />
+            <div className="absolute -bottom-3.5 left-1/2 -translate-x-1/2 w-0 h-0 border-x-8 border-x-transparent border-t-[14px] border-t-[#1e2a12]" />
           </div>
 
-          {/* 2. RODA SETENGAH LINGKARAN (4 Kuadran: 0, 90, 180, 270) */}
+          {/* 2. RODA SETENGAH LINGKARAN (4 Kuadran: 0, 90, 180, 270) - Bebas Shadow Sesuai Catatan Dosen */}
           <div className="relative mt-6 flex flex-col items-center w-full">
             
             {/* Semicircular Viewport */}
@@ -201,13 +201,8 @@ export const RecycleSection: React.FC = () => {
                     transform: `rotate(${wheelRotation}deg)`,
                   }}
                 >
-                  {/* Outer Circular Steering Rim */}
-                  <div
-                    className="w-full h-full rounded-full border-[22px] sm:border-[26px] border-[#5B4436] shadow-2xl relative flex items-center justify-center bg-[#FEFAE0]/20"
-                    style={{
-                      boxShadow: '0 14px 35px -4px rgba(0, 0, 0, 0.4), inset 0 2px 8px 0 rgba(255, 255, 255, 0.25)',
-                    }}
-                  >
+                  {/* Outer Circular Steering Rim - Flat & Clean Tanpa Shadow */}
+                  <div className="w-full h-full rounded-full border-[22px] sm:border-[26px] border-[#5B4436] relative flex items-center justify-center bg-[#FEFAE0]/20">
                     {/* 8 Gagang Kemudi Luar (Handles / Pegs di Luar Lingkar Setir) */}
                     {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => {
                       const isCardinal = angle % 90 === 0;
@@ -223,12 +218,12 @@ export const RecycleSection: React.FC = () => {
                         >
                           {/* Gagang kayu atas */}
                           <div
-                            className={`absolute -top-4 sm:-top-5 rounded-t-lg bg-gradient-to-b from-[#6f5342] to-[#433126] border border-[#2e2119] shadow-md ${
+                            className={`absolute -top-4 sm:-top-5 rounded-t-lg bg-gradient-to-b from-[#6f5342] to-[#433126] border border-[#2e2119] ${
                               isCardinal ? 'w-3.5 sm:w-4 h-6 sm:h-7' : 'w-2.5 sm:w-3 h-5 sm:h-6 opacity-85'
                             }`}
                           >
                             {/* Knob bulat di ujung gagang */}
-                            <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-4 h-3 sm:w-5 sm:h-3.5 rounded-full bg-[#5B4436] border border-[#2e2119] shadow-sm" />
+                            <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-4 h-3 sm:w-5 sm:h-3.5 rounded-full bg-[#5B4436] border border-[#2e2119]" />
                           </div>
                         </div>
                       );
@@ -243,7 +238,7 @@ export const RecycleSection: React.FC = () => {
                       return (
                         <div
                           key={`spoke-${i}`}
-                          className={`absolute rounded-full shadow-inner ${
+                          className={`absolute rounded-full ${
                             isCardinal
                               ? 'w-4 sm:w-5 bg-gradient-to-r from-[#38281e] via-[#4d392c] to-[#38281e] border-x border-[#2b1f17]/60'
                               : 'w-2.5 sm:w-3 bg-[#3d2b20] opacity-90'
@@ -256,16 +251,16 @@ export const RecycleSection: React.FC = () => {
                           {/* Aksen Rivet Kuningan di jeruji */}
                           {isCardinal && (
                             <>
-                              <div className="absolute top-[22%] left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-amber-300/80 shadow-sm" />
-                              <div className="absolute bottom-[22%] left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-amber-300/80 shadow-sm" />
+                              <div className="absolute top-[22%] left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-amber-300/80" />
+                              <div className="absolute bottom-[22%] left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-amber-300/80" />
                             </>
                           )}
                         </div>
                       );
                     })}
 
-                    {/* Cincin Lingkar Dalam (Golden/Brass Inner Concentric Ring persis seperti di referensi) */}
-                    <div className="absolute w-[60%] h-[60%] rounded-full border-2 sm:border-[2.5px] border-amber-400/90 pointer-events-none flex items-center justify-center shadow-sm">
+                    {/* Cincin Lingkar Dalam (Golden/Brass Inner Concentric Ring) */}
+                    <div className="absolute w-[60%] h-[60%] rounded-full border-2 sm:border-[2.5px] border-amber-400/90 pointer-events-none flex items-center justify-center">
                       <div className="w-full h-full rounded-full border border-dashed border-amber-200/40" />
                     </div>
 
@@ -288,8 +283,8 @@ export const RecycleSection: React.FC = () => {
                           }}
                           className={`absolute w-10 h-10 sm:w-11 sm:h-11 rounded-full font-display font-black text-xs sm:text-sm flex items-center justify-center transition-all cursor-pointer ${
                             isStepActive
-                              ? 'bg-[#283618] text-[#FEFAE0] ring-4 ring-[#FEFAE0] scale-125 z-20 shadow-xl'
-                              : 'bg-[#433126] text-[#FEFAE0] hover:bg-[#5B4436] hover:scale-110 z-10 shadow-md border-2 border-[#5B4436]'
+                              ? 'bg-[#283618] text-[#FEFAE0] ring-4 ring-[#FEFAE0] scale-125 z-20'
+                              : 'bg-[#433126] text-[#FEFAE0] hover:bg-[#5B4436] hover:scale-110 z-10 border-2 border-[#5B4436]'
                           }`}
                           style={{
                             transform: `translate(${x}px, ${y}px) rotate(${-wheelRotation}deg)`,
@@ -304,32 +299,29 @@ export const RecycleSection: React.FC = () => {
                 </div>
               </div>
 
-              {/* POROS HIJAU STATIS */}
+              {/* POROS HIJAU STATIS - Bersih Tanpa Shadow */}
               <button
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation();
                   handleNextPhase();
                 }}
-                className="absolute bottom-0 z-30 w-20 h-10 sm:w-24 sm:h-12 rounded-t-full bg-[#283618] hover:bg-[#1e2a12] active:scale-95 text-[#FEFAE0] flex flex-col items-center justify-start pt-1 sm:pt-1.5 shadow-xl border-t-3 border-x-3 border-[#1e2a12] cursor-pointer transition-all group"
-                style={{
-                  boxShadow: '0 4px 10px 0 rgba(0, 0, 0, 0.35)',
-                }}
+                className="absolute bottom-0 z-30 w-20 h-10 sm:w-24 sm:h-12 rounded-t-full bg-[#283618] hover:bg-[#1e2a12] active:scale-95 text-[#FEFAE0] flex flex-col items-center justify-start pt-1 sm:pt-1.5 border-t-3 border-x-3 border-[#1e2a12] cursor-pointer transition-all group"
                 title="Klik untuk memutar setir ke tahap berikutnya"
               >
                 <RefreshCw className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#FEFAE0] group-hover:rotate-180 transition-transform duration-500" />
                 <span className="font-display text-[8px] sm:text-[9.5px] font-black uppercase tracking-widest text-[#FEFAE0] leading-none mt-0.5">
-                  PUTAR
+                  Putar
                 </span>
               </button>
             </div>
 
             {/* 3. HORIZONTAL BASELINE BAR */}
-            <div className="w-full max-w-[410px] sm:max-w-[480px] h-4 bg-[#433126] rounded-full border-t-2 border-[#5B4436] shadow-lg -mt-2 z-20 flex items-center justify-center relative">
+            <div className="w-full max-w-[410px] sm:max-w-[480px] h-4 bg-[#433126] rounded-full border-t-2 border-[#5B4436] -mt-2 z-20 flex items-center justify-center relative">
               <div className="w-28 h-1.5 rounded-full bg-[#5B4436]/60" />
             </div>
 
-            {/* 4. PENANDA POSISI SETIR (KECIL & NON-INTERAKTIF, MURNI PENANDA POSISI) */}
+            {/* 4. PENANDA POSISI SETIR (KECIL & NON-INTERAKTIF) */}
             <div className="mt-4 flex flex-col items-center select-none pointer-events-none">
               <div className="flex items-center gap-2.5 sm:gap-3">
                 {RECYCLE_PHASES.map((phase, idx) => {
@@ -339,7 +331,7 @@ export const RecycleSection: React.FC = () => {
                       key={`step-mark-${phase.step}`}
                       className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center font-display font-black text-xs transition-all duration-300 ${
                         isActive
-                          ? 'bg-[#283618] text-[#FEFAE0] ring-3 ring-amber-300 scale-110 shadow-md'
+                          ? 'bg-[#283618] text-[#FEFAE0] ring-3 ring-amber-300 scale-110'
                           : 'bg-[#5B4436]/35 text-[#283618]/70 border border-[#5B4436]/40'
                       }`}
                     >
@@ -352,9 +344,6 @@ export const RecycleSection: React.FC = () => {
           </div>
         </div>
       </div>
-
-      {/* Grass Silhouette Line Divider matching reference images */}
-      <GrassDivider variant="bottom" className="w-full mt-10" />
     </section>
   );
 };

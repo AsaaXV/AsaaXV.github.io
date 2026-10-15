@@ -376,11 +376,6 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
         </div>
       </div>
 
-      {/* Illustrated Bottom Grass Silhouette Line right above rounded footer matching Image 7 */}
-      <div className="w-full -mb-3 z-10 pointer-events-none">
-        <GrassDivider variant="bottom" className="w-full h-20 sm:h-24" />
-      </div>
-
       {/* Footer Banner with rounded top corners matching Image 7 */}
       <footer className="w-full bg-[#5B4436] text-[#FEFAE0] pt-6 pb-8 px-4 text-center rounded-t-[32px] sm:rounded-t-[40px] shadow-2xl relative z-20">
         <div className="max-w-2xl mx-auto flex flex-col items-center justify-center gap-1">

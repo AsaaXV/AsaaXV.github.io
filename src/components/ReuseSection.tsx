@@ -44,11 +44,11 @@ export const ReuseSection: React.FC = () => {
             REUSE
           </h2>
         </div>
-        <div className="font-display text-xl sm:text-2xl md:text-3xl font-black text-[#283618] tracking-wider uppercase mt-1">
-          MASIH BISA DI PAKAI NGGAK?
+        <div className="font-display text-xl sm:text-2xl md:text-3xl font-black text-[#283618] tracking-wide mt-1">
+          Masih Bisa Dipakai Nggak?
         </div>
-        <p className="font-body text-[#283618]/90 text-sm sm:text-base font-semibold mt-2 max-w-md mx-auto">
-          kita mengupayakan barang yang kita punya selagi masih layak pakai.
+        <p className="font-body text-[#283618]/90 text-sm sm:text-base font-semibold mt-2 max-w-md mx-auto leading-relaxed">
+          Kita mengupayakan barang yang kita miliki selagi masih layak dan aman digunakan.
         </p>
       </div>
 
@@ -232,9 +232,6 @@ export const ReuseSection: React.FC = () => {
           "Siapa bilang barang bekas tidak bisa naik kelas?"
         </p>
       </div>
-
-      {/* Grass Silhouette Line Divider matching reference images */}
-      <GrassDivider variant="bottom" className="w-full mt-6" />
     </section>
   );
 };

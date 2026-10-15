@@ -9,6 +9,7 @@ import { ActionSection } from './components/ActionSection';
 import { AcademicReportModal } from './components/AcademicReportModal';
 import { SecretEasterEggModal } from './components/SecretEasterEggModal';
 import { EarthRescueGameModal } from './components/EarthRescueGameModal';
+import { GrassDivider } from './components/GrassDivider';
 
 export default function App() {
   const [isReportOpen, setIsReportOpen] = useState(false);
@@ -61,8 +62,8 @@ export default function App() {
           onOpenSecret={() => setIsSecretOpen(true)}
         />
 
-        {/* Main Content Sections */}
-        <main className="w-full">
+        {/* Main Content Sections with bottom padding for fixed grass */}
+        <main className="w-full pb-16 sm:pb-24">
           {/* Section 0: Hero 3R */}
           <HeroSection
             onStartExplore={handleScrollToReduce}
@@ -84,6 +85,11 @@ export default function App() {
           {/* Section 5: AJAKAN AKSI */}
           <ActionSection onOpenSecret={() => setIsSecretOpen(true)} />
         </main>
+      </div>
+
+      {/* 1 Navigasi Rumput Fixed di Bagian Paling Bawah yang Mengikuti saat Scroll */}
+      <div className="fixed bottom-0 left-0 right-0 w-full z-30 pointer-events-none select-none overflow-hidden leading-none">
+        <GrassDivider variant="bottom" className="w-full text-[#283618] opacity-95 drop-shadow-md" />
       </div>
 
       {/* Academic Project & Team Document Modal */}

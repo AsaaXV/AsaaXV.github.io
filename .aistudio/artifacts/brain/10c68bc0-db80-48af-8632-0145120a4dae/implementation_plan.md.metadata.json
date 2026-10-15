@@ -1,6 +1,6 @@
 {
-  "summary": "Pop-up badge 'KLIK BUMI!' dan tooltip telah dihilangkan dari tampilan hero section. Tampilan bumi kini bersih dan menyatu secara alami dengan desain, menjadikannya fitur Easter Egg misterius yang hanya terbuka jika pengunjung tahu atau tidak sengaja mengklik gambar bumi.",
-  "updatedAt": "2026-10-14T10:19:44.800404900Z",
+  "summary": "Revisi dari dosen/ibu pembimbing telah selesai diimplementasikan:\n1. Menghilangkan seluruh efek bayangan shadow pada roda daur ulang di Recycle section sehingga tampak bersih dan tajam.\n2. Mengubah format huruf kapital (uppercase) pada subheader dan paragraf penjelasan menjadi huruf normal (Title Case / Sentence Case) yang mudah dan nyaman dibaca.\n3. Menengahkan (center) konten flip card secara vertikal dan menyeimbangkan tinggi kartu sehingga tidak ada ruang kosong di bagian bawah.\n4. Menjadikan navigasi rumput fixed di bagian paling bawah layar (position: fixed; bottom: 0) yang selalu mengikuti saat di-scroll, dan menghapus seluruh rumput pemisah berulang di tengah antar-section.",
+  "updatedAt": "2026-10-15T16:29:10.659976627Z",
   "requestFeedback": true,
   "userFacing": true
 }

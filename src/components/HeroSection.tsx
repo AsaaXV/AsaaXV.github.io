@@ -68,7 +68,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onStartExplore, onOpen
         </p>
 
         {/* Minimalist Pill Button matching original design */}
-        <div className="mt-2 mb-6">
+        <div className="mt-2 mb-8">
           <button
             type="button"
             onClick={handleClick}
@@ -81,9 +81,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onStartExplore, onOpen
           </button>
         </div>
       </div>
-
-      {/* Illustrated Grass Silhouette Line matching the mockup */}
-      <GrassDivider variant="bottom" className="mt-4" />
     </section>
   );
 };
