@@ -51,20 +51,27 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onStartExplore, onOpen
           </button>
 
           {/* Tulisan 3R dengan slide dari kanan — Klik untuk membuka Game Flappy 3R */}
-          <button
-            type="button"
+          <div
+            role="button"
+            tabIndex={0}
             onClick={handleFlappyClick}
-            className="relative animate-slide-right cursor-pointer focus:outline-none active:scale-95 transition-transform duration-300 group"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleFlappyClick();
+              }
+            }}
+            className="relative animate-slide-right cursor-pointer focus:outline-none active:scale-95 transition-transform duration-300 group select-none"
             aria-label="Mainkan Game 3R Terbang"
             title="Klik untuk Mainkan Game Flappy Earth 3R!"
           >
-            <h1 className="font-display text-[72px] sm:text-[96px] md:text-[112px] font-black leading-none text-[#283618] tracking-tight drop-shadow-sm hover-wiggle group-hover:scale-105 transition-transform duration-300">
+            <h1 className="font-display text-[72px] sm:text-[96px] md:text-[112px] font-black leading-none text-[#283618] tracking-tight drop-shadow-sm hover-wiggle group-hover:scale-105 transition-transform duration-300 pointer-events-none">
               3R
             </h1>
-            <div className="absolute -top-1 -right-3 text-[#5B4436] animate-twinkle group-hover:scale-125 transition-transform">
+            <div className="absolute -top-1 -right-3 text-[#5B4436] animate-twinkle group-hover:scale-125 transition-transform pointer-events-none">
               <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 fill-[#5B4436]" />
             </div>
-          </button>
+          </div>
         </div>
 
         {/* 3 Pillars — Meluncur dari bawah (transparan) ke atas (padat), mulai dari KANAN ke kiri */}

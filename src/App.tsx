@@ -78,7 +78,6 @@ export default function App() {
         <Navbar
           onOpenReport={() => setIsReportOpen(true)}
           onOpenSecret={() => setIsSecretOpen(true)}
-          onOpenFlappy={() => setIsFlappyOpen(true)}
         />
 
         {/* Main Content Sections */}

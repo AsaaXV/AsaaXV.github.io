@@ -145,10 +145,18 @@ export const FlappyBird3RModal: React.FC<FlappyBird3RModalProps> = ({ isOpen, on
     if (!isOpen) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.code === 'Space' || e.code === 'ArrowUp' || e.key.toLowerCase() === 'w') {
+      const isJumpKey =
+        e.code === 'Space' ||
+        e.key === ' ' ||
+        e.key === 'Spacebar' ||
+        e.code === 'ArrowUp' ||
+        e.key === 'ArrowUp' ||
+        e.key.toLowerCase() === 'w';
+
+      if (isJumpKey) {
         e.preventDefault();
         handleFlap();
-      } else if (e.code === 'Escape') {
+      } else if (e.code === 'Escape' || e.key === 'Escape') {
         onClose();
       }
     };
@@ -384,55 +392,38 @@ export const FlappyBird3RModal: React.FC<FlappyBird3RModalProps> = ({ isOpen, on
 
   if (!isOpen) return null;
 
-  // Medals calculation
-  const getMedalInfo = (s: number) => {
-    if (s >= 30) return { title: 'Legenda Pinisi 3R', rank: 'MASTER', color: 'from-amber-400 to-yellow-500', icon: '👑' };
-    if (s >= 15) return { title: 'Pahlawan Daur Ulang', rank: 'EMAS', color: 'from-amber-300 to-amber-500', icon: '🥇' };
-    if (s >= 5) return { title: 'Pelindung Ozon', rank: 'PERAK', color: 'from-slate-300 to-slate-400', icon: '🥈' };
-    return { title: 'Bibit Hijau Pemula', rank: 'PERUNGGU', color: 'from-amber-700 to-yellow-800', icon: '🥉' };
-  };
-
-  const medal = getMedalInfo(score);
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-sm animate-fadeIn">
       {/* Outer Cabinet Card */}
-      <div className="relative w-full max-w-[400px] bg-[#FEFAE0] rounded-3xl shadow-2xl border-4 border-[#283618] overflow-hidden flex flex-col select-none text-[#283618]">
+      <div className="relative w-full max-w-[380px] bg-[#FEFAE0] rounded-3xl shadow-2xl border-4 border-[#283618] overflow-hidden flex flex-col select-none text-[#283618]">
         
-        {/* Header Bar */}
-        <div className="bg-[#283618] text-[#FEFAE0] px-4 py-3 flex items-center justify-between border-b-3 border-[#1e2a12] shrink-0">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-[#FEFAE0] p-1 flex items-center justify-center shadow-xs">
+        {/* Simple Header Bar */}
+        <div className="bg-[#283618] text-[#FEFAE0] px-4 py-2.5 flex items-center justify-between border-b-2 border-[#1e2a12] shrink-0">
+          <div className="flex items-center gap-2">
+            <div className="w-7 h-7 rounded-full bg-[#FEFAE0] p-0.5 flex items-center justify-center shadow-xs">
               <img src={bumiImg} alt="Earth" className="w-full h-full object-contain" />
             </div>
-            <div>
-              <div className="flex items-center gap-1.5">
-                <span className="text-[9.5px] font-black tracking-wider uppercase px-2 py-0.2 rounded-full bg-amber-400 text-[#283618]">
-                  GAME 3R TERBANG
-                </span>
-              </div>
-              <h3 className="font-display font-black text-sm uppercase tracking-wide text-white leading-tight mt-0.5">
-                Flappy Earth 3R
-              </h3>
-            </div>
+            <h3 className="font-display font-black text-sm uppercase tracking-wider text-white">
+              Flappy Earth 3R
+            </h3>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             <button
               type="button"
               onClick={toggleSound}
-              className="p-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-[#FEFAE0] transition active:scale-95 cursor-pointer"
+              className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-[#FEFAE0] transition active:scale-95 cursor-pointer"
               title={isAudioMuted ? 'Nyalakan Suara' : 'Bisukan Suara'}
             >
-              {isAudioMuted ? <VolumeX className="w-4 h-4 text-red-300" /> : <Volume2 className="w-4 h-4 text-emerald-300" />}
+              {isAudioMuted ? <VolumeX className="w-3.5 h-3.5 text-red-300" /> : <Volume2 className="w-3.5 h-3.5 text-emerald-300" />}
             </button>
             <button
               type="button"
               onClick={onClose}
-              className="p-1.5 rounded-xl bg-[#5B4436] hover:bg-[#433126] text-[#FEFAE0] transition active:scale-95 border border-[#FEFAE0]/30 cursor-pointer"
+              className="p-1.5 rounded-lg bg-[#5B4436] hover:bg-[#433126] text-[#FEFAE0] transition active:scale-95 border border-[#FEFAE0]/30 cursor-pointer"
               title="Tutup Game"
             >
-              <X className="w-4 h-4" />
+              <X className="w-3.5 h-3.5" />
             </button>
           </div>
         </div>
@@ -440,7 +431,11 @@ export const FlappyBird3RModal: React.FC<FlappyBird3RModalProps> = ({ isOpen, on
         {/* Game Canvas Area */}
         <div
           onClick={handleFlap}
-          className="relative w-full aspect-[360/500] bg-[#FEFAE0] cursor-pointer overflow-hidden"
+          onTouchStart={(e) => {
+            handleFlap();
+          }}
+          onMouseDown={() => handleFlap()}
+          className="relative w-full aspect-[360/500] bg-[#FEFAE0] cursor-pointer overflow-hidden select-none"
           style={{ touchAction: 'manipulation' }}
         >
           <canvas
@@ -450,78 +445,63 @@ export const FlappyBird3RModal: React.FC<FlappyBird3RModalProps> = ({ isOpen, on
             className="w-full h-full block"
           />
 
-          {/* OVERLAY: READY STATE */}
+          {/* OVERLAY: READY STATE (TOMBOL MAIN SIMPEL) */}
           {gameState === 'ready' && (
-            <div className="absolute inset-0 flex flex-col items-center justify-center p-6 bg-black/15 backdrop-blur-[1px] text-center pointer-events-none">
-              <div className="bg-[#FEFAE0]/95 border-3 border-[#283618] rounded-3xl p-5 shadow-xl max-w-xs flex flex-col items-center animate-bounce-subtle">
-                <div className="w-12 h-12 rounded-full bg-[#283618] text-[#FEFAE0] flex items-center justify-center mb-2 shadow-sm font-display font-black text-lg">
-                  3R
-                </div>
-                <h4 className="font-display font-black text-xl text-[#283618] uppercase tracking-wide">
-                  Terbang Lestari
-                </h4>
-                <p className="font-body text-[#5B4436] text-xs font-semibold mt-1 mb-3 leading-relaxed">
-                  Bantu Bumi meluncur melewati cerobong asap polusi!
-                </p>
-
-                <div className="px-4 py-2 rounded-2xl bg-[#283618] text-[#FEFAE0] font-display font-black text-xs flex items-center gap-2 shadow-md mb-2.5">
-                  <Play className="w-3.5 h-3.5 fill-current" />
-                  <span>KETUK / SPASI UNTUK TERBANG</span>
-                </div>
-
-                <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#5B4436]">
-                  <Trophy className="w-3.5 h-3.5 text-amber-600" />
-                  <span>Rekor Terbaik: {highScore}</span>
-                </div>
-              </div>
+            <div
+              onClick={handleFlap}
+              onTouchStart={() => handleFlap()}
+              className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center cursor-pointer select-none"
+            >
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleFlap();
+                }}
+                className="px-7 py-3 rounded-full bg-[#283618] hover:bg-[#1e2a12] text-[#FEFAE0] font-display font-black text-base shadow-xl border-2 border-[#1e2a12] flex items-center gap-2.5 active:scale-95 transition-all transform hover:scale-105 cursor-pointer"
+              >
+                <Play className="w-5 h-5 fill-current" />
+                <span>MAIN</span>
+              </button>
             </div>
           )}
 
-          {/* OVERLAY: GAME OVER STATE */}
+          {/* OVERLAY: GAME OVER STATE (CLEAN & SIMPLE) */}
           {gameState === 'gameover' && (
-            <div className="absolute inset-0 flex flex-col items-center justify-center p-5 bg-black/40 backdrop-blur-xs text-center animate-fadeIn">
-              <div className="w-full max-w-[290px] bg-[#FEFAE0] border-3 border-[#283618] rounded-3xl p-4 shadow-2xl flex flex-col items-center">
-                <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-red-100 border border-red-300 text-red-800 text-[10px] font-black uppercase mb-1.5">
-                  MISI SELESAI
-                </div>
-                <h4 className="font-display font-black text-lg text-[#283618] uppercase tracking-wide">
-                  Bumi Kena Polusi!
+            <div className="absolute inset-0 flex flex-col items-center justify-center p-4 bg-black/35 backdrop-blur-[2px] text-center animate-fadeIn">
+              <div className="w-full max-w-[260px] bg-[#FEFAE0] border-3 border-[#283618] rounded-3xl p-4 shadow-2xl flex flex-col items-center">
+                <h4 className="font-display font-black text-2xl text-[#283618] uppercase tracking-wide">
+                  GAME OVER
                 </h4>
 
-                {/* Scoreboard Card */}
-                <div className="w-full my-3 p-3 rounded-2xl bg-[#283618]/10 border-2 border-[#283618]/25 flex flex-col gap-2">
-                  <div className="flex items-center justify-between border-b border-[#283618]/20 pb-2">
-                    <span className="text-xs font-bold text-[#5B4436]">Skor Bersih:</span>
-                    <span className="font-display font-black text-2xl text-[#283618] leading-none">
+                {/* Scoreboard Card: Simple 2-column layout */}
+                <div className="w-full my-3 py-3 px-3 rounded-2xl bg-[#283618]/10 border-2 border-[#283618]/20 flex items-center justify-around">
+                  <div className="flex flex-col items-center">
+                    <span className="text-[10px] font-bold text-[#5B4436] uppercase tracking-wider">
+                      Skor
+                    </span>
+                    <span className="font-display font-black text-3xl text-[#283618] leading-tight">
                       {score}
                     </span>
                   </div>
 
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-1 text-xs font-bold text-[#5B4436]">
-                      <Trophy className="w-3.5 h-3.5 text-amber-600" />
-                      <span>Rekor Tertinggi:</span>
-                    </div>
-                    <span className="font-display font-black text-lg text-amber-800 leading-none">
+                  <div className="w-0.5 h-10 bg-[#283618]/20 rounded-full" />
+
+                  <div className="flex flex-col items-center">
+                    <span className="text-[10px] font-bold text-[#5B4436] uppercase tracking-wider flex items-center gap-1">
+                      <Trophy className="w-3 h-3 text-amber-600" /> Terbaik
+                    </span>
+                    <span className="font-display font-black text-3xl text-amber-800 leading-tight">
                       {highScore}
                     </span>
                   </div>
-
-                  {isNewHighScore && (
-                    <div className="mt-1 py-1 rounded-xl bg-amber-400 text-[#283618] font-display font-black text-[11px] tracking-wide animate-pulse">
-                      REKOR BARU TERCIPTA!
-                    </div>
-                  )}
-
-                  {/* Medal Preview */}
-                  <div className="mt-1 pt-2 border-t border-[#283618]/15 flex items-center justify-between">
-                    <span className="text-[10px] font-bold text-[#5B4436]">Apresiasi 3R:</span>
-                    <span className="text-xs font-black text-[#283618] flex items-center gap-1">
-                      <span>{medal.icon}</span>
-                      <span>{medal.title}</span>
-                    </span>
-                  </div>
                 </div>
+
+                {isNewHighScore && (
+                  <div className="mb-2 py-0.5 px-3 rounded-full bg-amber-400 text-[#283618] font-display font-black text-[10px] tracking-wide animate-pulse">
+                    REKOR BARU TERCIPTA!
+                  </div>
+                )}
 
                 {/* Play Again Button */}
                 <button
@@ -530,7 +510,7 @@ export const FlappyBird3RModal: React.FC<FlappyBird3RModalProps> = ({ isOpen, on
                     e.stopPropagation();
                     resetGame();
                   }}
-                  className="w-full py-2.5 px-4 bg-[#283618] hover:bg-[#1e2a12] text-[#FEFAE0] font-display font-black text-sm rounded-2xl border-2 border-[#1e2a12] shadow-md transition-all active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full py-2.5 px-4 bg-[#283618] hover:bg-[#1e2a12] text-[#FEFAE0] font-display font-black text-sm rounded-2xl border-2 border-[#1e2a12] shadow-md transition-all active:scale-95 flex items-center justify-center gap-2 cursor-pointer mt-1"
                 >
                   <RotateCcw className="w-4 h-4 stroke-[2.5]" />
                   <span>MAIN LAGI</span>
@@ -538,13 +518,6 @@ export const FlappyBird3RModal: React.FC<FlappyBird3RModalProps> = ({ isOpen, on
               </div>
             </div>
           )}
-        </div>
-
-        {/* Footer Hint */}
-        <div className="bg-[#283618]/10 px-4 py-2 text-center border-t border-[#283618]/15">
-          <p className="text-[10.5px] text-[#5B4436] font-medium">
-            Ketuk layar di HP atau tekan <span className="font-black text-[#283618]">Spasi / Panah Atas</span> di Laptop
-          </p>
         </div>
       </div>
     </div>
@@ -678,13 +651,6 @@ function drawEarth(
     ctx.shadowBlur = 6;
     ctx.shadowOffsetY = 3;
     ctx.drawImage(img, -radius - 2, -radius - 2, (radius + 2) * 2, (radius + 2) * 2);
-
-    // Little eco leaf wing
-    ctx.shadowColor = 'transparent';
-    ctx.fillStyle = '#283618';
-    ctx.beginPath();
-    ctx.ellipse(-radius + 2, 2, 7, 4, -0.4, 0, Math.PI * 2);
-    ctx.fill();
   } else {
     // Fallback circle if image not yet loaded
     ctx.fillStyle = '#283618';
