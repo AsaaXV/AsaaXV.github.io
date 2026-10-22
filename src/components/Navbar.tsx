@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import { X, Volume2, VolumeX } from 'lucide-react';
+import { X, Volume2, VolumeX, Sparkles } from 'lucide-react';
 import { sounds } from '../utils/audio';
 
 interface NavbarProps {
   onOpenReport?: () => void;
   onOpenSecret?: () => void;
+  onOpenFlappy?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   onOpenReport,
   onOpenSecret,
+  onOpenFlappy,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSoundActive, setIsSoundActive] = useState(sounds.enabled);
@@ -71,6 +73,21 @@ export const Navbar: React.FC<NavbarProps> = ({
             CRAFT4EARTH
           </span>
         </div>
+
+        {/* Right Action: 3R Game button */}
+        <button
+          type="button"
+          onClick={() => {
+            sounds.playFlap();
+            onOpenFlappy?.();
+          }}
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#283618] hover:bg-[#1e2a12] text-[#FEFAE0] font-display text-xs sm:text-sm font-black shadow-md active:scale-95 transition cursor-pointer"
+          title="Klik untuk Mainkan Game Flappy Earth 3R"
+          aria-label="Mainkan Game 3R Terbang"
+        >
+          <span>3R</span>
+          <Sparkles className="w-3.5 h-3.5 text-amber-300 fill-amber-300" />
+        </button>
       </header>
 
       {/* Slide-over Drawer Menu */}
@@ -86,12 +103,20 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="relative w-80 max-w-[85vw] bg-[#FEFAE0] h-full shadow-2xl p-6 flex flex-col justify-between z-10 border-r-4 border-[#283618]">
             <div>
               <div className="flex items-center justify-between pb-4 border-b border-[#283618]/20">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-[#283618] text-[#FEFAE0] flex items-center justify-center font-display font-black text-sm">
+                <div
+                  onClick={() => {
+                    sounds.playFlap();
+                    setIsOpen(false);
+                    onOpenFlappy?.();
+                  }}
+                  className="flex items-center gap-2 cursor-pointer group select-none"
+                  title="Klik untuk Mainkan Game Flappy Earth 3R"
+                >
+                  <div className="w-8 h-8 rounded-full bg-[#283618] group-hover:scale-110 text-[#FEFAE0] flex items-center justify-center font-display font-black text-sm transition-transform shadow-xs">
                     3R
                   </div>
                   <div>
-                    <h3 className="font-display text-lg font-black text-[#283618] leading-none">
+                    <h3 className="font-display text-lg font-black text-[#283618] leading-none group-hover:text-[#5B4436] transition-colors">
                       Craft4Earth
                     </h3>
                     <p className="text-[11px] text-[#5B4436] font-semibold">DKV UNM</p>

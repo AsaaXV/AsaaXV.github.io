@@ -6,9 +6,10 @@ import bumiImg from '../assets/bumi.png';
 interface HeroSectionProps {
   onStartExplore: () => void;
   onOpenGame: () => void;
+  onOpenFlappy?: () => void;
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ onStartExplore, onOpenGame }) => {
+export const HeroSection: React.FC<HeroSectionProps> = ({ onStartExplore, onOpenGame, onOpenFlappy }) => {
   const handleClick = () => {
     sounds.playWheelClick();
     onStartExplore();
@@ -19,8 +20,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onStartExplore, onOpen
     onOpenGame();
   };
 
+  const handleFlappyClick = () => {
+    sounds.playFlap();
+    onOpenFlappy?.();
+  };
+
   return (
-    <section id="hero" className="relative pt-8 pb-0 flex flex-col items-center text-center overflow-hidden">
+    <section id="hero" className="relative pt-6 pb-2 sm:pt-8 sm:pb-3 flex flex-col items-center text-center overflow-hidden">
       <div className="max-w-xl mx-auto px-4 flex flex-col items-center">
 
         {/* Planet + 3R — dengan animasi masuk */}
@@ -44,19 +50,25 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onStartExplore, onOpen
             />
           </button>
 
-          {/* Tulisan 3R dengan slide dari kanan */}
-          <div className="relative animate-slide-right">
-            <h1 className="font-display text-[72px] sm:text-[96px] md:text-[112px] font-black leading-none text-[#283618] tracking-tight drop-shadow-sm hover-wiggle cursor-default transition-transform duration-300 hover:scale-105">
+          {/* Tulisan 3R dengan slide dari kanan — Klik untuk membuka Game Flappy 3R */}
+          <button
+            type="button"
+            onClick={handleFlappyClick}
+            className="relative animate-slide-right cursor-pointer focus:outline-none active:scale-95 transition-transform duration-300 group"
+            aria-label="Mainkan Game 3R Terbang"
+            title="Klik untuk Mainkan Game Flappy Earth 3R!"
+          >
+            <h1 className="font-display text-[72px] sm:text-[96px] md:text-[112px] font-black leading-none text-[#283618] tracking-tight drop-shadow-sm hover-wiggle group-hover:scale-105 transition-transform duration-300">
               3R
             </h1>
-            <div className="absolute -top-1 -right-3 text-[#5B4436] animate-twinkle">
+            <div className="absolute -top-1 -right-3 text-[#5B4436] animate-twinkle group-hover:scale-125 transition-transform">
               <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 fill-[#5B4436]" />
             </div>
-          </div>
+          </button>
         </div>
 
         {/* 3 Pillars — Meluncur dari bawah (transparan) ke atas (padat), mulai dari KANAN ke kiri */}
-        <div className="w-full flex items-center justify-center gap-3 sm:gap-5 max-w-sm my-3 font-display font-extrabold text-sm sm:text-base text-[#283618] tracking-wider uppercase">
+        <div className="w-full flex items-center justify-center gap-3 sm:gap-5 max-w-sm mt-2.5 mb-1.5 font-display font-extrabold text-sm sm:text-base text-[#283618] tracking-wider uppercase">
           <span className="hover:text-[#5B4436] transition-colors cursor-pointer animate-stagger-right-3">REDUCE</span>
           <span className="text-[#283618]/25 text-lg animate-stagger-right-dot-2">•</span>
           <span className="hover:text-[#5B4436] transition-colors cursor-pointer animate-stagger-right-2">REUSE</span>
@@ -64,17 +76,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onStartExplore, onOpen
           <span className="hover:text-[#5B4436] transition-colors cursor-pointer animate-stagger-right-1">RECYCLE</span>
         </div>
 
-        {/* Divider animasi grow */}
-        <div className="h-0.5 bg-[#283618]/20 rounded-full my-3 animate-line-grow" />
-
         {/* Narrative text — fade up */}
-        <p className="font-body text-[#283618]/80 text-sm sm:text-base font-medium leading-relaxed max-w-sm my-2 animate-reveal-up-d2">
+        <p className="font-body text-[#283618]/80 text-sm sm:text-base font-medium leading-relaxed max-w-sm mt-0 mb-3 animate-reveal-up-d2">
           Bumi tidak butuh pahlawan super — Cukup kamu yang mau mulai.{' '}
           3 langkah kecil bisa mengubah arah masa depan bumi kita.
         </p>
 
         {/* CTA Button — dengan pulsing ring */}
-        <div className="mt-4 mb-6 sm:mb-8 animate-reveal-up-d3">
+        <div className="mt-1 mb-2 animate-reveal-up-d3">
           <button
             type="button"
             onClick={handleClick}

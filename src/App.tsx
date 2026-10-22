@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ArrowUp } from 'lucide-react';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { ReduceSection } from './components/ReduceSection';
@@ -9,12 +10,38 @@ import { ActionSection } from './components/ActionSection';
 import { AcademicReportModal } from './components/AcademicReportModal';
 import { SecretEasterEggModal } from './components/SecretEasterEggModal';
 import { EarthRescueGameModal } from './components/EarthRescueGameModal';
+import { FlappyBird3RModal } from './components/FlappyBird3RModal';
 import { GrassDivider } from './components/GrassDivider';
+import { sounds } from './utils/audio';
 
 export default function App() {
   const [isReportOpen, setIsReportOpen] = useState(false);
   const [isSecretOpen, setIsSecretOpen] = useState(false);
   const [isGameOpen, setIsGameOpen] = useState(false);
+  const [isFlappyOpen, setIsFlappyOpen] = useState(false);
+  const [showBackToTop, setShowBackToTop] = useState(false);
+
+  // Scroll listener untuk tombol Back to Top
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 380) {
+        setShowBackToTop(true);
+      } else {
+        setShowBackToTop(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleScrollToTop = () => {
+    sounds.playPop();
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
 
   // Secret Easter Egg Key Listener: Mengetik "unm", "3r", atau "rahasia" membuka ruang rahasia
   useEffect(() => {
@@ -51,14 +78,16 @@ export default function App() {
         <Navbar
           onOpenReport={() => setIsReportOpen(true)}
           onOpenSecret={() => setIsSecretOpen(true)}
+          onOpenFlappy={() => setIsFlappyOpen(true)}
         />
 
-        {/* Main Content Sections with bottom padding for fixed grass */}
-        <main className="w-full pb-16 sm:pb-24">
+        {/* Main Content Sections */}
+        <main className="w-full pb-0">
           {/* Section 0: Hero 3R */}
           <HeroSection
             onStartExplore={handleScrollToReduce}
             onOpenGame={() => setIsGameOpen(true)}
+            onOpenFlappy={() => setIsFlappyOpen(true)}
           />
 
           {/* Section 1: REDUCE */}
@@ -83,6 +112,21 @@ export default function App() {
         <GrassDivider variant="bottom" className="w-full text-[#283618] opacity-95 drop-shadow-md" />
       </div>
 
+      {/* Tombol Mengambang: Kembali ke Atas (Back to Top) */}
+      <button
+        type="button"
+        onClick={handleScrollToTop}
+        aria-label="Kembali ke Bagian Atas Halaman"
+        className={`fixed bottom-7 sm:bottom-9 right-4 sm:right-6 z-40 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#283618] hover:bg-[#1e2a12] text-[#FEFAE0] border-2 border-[#FEFAE0] shadow-xl hover:shadow-2xl flex items-center justify-center transition-all duration-300 transform active:scale-90 cursor-pointer ${
+          showBackToTop
+            ? 'opacity-100 translate-y-0 pointer-events-auto hover:-translate-y-1'
+            : 'opacity-0 translate-y-6 pointer-events-none'
+        }`}
+        title="Kembali ke Atas"
+      >
+        <ArrowUp className="w-5 h-5 stroke-[2.5]" />
+      </button>
+
       {/* Academic Project & Team Document Modal */}
       <AcademicReportModal
         isOpen={isReportOpen}
@@ -99,6 +143,12 @@ export default function App() {
       <EarthRescueGameModal
         isOpen={isGameOpen}
         onClose={() => setIsGameOpen(false)}
+      />
+
+      {/* Game 3R Terbang (Flappy Earth 3R: Penjaga Ozon) */}
+      <FlappyBird3RModal
+        isOpen={isFlappyOpen}
+        onClose={() => setIsFlappyOpen(false)}
       />
     </div>
   );

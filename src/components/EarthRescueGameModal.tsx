@@ -231,7 +231,7 @@ export const EarthRescueGameModal: React.FC<EarthRescueGameModalProps> = ({ isOp
     if (e) e.preventDefault();
     keysPressed.current.left = true;
     keysPressed.current.right = false;
-    targetBinX.current = Math.max(8, targetBinX.current - 9);
+    targetBinX.current = Math.max(8, targetBinX.current - 16);
   };
 
   const stopMovingLeft = (e?: React.SyntheticEvent) => {
@@ -243,7 +243,7 @@ export const EarthRescueGameModal: React.FC<EarthRescueGameModalProps> = ({ isOp
     if (e) e.preventDefault();
     keysPressed.current.right = true;
     keysPressed.current.left = false;
-    targetBinX.current = Math.min(92, targetBinX.current + 9);
+    targetBinX.current = Math.min(92, targetBinX.current + 16);
   };
 
   const stopMovingRight = (e?: React.SyntheticEvent) => {
@@ -355,8 +355,8 @@ export const EarthRescueGameModal: React.FC<EarthRescueGameModalProps> = ({ isOp
     const rand = Math.random();
     const xPos = Math.random() * 76 + 12;
 
-    const hazardRate = currentLevel === 1 ? 0.22 : currentLevel === 2 ? 0.28 : 0.35;
-    const powerupRate = currentLevel === 1 ? 0.12 : 0.09;
+    const hazardRate = currentLevel === 1 ? 0.22 : currentLevel === 2 ? 0.30 : currentLevel === 3 ? 0.38 : 0.45;
+    const powerupRate = currentLevel === 1 ? 0.10 : 0.08;
 
     if (rand < hazardRate) {
       return {
@@ -367,11 +367,11 @@ export const EarthRescueGameModal: React.FC<EarthRescueGameModalProps> = ({ isOp
         label: 'BAHAYA',
         icon: 'hazard',
         x: xPos,
-        y: -10,
-        speed: (0.46 + currentLevel * 0.14 + Math.random() * 0.12),
+        y: -8,
+        speed: (1.10 + currentLevel * 0.28 + Math.random() * 0.25),
         points: -1,
         rotation: (Math.random() - 0.5) * 30,
-        rotSpeed: (Math.random() - 0.5) * 2,
+        rotSpeed: (Math.random() - 0.5) * 3.5,
         size: 38,
         color: '#1c1917',
       };
@@ -387,8 +387,8 @@ export const EarthRescueGameModal: React.FC<EarthRescueGameModalProps> = ({ isOp
         label: isHeart ? '+1 NYAWA' : 'PERISAI 6s',
         icon: isHeart ? 'heart' : 'shield',
         x: xPos,
-        y: -10,
-        speed: 0.42 + Math.random() * 0.1,
+        y: -8,
+        speed: 0.95 + Math.random() * 0.2,
         points: isHeart ? 15 : 20,
         rotation: 0,
         rotSpeed: 0,
@@ -455,8 +455,8 @@ export const EarthRescueGameModal: React.FC<EarthRescueGameModalProps> = ({ isOp
       label: picked.label,
       image: picked.image,
       x: xPos,
-      y: -10,
-      speed: (0.42 + currentLevel * 0.13 + Math.random() * 0.15),
+      y: -8,
+      speed: (1.02 + currentLevel * 0.26 + Math.random() * 0.22),
       points: picked.points,
       rotation: Math.random() * 360,
       rotSpeed: (Math.random() - 0.5) * 3,
@@ -532,7 +532,8 @@ export const EarthRescueGameModal: React.FC<EarthRescueGameModalProps> = ({ isOp
       lastFrameTime.current = timestamp;
 
       // 1. Movement interpolation
-      const moveSpeed = 2.5 * dt;
+      const prevBinX = currentBinX.current;
+      const moveSpeed = 4.6 * dt;
       if (keysPressed.current.left) {
         targetBinX.current = Math.max(8, targetBinX.current - moveSpeed);
       }
@@ -540,12 +541,13 @@ export const EarthRescueGameModal: React.FC<EarthRescueGameModalProps> = ({ isOp
         targetBinX.current = Math.min(92, targetBinX.current + moveSpeed);
       }
 
-      currentBinX.current += (targetBinX.current - currentBinX.current) * 0.35 * dt;
+      currentBinX.current += (targetBinX.current - currentBinX.current) * 0.55 * dt;
       setBinX(currentBinX.current);
+      const binCurrentX = currentBinX.current;
 
       // 2. Spawn items with interval scaling by level & score
       const currentLevel = levelRef.current;
-      const spawnInterval = Math.max(1050 - (currentLevel - 1) * 130 - Math.min(scoreRef.current * 0.45, 260), 380);
+      const spawnInterval = Math.max(720 - (currentLevel - 1) * 130 - Math.min(scoreRef.current * 0.5, 260), 280);
       if (timestamp - lastSpawnTime.current > spawnInterval) {
         itemsRef.current.push(spawnItem(currentLevel));
         lastSpawnTime.current = timestamp;
@@ -566,27 +568,42 @@ export const EarthRescueGameModal: React.FC<EarthRescueGameModalProps> = ({ isOp
 
       // 4. Update falling items & collision with trash bin
       const survivingItems: FallingItem[] = [];
-      const binCurrentX = currentBinX.current;
 
-      const CATCH_HALF_WIDTH = 13.5;
-      const CATCH_Y_TOP = 70;
-      const CATCH_Y_BOTTOM = 88;
+      // Parameter Hitbox Tong Sampah (AABB Kotak Bawah Tong Sampah):
+      // Wadah tong sampah berada di y: 81.5% s/d 98.0%, setengah lebar horizontal 9.0%
+      const BIN_HALF_WIDTH = 9.0;
+      const BIN_TOP_Y = 81.5;
+      const BIN_BOTTOM_Y = 98.0;
+
+      // Lintasan horizontal tong selama frame ini (swept X)
+      const minCatchX = Math.min(prevBinX, binCurrentX) - BIN_HALF_WIDTH;
+      const maxCatchX = Math.max(prevBinX, binCurrentX) + BIN_HALF_WIDTH;
 
       for (let i = 0; i < itemsRef.current.length; i++) {
         const item = itemsRef.current[i];
         const prevY = item.y;
-        const nextY = prevY + item.speed * 0.78 * dt;
+        const nextY = prevY + item.speed * 1.05 * dt;
         const nextRot = item.rotation + item.rotSpeed * dt;
 
-        const sweptYOverlaps = prevY <= CATCH_Y_BOTTOM && nextY >= CATCH_Y_TOP;
-        const distFromBinX = Math.abs(item.x - binCurrentX);
+        // Bounding box item sampah (radius vertikal ~3.8%, radius horizontal ~4.0%)
+        const itemTopY = prevY - 3.8;
+        const itemBottomY = nextY + 3.8;
+        const itemLeftX = item.x - 4.0;
+        const itemRightX = item.x + 4.0;
+
+        // Deteksi tabrakan AABB kotak tong sampah:
+        // - Item masuk tepat di bibir tong hingga dasar tong (81.5% - 98.0%), TIDAK melayang di atasnya
+        // - Item menyentuh atau tersapu oleh badan samping tong saat tong digeser menyamping
+        const isYOverlaps = itemBottomY >= BIN_TOP_Y && itemTopY <= BIN_BOTTOM_Y;
+        const isXOverlaps = itemRightX >= minCatchX && itemLeftX <= maxCatchX;
+        const isColliding = isYOverlaps && isXOverlaps;
 
         if (item.kind === 'hazard') {
-          if (sweptYOverlaps && distFromBinX <= CATCH_HALF_WIDTH) {
+          if (isColliding) {
             if (shieldActiveRef.current) {
               sounds.playTrashCatch(1);
-              addFloatingText('TERTANGKIS PERISAI!', item.x, 70, '#2563eb');
-              spawnParticles(item.x, 74, '#3b82f6', 10);
+              addFloatingText('TERTANGKIS PERISAI!', item.x, 74, '#2563eb');
+              spawnParticles(item.x, 78, '#3b82f6', 10);
             } else {
               heartsRef.current -= 1;
               comboRef.current = 0;
@@ -596,8 +613,8 @@ export const EarthRescueGameModal: React.FC<EarthRescueGameModalProps> = ({ isOp
               sounds.playToxicHurt();
               setIsHurt(true);
               setTimeout(() => setIsHurt(false), 450);
-              addFloatingText('-1 NYAWA (KENA POLUSI)', item.x, 70, '#b91c1c');
-              spawnParticles(item.x, 74, '#7f1d1d', 14);
+              addFloatingText('-1 NYAWA (KENA POLUSI)', item.x, 74, '#b91c1c');
+              spawnParticles(item.x, 78, '#7f1d1d', 14);
 
               if (heartsRef.current <= 0) {
                 triggerGameOver();
@@ -607,7 +624,7 @@ export const EarthRescueGameModal: React.FC<EarthRescueGameModalProps> = ({ isOp
             continue;
           }
         } else if (item.kind === 'trash') {
-          if (sweptYOverlaps && distFromBinX <= CATCH_HALF_WIDTH) {
+          if (isColliding) {
             caughtCountRef.current += 1;
             comboRef.current += 1;
             if (comboRef.current > maxComboRef.current) {
@@ -629,26 +646,28 @@ export const EarthRescueGameModal: React.FC<EarthRescueGameModalProps> = ({ isOp
             setTimeout(() => setBinSquash(false), 140);
 
             const comboBonusText = comboMultiplier > 1 ? ` (${comboMultiplier}x!)` : '';
-            addFloatingText(`+${pointsGained}${comboBonusText}`, item.x, 68, item.color);
-            spawnParticles(item.x, 74, item.color, 8);
+            addFloatingText(`+${pointsGained}${comboBonusText}`, item.x, 74, item.color);
+            spawnParticles(item.x, 78, item.color, 8);
 
             // Level up progression thresholds
             let newLevel = 1;
-            if (scoreRef.current >= 240) newLevel = 3;
-            else if (scoreRef.current >= 90) newLevel = 2;
+            if (scoreRef.current >= 350) newLevel = 4;
+            else if (scoreRef.current >= 180) newLevel = 3;
+            else if (scoreRef.current >= 70) newLevel = 2;
 
             if (newLevel !== levelRef.current) {
               levelRef.current = newLevel;
               setLevel(newLevel);
               sounds.playSuccess();
-              addFloatingText(`LEVEL ${newLevel}! MAKIN CEPAT!`, 50, 36, '#BC6C25');
+              const levelTitle = newLevel === 4 ? 'LEVEL 4 MASTER PINISI!' : newLevel === 3 ? 'LEVEL 3 TURBO!' : 'LEVEL 2 MAKIN CEPAT!';
+              addFloatingText(levelTitle, 50, 36, '#BC6C25');
               spawnParticles(50, 40, '#BC6C25', 18);
             }
 
             continue;
           }
         } else if (item.kind === 'powerup') {
-          if (sweptYOverlaps && distFromBinX <= CATCH_HALF_WIDTH) {
+          if (isColliding) {
             sounds.playPowerUp();
             if (item.subType === 'heart') {
               if (heartsRef.current < 3) {
@@ -673,8 +692,8 @@ export const EarthRescueGameModal: React.FC<EarthRescueGameModalProps> = ({ isOp
           }
         }
 
-        // Check if item reached the ground
-        if (nextY > 104) {
+        // Check if item reached the ground floor
+        if (itemBottomY > 101) {
           if (item.kind === 'trash') {
             if (shieldActiveRef.current) {
               addFloatingText('PERISAI MELINDUNGI!', item.x, 88, '#2563eb');
@@ -1011,14 +1030,16 @@ export const EarthRescueGameModal: React.FC<EarthRescueGameModalProps> = ({ isOp
               <div className="flex items-center gap-1.5">
                 <span
                   className={`px-2.5 py-0.5 rounded-md font-mono text-[10px] font-black border transition-all ${
-                    level >= 3
+                    level >= 4
+                      ? 'bg-purple-700 text-white border-purple-800 animate-pulse'
+                      : level === 3
                       ? 'bg-rose-600 text-white border-rose-700 animate-pulse'
                       : level === 2
                       ? 'bg-amber-600 text-white border-amber-700'
                       : 'bg-[#5B4436]/10 text-[#5B4436] border-[#5B4436]/20'
                   }`}
                 >
-                  {level >= 3 ? `LVL ${level} TURBO` : level === 2 ? `LVL ${level} CEPAT` : `LVL ${level}`}
+                  {level >= 4 ? `LVL ${level} MASTER` : level === 3 ? `LVL ${level} TURBO` : level === 2 ? `LVL ${level} CEPAT` : `LVL ${level}`}
                 </span>
                 {combo > 1 && (
                   <span className="bg-[#283618] text-[#FEFAE0] px-2.5 py-0.5 rounded-full font-display font-black text-[10px] tracking-wide animate-bounce">
@@ -1284,9 +1305,9 @@ export const EarthRescueGameModal: React.FC<EarthRescueGameModalProps> = ({ isOp
                 </button>
               </div>
 
-              <div className="flex items-center justify-between text-[9px] text-[#5B4436] font-semibold px-1">
+              <div className="hidden sm:flex items-center justify-between text-[9px] text-[#5B4436] font-semibold px-1">
                 <span>Gunakan tombol atau usap layar</span>
-                <span className="hidden sm:inline">Keyboard: A / D / Panah</span>
+                <span>Keyboard: A / D / Panah</span>
               </div>
             </div>
           </div>

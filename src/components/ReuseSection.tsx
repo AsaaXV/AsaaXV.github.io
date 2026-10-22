@@ -29,7 +29,7 @@ export const ReuseSection: React.FC = () => {
   };
 
   return (
-    <section id="reuse" className="pt-8 pb-4 sm:pt-12 sm:pb-6 px-3 sm:px-4 max-w-4xl mx-auto flex flex-col items-center">
+    <section id="reuse" className="pt-3 pb-3 sm:pt-6 sm:pb-4 px-3 sm:px-4 max-w-4xl mx-auto flex flex-col items-center">
       {/* Header — Animasi Drop & Hover Interaktif seperti Top Bar */}
       <div className="flex flex-col items-center text-center mb-5 sm:mb-7 animate-section-title">
         <div className="section-title-interactive group flex items-center justify-center gap-3 sm:gap-4 flex-wrap mb-1">
@@ -233,7 +233,7 @@ export const ReuseSection: React.FC = () => {
       </DesktopScaleContainer>
 
       {/* Callout */}
-      <div className="w-full text-center mt-5 sm:mt-7 mb-2 py-3 px-6 rounded-2xl bg-[#283618]/10 border border-[#283618]/20">
+      <div className="w-full text-center mt-3 sm:mt-4 mb-1 py-2.5 px-4 rounded-2xl bg-[#283618]/10 border border-[#283618]/20">
         <p className="font-display text-sm sm:text-base md:text-lg font-black text-[#283618] tracking-wide">
           "Siapa bilang barang bekas tidak bisa naik kelas?"
         </p>

@@ -106,7 +106,7 @@ export const RecycleSection: React.FC = () => {
   const currentPhase = RECYCLE_PHASES[activeStepIndex];
 
   return (
-    <section id="recycle" className="pt-8 pb-4 sm:pt-12 sm:pb-6 px-3 sm:px-4 max-w-4xl mx-auto flex flex-col items-center">
+    <section id="recycle" className="pt-3 pb-3 sm:pt-6 sm:pb-4 px-3 sm:px-4 max-w-4xl mx-auto flex flex-col items-center">
       {/* Header — Animasi Drop & Hover Interaktif seperti Top Bar */}
       <div className="flex flex-col items-center text-center mb-5 sm:mb-7 animate-section-title">
         <div className="section-title-interactive group flex items-center justify-center gap-3 sm:gap-4 flex-wrap mb-1">

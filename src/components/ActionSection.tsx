@@ -67,7 +67,7 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
   };
 
   return (
-    <section id="action" className="pt-3 sm:pt-8 pb-0 flex flex-col items-center overflow-hidden">
+    <section id="action" className="pt-3 pb-0 sm:pt-5 sm:pb-0 flex flex-col items-center overflow-hidden">
       <div className="max-w-4xl mx-auto px-4 w-full flex flex-col items-center">
         {/* Header matching 3R DMI.jpg */}
         <div className="text-center mb-2.5 sm:mb-5 animate-section-title">
@@ -342,7 +342,7 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
         </div>
 
         {/* Closing Quote from 3R DMI.jpg & Image 7 */}
-        <div className="text-center my-10 max-w-lg mx-auto">
+        <div className="text-center my-6 sm:my-7 max-w-lg mx-auto">
           <p className="font-display text-lg sm:text-xl md:text-2xl font-black text-[#283618] leading-snug tracking-wide">
             Bumi ini dipinjam dari anak cucu kita.
             <br />
