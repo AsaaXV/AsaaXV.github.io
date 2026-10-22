@@ -70,13 +70,16 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
     <section id="action" className="pt-3 sm:pt-8 pb-0 flex flex-col items-center overflow-hidden">
       <div className="max-w-4xl mx-auto px-4 w-full flex flex-col items-center">
         {/* Header matching 3R DMI.jpg */}
-        <div className="text-center mb-2.5 sm:mb-5">
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-black text-[#283618] leading-tight tracking-tight uppercase">
-            MULAI DARI KAMPUS,
-          </h2>
-          <div className="font-display text-2xl sm:text-3xl md:text-4xl font-black text-[#283618] tracking-wider uppercase mt-0.5">
-            MULAI DARI SEKARANG
+        <div className="text-center mb-2.5 sm:mb-5 animate-section-title">
+          <div className="section-title-interactive group flex flex-col items-center">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-black text-[#283618] group-hover:text-[#5B4436] transition-colors leading-tight tracking-tight uppercase">
+              MULAI DARI KAMPUS,
+            </h2>
+            <div className="font-display text-2xl sm:text-3xl md:text-4xl font-black text-[#283618] group-hover:text-[#5B4436] transition-colors tracking-wider uppercase mt-0.5">
+              MULAI DARI SEKARANG
+            </div>
           </div>
+          <div className="h-0.5 bg-[#283618]/20 rounded-full mx-auto my-3 animate-line-grow" />
           <p className="font-body text-[#283618]/90 text-xs sm:text-sm font-semibold mt-2 max-w-md mx-auto">
             Kamu nggak perlu jadi aktivis buat mulai peduli. Cukup 3 langkah kecil ini.
           </p>
@@ -84,16 +87,22 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
 
         {/* 3 Step Action Pill Bar - 3 Columns on mobile & desktop */}
         <div className="grid grid-cols-3 gap-1.5 sm:gap-3 w-full max-w-2xl mb-4 sm:mb-6 items-stretch">
-          {ACTION_FOLDERS.map((folder) => {
+          {ACTION_FOLDERS.map((folder, idx) => {
             const isSelected = selectedFolderId === folder.id;
             const isDone = !!completedFolders[folder.id];
+            const staggerClass =
+              idx === 2
+                ? 'animate-stagger-right-1'
+                : idx === 1
+                ? 'animate-stagger-right-2'
+                : 'animate-stagger-right-3';
 
             return (
               <button
                 key={folder.id}
                 type="button"
                 onClick={() => toggleFolder(folder.id)}
-                className={`p-1.5 sm:p-3 h-11 sm:h-14 rounded-xl sm:rounded-2xl flex items-center justify-between transition-all cursor-pointer border-2 text-left ${
+                className={`p-1.5 sm:p-3 h-11 sm:h-14 rounded-xl sm:rounded-2xl flex items-center justify-between transition-all cursor-pointer border-2 text-left ${staggerClass} ${
                   isSelected
                     ? 'bg-[#283618] text-[#FEFAE0] border-[#1e2a12] shadow-md scale-[1.02]'
                     : isDone

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { REUSE_ITEMS } from '../data/content';
 import { sounds } from '../utils/audio';
-import { GrassDivider } from './GrassDivider';
 import { DesktopScaleContainer } from './DesktopScaleContainer';
 
 import reuseImg from '../assets/reuse.png';
@@ -30,24 +29,25 @@ export const ReuseSection: React.FC = () => {
   };
 
   return (
-    <section id="reuse" className="pt-1 pb-1 sm:pt-4 sm:pb-3 px-3 sm:px-4 max-w-4xl mx-auto flex flex-col items-center">
-      {/* Header with reuse.png badge positioned next to section title */}
-      <div className="flex flex-col items-center text-center mb-2 sm:mb-3">
-        <div className="flex items-center justify-center gap-2.5 sm:gap-4 flex-wrap">
+    <section id="reuse" className="pt-8 pb-4 sm:pt-12 sm:pb-6 px-3 sm:px-4 max-w-4xl mx-auto flex flex-col items-center">
+      {/* Header — Animasi Drop & Hover Interaktif seperti Top Bar */}
+      <div className="flex flex-col items-center text-center mb-5 sm:mb-7 animate-section-title">
+        <div className="section-title-interactive group flex items-center justify-center gap-3 sm:gap-4 flex-wrap mb-1">
           <img
             src={reuseImg}
             alt="Logo Reuse - Gunakan Kembali"
-            className="w-9 h-9 sm:w-11 sm:h-11 md:w-12 md:h-12 object-contain drop-shadow-md hover:scale-105 transition-transform duration-300 select-none pointer-events-none"
+            className="w-10 h-10 sm:w-12 sm:h-12 object-contain drop-shadow-md group-hover:rotate-12 group-hover:scale-110 transition-transform duration-300 select-none pointer-events-none"
             draggable={false}
           />
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-black text-[#283618] leading-tight tracking-tight uppercase">
+          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-black text-[#283618] group-hover:text-[#5B4436] transition-colors leading-tight tracking-tight uppercase">
             REUSE
           </h2>
         </div>
-        <div className="font-display text-lg sm:text-xl md:text-2xl font-black text-[#283618] tracking-wide mt-0.5">
+        <div className="font-display text-lg sm:text-xl font-black text-[#5B4436] tracking-wide mt-1">
           Masih Bisa Dipakai Nggak?
         </div>
-        <p className="font-body text-[#283618]/90 text-xs sm:text-sm font-semibold mt-0.5 max-w-md mx-auto leading-relaxed">
+        <div className="h-0.5 bg-[#283618]/20 rounded-full my-3 animate-line-grow" />
+        <p className="font-body text-[#283618]/75 text-sm font-medium mt-0.5 max-w-sm mx-auto leading-relaxed">
           Kita mengupayakan barang yang kita miliki selagi masih layak dan aman digunakan.
         </p>
       </div>
@@ -55,11 +55,17 @@ export const ReuseSection: React.FC = () => {
       {/* 3 Cards: Skala Proporsional Otomatis agar Muat Utuh Berdampingan di HP */}
       <DesktopScaleContainer designWidth={760} className="w-full my-0">
         <div className="grid grid-cols-3 gap-5 w-full items-stretch">
-          {REUSE_ITEMS.map((item) => {
+          {REUSE_ITEMS.map((item, idx) => {
             const isAfter = (cardStates[item.id] ?? 1) === 1;
+            const staggerClass =
+              idx === 2
+                ? 'animate-stagger-right-1'
+                : idx === 1
+                ? 'animate-stagger-right-2'
+                : 'animate-stagger-right-3';
 
             return (
-              <div key={item.id} className="flex flex-col items-center justify-between h-full w-full">
+              <div key={item.id} className={`flex flex-col items-center justify-between h-full w-full ${staggerClass}`}>
                 {/* Card Container */}
                 <div className="relative w-full flex-1 flex flex-col items-center">
                   {/* Main Card with exact minimalist aesthetic */}
@@ -226,8 +232,8 @@ export const ReuseSection: React.FC = () => {
         </div>
       </DesktopScaleContainer>
 
-      {/* Callout matching 3R DMI.jpg & Screenshot */}
-      <div className="w-full text-center mt-2.5 sm:mt-4 mb-0.5 py-2 sm:py-2.5 px-4 rounded-2xl bg-[#283618]/10 border border-[#283618]/20">
+      {/* Callout */}
+      <div className="w-full text-center mt-5 sm:mt-7 mb-2 py-3 px-6 rounded-2xl bg-[#283618]/10 border border-[#283618]/20">
         <p className="font-display text-sm sm:text-base md:text-lg font-black text-[#283618] tracking-wide">
           "Siapa bilang barang bekas tidak bisa naik kelas?"
         </p>

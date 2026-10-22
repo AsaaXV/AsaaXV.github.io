@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FACTS_DATA } from '../data/content';
-import { GrassDivider } from './GrassDivider';
 import { DesktopScaleContainer } from './DesktopScaleContainer';
 
 interface AnimatedCountUpProps {
@@ -124,14 +123,17 @@ export const FactsSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="facts"
-      className="pt-1 pb-1 sm:pt-4 sm:pb-3 px-3 sm:px-4 max-w-4xl mx-auto flex flex-col items-center"
+      className="pt-8 pb-4 sm:pt-12 sm:pb-6 px-3 sm:px-4 max-w-4xl mx-auto flex flex-col items-center"
     >
-      {/* Header matching 3R DMI.jpg & Screenshot */}
-      <div className="text-center mb-2 sm:mb-3">
-        <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-black text-[#283618] leading-tight tracking-tight uppercase">
-          FAKTA YANG HARUS KAMU KETAHUI
-        </h2>
-        <p className="font-body text-[#283618]/90 text-xs sm:text-sm font-semibold mt-0.5 max-w-md mx-auto">
+      {/* Header — Animasi Drop & Hover Interaktif seperti Top Bar */}
+      <div className="text-center mb-5 sm:mb-7 animate-section-title">
+        <div className="section-title-interactive group">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-black text-[#283618] group-hover:text-[#5B4436] transition-colors leading-tight tracking-tight uppercase">
+            FAKTA YANG HARUS KAMU KETAHUI
+          </h2>
+        </div>
+        <div className="h-0.5 bg-[#283618]/20 rounded-full mx-auto my-3 animate-line-grow" />
+        <p className="font-body text-[#283618]/75 text-sm font-medium mt-0.5 max-w-sm mx-auto">
           Data riil timbulan dan komposisi sampah yang perlu kita cermati bersama.
         </p>
       </div>
@@ -139,11 +141,18 @@ export const FactsSection: React.FC = () => {
       {/* 3 Stat Cards with Stopwatch Count-up - Skala Proporsional Otomatis agar Muat Utuh di Layar HP */}
       <DesktopScaleContainer designWidth={760} className="w-full my-0">
         <div className="grid grid-cols-3 gap-5 w-full items-stretch">
-          {FACTS_DATA.map((fact) => {
+          {FACTS_DATA.map((fact, idx) => {
+            const staggerClass =
+              idx === 2
+                ? 'animate-stagger-right-1'
+                : idx === 1
+                ? 'animate-stagger-right-2'
+                : 'animate-stagger-right-3';
+
             return (
               <div
                 key={fact.id}
-                className="rounded-[28px] p-6.5 bg-[#5B4436] text-[#FEFAE0] shadow-xl flex flex-col justify-between h-full min-h-[270px] w-full select-none transform hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 group"
+                className={`rounded-[28px] p-6.5 bg-[#5B4436] text-[#FEFAE0] shadow-xl flex flex-col justify-between h-full min-h-[270px] w-full select-none transform hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 group ${staggerClass}`}
               >
                 <div>
                   <div className="flex items-center mb-4">
