@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FolderOpen, Share2, CheckCircle2, ChevronRight, X, ChevronLeft } from 'lucide-react';
 import { ACTION_FOLDERS } from '../data/content';
 import { ShareModal } from './ShareModal';
+import { GrassDivider } from './GrassDivider';
 import { sounds } from '../utils/audio';
 
 import tongsampahAtasImg from '../assets/tongsampah-atas.png';
@@ -69,18 +70,18 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
   return (
     <section id="action" className="pt-3 pb-0 sm:pt-5 sm:pb-0 flex flex-col items-center overflow-hidden">
       <div className="max-w-4xl mx-auto px-4 w-full flex flex-col items-center">
-        {/* Header matching 3R DMI.jpg */}
+        {/* Header — Heading: 32-48px Bold Ellak | Isi: 14-16px Regular Oduda */}
         <div className="text-center mb-2.5 sm:mb-5 animate-section-title">
           <div className="section-title-interactive group flex flex-col items-center">
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-black text-[#283618] group-hover:text-[#5B4436] transition-colors leading-tight tracking-tight uppercase">
+            <h2 className="font-display text-[26px] sm:text-[34px] md:text-[42px] lg:text-[48px] font-bold text-[#283618] group-hover:text-[#5B4436] transition-colors leading-tight tracking-tight uppercase">
               MULAI DARI KAMPUS,
             </h2>
-            <div className="font-display text-2xl sm:text-3xl md:text-4xl font-black text-[#283618] group-hover:text-[#5B4436] transition-colors tracking-wider uppercase mt-0.5">
+            <div className="font-display text-[22px] sm:text-[30px] md:text-[38px] lg:text-[44px] font-bold text-[#283618] group-hover:text-[#5B4436] transition-colors tracking-wider uppercase mt-0.5">
               MULAI DARI SEKARANG
             </div>
           </div>
-          <div className="h-0.5 bg-[#283618]/20 rounded-full mx-auto my-3 animate-line-grow" />
-          <p className="font-body text-[#283618]/90 text-xs sm:text-sm font-semibold mt-2 max-w-md mx-auto">
+          <div className="h-0.5 bg-[#283618]/20 rounded-full mx-auto my-3 animate-line-grow w-24" />
+          <p className="font-body text-[#283618]/85 text-[14px] sm:text-[15px] md:text-[16px] font-normal mt-2 max-w-md mx-auto leading-relaxed">
             Kamu nggak perlu jadi aktivis buat mulai peduli. Cukup 3 langkah kecil ini.
           </p>
         </div>
@@ -154,23 +155,23 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
                 </div>
               </div>
 
-              <h3 className="font-display text-lg sm:text-xl font-black text-[#283618] mb-1">
+              <h3 className="font-display text-[20px] sm:text-[22px] font-semibold text-[#283618] mb-1">
                 {activeFolder.title}
               </h3>
-              <p className="text-xs sm:text-sm text-[#283618]/80 font-semibold mb-4">
+              <p className="font-body text-[14px] text-[#283618]/85 font-medium mb-4">
                 {activeFolder.summary}
               </p>
 
-              <div className="space-y-2 mb-4">
+              <div className="space-y-2 mb-4 font-body">
                 {activeFolder.checklist.map((item, idx) => (
-                  <div key={idx} className="flex items-start gap-2.5 text-xs font-medium text-[#283618]">
-                    <CheckCircle2 className="w-4 h-4 text-[#283618] shrink-0 mt-0.5" />
+                  <div key={idx} className="flex items-start gap-2.5 text-[14px] sm:text-[15px] font-normal text-[#283618] leading-relaxed">
+                    <CheckCircle2 className="w-4 h-4 text-[#283618] shrink-0 mt-1" />
                     <span>{item}</span>
                   </div>
                 ))}
               </div>
 
-              <div className="p-3 rounded-2xl bg-[#FEFAE0] border border-[#283618]/20 text-xs italic text-[#283618] mb-4">
+              <div className="p-3 rounded-2xl bg-[#FEFAE0] border border-[#283618]/20 font-body text-[14px] italic text-[#283618] mb-4">
                 {activeFolder.quote}
               </div>
 
@@ -323,7 +324,7 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
                 }}
               />
 
-              {/* The Iconic "SHARE" Button */}
+              {/* The Iconic "SHARE" Button — Label tombol: 20-24px SemiBold Ellak */}
               <div className="absolute top-[48%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-30">
                 <button
                   type="button"
@@ -331,7 +332,7 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
                     e.stopPropagation();
                     handleOpenShare();
                   }}
-                  className="group px-7 py-2.5 sm:px-8 sm:py-3 rounded-full bg-[#283618] hover:bg-[#1e2a12] text-white font-display text-2xl sm:text-3xl font-black tracking-wider uppercase shadow-2xl active:scale-95 transition-all transform hover:scale-105 cursor-pointer border-2 border-[#FEFAE0] flex items-center gap-2"
+                  className="group px-7 py-2.5 sm:px-8 sm:py-3 rounded-full bg-[#283618] hover:bg-[#1e2a12] text-white font-display text-[22px] sm:text-[24px] font-semibold tracking-wider uppercase shadow-2xl active:scale-95 transition-all transform hover:scale-105 cursor-pointer border-2 border-[#FEFAE0] flex items-center gap-2"
                 >
                   <span>SHARE</span>
                   <Share2 className="w-5 h-5 text-white group-hover:rotate-12 transition-transform" />
@@ -341,9 +342,9 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
           </div>
         </div>
 
-        {/* Closing Quote from 3R DMI.jpg & Image 7 */}
+        {/* Closing Quote — Subheading: 20-24px SemiBold Ellak */}
         <div className="text-center my-6 sm:my-7 max-w-lg mx-auto">
-          <p className="font-display text-lg sm:text-xl md:text-2xl font-black text-[#283618] leading-snug tracking-wide">
+          <p className="font-display text-[20px] sm:text-[22px] md:text-[24px] font-semibold text-[#283618] leading-snug tracking-wide">
             Bumi ini dipinjam dari anak cucu kita.
             <br />
             Yuk jaga bareng-bareng!
@@ -351,11 +352,16 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
         </div>
       </div>
 
-      {/* Footer Banner with rounded top corners matching Image 7 */}
-      <footer className="w-full bg-[#5B4436] text-[#FEFAE0] pt-6 pb-8 px-4 text-center rounded-t-[32px] sm:rounded-t-[40px] shadow-2xl relative z-20">
-        <div className="max-w-2xl mx-auto flex flex-col items-center justify-center gap-1">
+      {/* Rumput fleksibel & pendek melintang panjang 100% di seluruh lebar layar desktop tanpa terpotong batas container */}
+      <div className="w-full min-w-full overflow-hidden select-none pointer-events-none leading-none -mb-1 relative z-10">
+        <GrassDivider variant="bottom" className="w-full min-w-full text-[#283618] opacity-95" />
+      </div>
+
+      {/* Footer Banner membentang penuh 100% lebar layar desktop */}
+      <footer className="w-full min-w-full bg-[#5B4436] text-[#FEFAE0] pt-6 pb-8 px-4 text-center rounded-t-[32px] sm:rounded-t-[40px] shadow-2xl relative z-20">
+        <div className="max-w-2xl mx-auto flex flex-col items-center justify-center gap-1.5">
           <p className="font-display text-sm sm:text-base font-black tracking-wider">
-            Craft 4 Earth - DKV UNM 2024
+            Craft 4 Earth - DKV UNM 2026
           </p>
           <p className="text-[11px] text-[#FEFAE0]/75">
             Mata Kuliah Desain Media Interaktif • Fakultas Seni dan Desain • Universitas Negeri Makassar

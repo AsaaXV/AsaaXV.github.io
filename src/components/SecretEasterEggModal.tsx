@@ -10,21 +10,20 @@ interface SecretEasterEggModalProps {
 interface WasteItem {
   name: string;
   type: 'organik' | 'anorganik';
-  icon: string;
   desc: string;
 }
 
 const GAME_ITEMS: WasteItem[] = [
-  { name: 'Botol Plastik PET', type: 'anorganik', icon: '🧴', desc: 'Kemasan minuman air mineral' },
-  { name: 'Sisa Nasi Kuning Kantin', type: 'organik', icon: '🍚', desc: 'Sisa makanan sarapan' },
-  { name: 'Kardus Paket Olshop', type: 'anorganik', icon: '📦', desc: 'Kotak karton kiriman paket' },
-  { name: 'Kulit Jeruk & Pisang', type: 'organik', icon: '🍌', desc: 'Sisa kulit buah segar' },
-  { name: 'Cup Es Kopi Plastik', type: 'anorganik', icon: '🥤', desc: 'Gelas plastik minuman dingin' },
-  { name: 'Kertas HVS Bekas Skripsi', type: 'anorganik', icon: '📄', desc: 'Lembaran kertas print bekas' },
-  { name: 'Daun Kering Halaman Pinisi', type: 'organik', icon: '🍂', desc: 'Guguran daun pohon kampus' },
-  { name: 'Kaleng Minuman Bersoda', type: 'anorganik', icon: '🥫', desc: 'Kaleng aluminium kemasan' },
-  { name: 'Sisa Tulang Ayam Lalapan', type: 'organik', icon: '🍗', desc: 'Sisa makanan lauk pauk' },
-  { name: 'Sedotan Plastik Minuman', type: 'anorganik', icon: '🥤', desc: 'Sedotan plastik sekali pakai' },
+  { name: 'Botol Plastik PET', type: 'anorganik', desc: 'Kemasan minuman air mineral' },
+  { name: 'Sisa Nasi Kuning Kantin', type: 'organik', desc: 'Sisa makanan sarapan' },
+  { name: 'Kardus Paket Olshop', type: 'anorganik', desc: 'Kotak karton kiriman paket' },
+  { name: 'Kulit Jeruk & Pisang', type: 'organik', desc: 'Sisa kulit buah segar' },
+  { name: 'Cup Es Kopi Plastik', type: 'anorganik', desc: 'Gelas plastik minuman dingin' },
+  { name: 'Kertas HVS Bekas Skripsi', type: 'anorganik', desc: 'Lembaran kertas print bekas' },
+  { name: 'Daun Kering Halaman Pinisi', type: 'organik', desc: 'Guguran daun pohon kampus' },
+  { name: 'Kaleng Minuman Bersoda', type: 'anorganik', desc: 'Kaleng aluminium kemasan' },
+  { name: 'Sisa Tulang Ayam Lalapan', type: 'organik', desc: 'Sisa makanan lauk pauk' },
+  { name: 'Sedotan Plastik Minuman', type: 'anorganik', desc: 'Sedotan plastik sekali pakai' },
 ];
 
 export const SecretEasterEggModal: React.FC<SecretEasterEggModalProps> = ({ isOpen, onClose }) => {
@@ -196,7 +195,13 @@ export const SecretEasterEggModal: React.FC<SecretEasterEggModalProps> = ({ isOp
                       : 'border-[#283618]/30'
                   }`}
                 >
-                  <div className="text-5xl mb-1.5">{currentItem.icon}</div>
+                  <div className="w-16 h-16 rounded-2xl bg-[#283618]/10 flex items-center justify-center mb-2">
+                    {currentItem.type === 'organik' ? (
+                      <Leaf className="w-9 h-9 text-[#283618]" />
+                    ) : (
+                      <RefreshCw className="w-9 h-9 text-[#5B4436]" />
+                    )}
+                  </div>
                   <div className="font-display text-base font-black text-[#283618]">
                     {currentItem.name}
                   </div>

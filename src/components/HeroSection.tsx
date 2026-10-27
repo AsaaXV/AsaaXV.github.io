@@ -74,27 +74,27 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onStartExplore, onOpen
           </div>
         </div>
 
-        {/* 3 Pillars — Meluncur dari bawah (transparan) ke atas (padat), mulai dari KANAN ke kiri */}
-        <div className="w-full flex items-center justify-center gap-3 sm:gap-5 max-w-sm mt-2.5 mb-1.5 font-display font-extrabold text-sm sm:text-base text-[#283618] tracking-wider uppercase">
+        {/* 3 Pillars — Subheading: 20-24px SemiBold Ellak */}
+        <div className="w-full flex items-center justify-center gap-3 sm:gap-4 max-w-md mt-2.5 mb-1.5 font-display font-semibold text-[20px] sm:text-[22px] md:text-[24px] text-[#283618] tracking-wider uppercase">
           <span className="hover:text-[#5B4436] transition-colors cursor-pointer animate-stagger-right-3">REDUCE</span>
-          <span className="text-[#283618]/25 text-lg animate-stagger-right-dot-2">•</span>
+          <span className="text-[#283618]/30 text-lg animate-stagger-right-dot-2">•</span>
           <span className="hover:text-[#5B4436] transition-colors cursor-pointer animate-stagger-right-2">REUSE</span>
-          <span className="text-[#283618]/25 text-lg animate-stagger-right-dot-1">•</span>
+          <span className="text-[#283618]/30 text-lg animate-stagger-right-dot-1">•</span>
           <span className="hover:text-[#5B4436] transition-colors cursor-pointer animate-stagger-right-1">RECYCLE</span>
         </div>
 
-        {/* Narrative text — fade up */}
-        <p className="font-body text-[#283618]/80 text-sm sm:text-base font-medium leading-relaxed max-w-sm mt-0 mb-3 animate-reveal-up-d2">
+        {/* Narrative text — Body text: 14-16px Regular Oduda */}
+        <p className="font-body text-[#283618]/85 text-[14px] sm:text-[15px] md:text-[16px] font-normal leading-relaxed max-w-md mt-1 mb-3.5 animate-reveal-up-d2">
           Bumi tidak butuh pahlawan super — Cukup kamu yang mau mulai.{' '}
           3 langkah kecil bisa mengubah arah masa depan bumi kita.
         </p>
 
-        {/* CTA Button — dengan pulsing ring */}
+        {/* CTA Button — Label tombol: 20-24px SemiBold Ellak */}
         <div className="mt-1 mb-2 animate-reveal-up-d3">
           <button
             type="button"
             onClick={handleClick}
-            className="group inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-[#283618] text-[#FEFAE0] font-display text-base sm:text-lg font-black tracking-wide shadow-lg hover:bg-[#1e2a12] active:scale-95 transition-all transform hover:-translate-y-1 cursor-pointer select-none animate-cta-ring"
+            className="group inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-[#283618] text-[#FEFAE0] font-display text-[20px] sm:text-[22px] font-semibold tracking-wide shadow-lg hover:bg-[#1e2a12] active:scale-95 transition-all transform hover:-translate-y-1 cursor-pointer select-none animate-cta-ring"
           >
             <span>GESER KE BAWAH</span>
             <div className="w-7 h-7 rounded-full bg-[#FEFAE0] text-[#283618] flex items-center justify-center group-hover:translate-y-1.5 transition-transform duration-200 shadow-sm">

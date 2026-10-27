@@ -13,14 +13,47 @@
   }
 }
 
-/* Custom Display and Body Fonts matching the project concept */
-.font-display {
-  font-family: 'Fredoka', 'Titan One', system-ui, -apple-system, sans-serif;
+/* Typography Guidelines (Pedoman Tipografi Akademik DKV):
+   1. Heading (Judul Utama & Judul Bagian): Ellak, 32-48 px, Bold
+   2. Subheading (Sub-judul & Label Tombol): Ellak, 20-24 px, SemiBold
+   3. Body text (Teks Paragraf & Deskripsi): Oduda, 14-16 px, Regular
+*/
+.font-display,
+.font-heading,
+.font-ellak {
+  font-family: 'Ellak', 'Fredoka', 'Titan One', 'Nunito', system-ui, -apple-system, sans-serif;
   letter-spacing: -0.01em;
 }
 
-.font-body {
-  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+.font-subheading {
+  font-family: 'Ellak', 'Fredoka', 'Nunito', system-ui, -apple-system, sans-serif;
+}
+
+.font-body,
+.font-oduda {
+  font-family: 'Oduda', 'Comfortaa', 'Plus Jakarta Sans', 'Nunito', system-ui, -apple-system, sans-serif;
+}
+
+/* Standar Ukuran Font Sesuai Pedoman */
+.text-main-heading {
+  font-family: 'Ellak', 'Fredoka', 'Titan One', system-ui, sans-serif;
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.text-sub-heading {
+  font-family: 'Ellak', 'Fredoka', system-ui, sans-serif;
+  font-size: clamp(20px, 3vw, 24px);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.text-body-content {
+  font-family: 'Oduda', 'Comfortaa', 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(14px, 2vw, 16px);
+  font-weight: 400;
+  line-height: 1.6;
 }
 
 /* 3D Flip Card Utilities with Smooth Spring Rotate */

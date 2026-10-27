@@ -121,6 +121,21 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <span className="text-[#283618] group-hover:text-[#FEFAE0] transition text-sm">→</span>
                   </a>
                 ))}
+
+                {onOpenReport && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      sounds.playPop();
+                      setIsOpen(false);
+                      onOpenReport();
+                    }}
+                    className="flex items-center justify-between px-3 py-2.5 rounded-xl font-display text-base font-bold text-[#5B4436] bg-[#5B4436]/10 hover:bg-[#5B4436] hover:text-[#FEFAE0] transition group cursor-pointer text-left mt-1"
+                  >
+                    <span>Tim &amp; Pembagian Tugas</span>
+                    <span className="text-sm">→</span>
+                  </button>
+                )}
               </nav>
 
               {/* Settings & actions inside drawer */}

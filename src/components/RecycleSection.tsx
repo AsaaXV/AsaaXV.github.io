@@ -107,7 +107,7 @@ export const RecycleSection: React.FC = () => {
 
   return (
     <section id="recycle" className="pt-3 pb-3 sm:pt-6 sm:pb-4 px-3 sm:px-4 max-w-4xl mx-auto flex flex-col items-center">
-      {/* Header — Animasi Drop & Hover Interaktif seperti Top Bar */}
+      {/* Header — Heading: 32-48px Bold Ellak | Subheading: 20-24px SemiBold Ellak | Isi: 14-16px Regular Oduda */}
       <div className="flex flex-col items-center text-center mb-5 sm:mb-7 animate-section-title">
         <div className="section-title-interactive group flex items-center justify-center gap-3 sm:gap-4 flex-wrap mb-1">
           <img
@@ -116,15 +116,15 @@ export const RecycleSection: React.FC = () => {
             className="w-10 h-10 sm:w-12 sm:h-12 object-contain drop-shadow-md group-hover:rotate-180 group-hover:scale-110 transition-transform duration-500 select-none pointer-events-none"
             draggable={false}
           />
-          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-black text-[#283618] group-hover:text-[#5B4436] transition-colors leading-tight tracking-tight uppercase">
+          <h2 className="font-display text-[32px] sm:text-[40px] md:text-[48px] font-bold text-[#283618] group-hover:text-[#5B4436] transition-colors leading-tight tracking-tight uppercase">
             RECYCLE
           </h2>
         </div>
-        <div className="font-display text-lg sm:text-xl font-black text-[#5B4436] tracking-wider uppercase mt-1">
+        <div className="font-display text-[20px] sm:text-[22px] md:text-[24px] font-semibold text-[#5B4436] tracking-wider uppercase mt-1">
           Ubah Jadi Baru
         </div>
-        <div className="h-0.5 bg-[#283618]/20 rounded-full my-3 animate-line-grow" />
-        <p className="font-body text-[#283618]/75 text-sm font-medium mt-0.5 max-w-sm mx-auto">
+        <div className="h-0.5 bg-[#283618]/20 rounded-full my-3 animate-line-grow w-24 mx-auto" />
+        <p className="font-body text-[#283618]/85 text-[14px] sm:text-[15px] md:text-[16px] font-normal mt-0.5 max-w-md mx-auto leading-relaxed">
           Alur pemrosesan sampah daur ulang menjadi produk baru bernilai guna.
         </p>
       </div>

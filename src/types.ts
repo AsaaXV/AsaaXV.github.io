@@ -66,6 +66,9 @@ export interface TeamMember {
   name: string;
   nim: string;
   role: string;
+  tasks?: string[];
+  quote?: string;
+  avatarBg?: string;
 }
 
 export interface LogbookEntry {

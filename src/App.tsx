@@ -72,15 +72,14 @@ export default function App() {
 
   return (
     <div className="min-h-screen w-full overflow-x-hidden bg-[#FEFAE0] text-[#283618] font-body flex flex-col items-center">
-      {/* Container wrapper: fluid responsive layout */}
-      <div className="w-full max-w-5xl mx-auto">
-        {/* Top Navbar */}
-        <Navbar
-          onOpenReport={() => setIsReportOpen(true)}
-          onOpenSecret={() => setIsSecretOpen(true)}
-        />
+      {/* Top Navbar — Full Width */}
+      <Navbar
+        onOpenReport={() => setIsReportOpen(true)}
+        onOpenSecret={() => setIsSecretOpen(true)}
+      />
 
-        {/* Main Content Sections */}
+      {/* Main Content Sections: Hero hingga Facts */}
+      <div className="w-full max-w-5xl mx-auto px-3 sm:px-4">
         <main className="w-full pb-0">
           {/* Section 0: Hero 3R */}
           <HeroSection
@@ -100,15 +99,12 @@ export default function App() {
 
           {/* Section 4: FAKTA DAN DATA */}
           <FactsSection />
-
-          {/* Section 5: AJAKAN AKSI */}
-          <ActionSection onOpenSecret={() => setIsSecretOpen(true)} />
         </main>
       </div>
 
-      {/* 1 Navigasi Rumput Fixed di Bagian Paling Bawah yang Mengikuti saat Scroll */}
-      <div className="fixed bottom-0 left-0 right-0 w-full z-30 pointer-events-none select-none overflow-hidden leading-none">
-        <GrassDivider variant="bottom" className="w-full text-[#283618] opacity-95 drop-shadow-md" />
+      {/* Section 5: AJAKAN AKSI, RUMPUT & FOOTER — Memanjang Penuh 100% Layar Desktop (Edge-to-Edge) */}
+      <div className="w-full mt-2">
+        <ActionSection onOpenSecret={() => setIsSecretOpen(true)} />
       </div>
 
       {/* Tombol Mengambang: Kembali ke Atas (Back to Top) */}

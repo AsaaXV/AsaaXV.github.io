@@ -9,12 +9,79 @@ import {
 } from '../types';
 
 export const TEAM_MEMBERS: TeamMember[] = [
-  { name: 'Steffi Ansari Situmorang', nim: '240806500040', role: 'Ketua / Project Manager & UX Research' },
-  { name: 'Aura Putri Nabila', nim: '240806500043', role: 'UI Designer & Visual Asset Creator' },
-  { name: 'Muhammad Antasari Aryansyah', nim: '240806500046', role: 'Content Writer & Usability Researcher' },
-  { name: 'Muh. Fatur Idris', nim: '240806501062', role: 'Interactive Prototyper & Interaction Specialist' },
-  { name: 'Fathimah Azzahrah', nim: '240806501065', role: 'Graphic Illustrator & Visual Stylist' },
-  { name: 'Alfathir Awan Arillah', nim: '2408060502034', role: 'Front-End Implementer & Accessibility QA' },
+  {
+    name: 'Steffi Ansari Situmorang',
+    nim: '240806500040',
+    role: 'Ketua / Project Manager & UX Research',
+    avatarBg: 'bg-[#283618]',
+    quote: 'Pengerjaan proyek media interaktif 3R ini berhasil diraih melalui kolaborasi tim yang solid. Setiap bagian dikerjakan bersama—mulai dari riset pengguna, optimasi layout HP satu kartu per layar, hingga rumput yang fleksibel di segala perangkat.',
+    tasks: [
+      'Memimpin perencanaan proyek, koordinasi tim, dan pembagian tugas kerja sama',
+      'Merumuskan konsep UX Research & kebutuhan demografi mahasiswa UNM',
+      'Memberikan arahan perancangan layout mobile 1 kartu per layar HP agar nyaman dibaca',
+      'Evaluasi kelayakan interaksi dan keterbacaan konten di seluruh perangkat',
+    ],
+  },
+  {
+    name: 'Aura Putri Nabila',
+    nim: '240806500043',
+    role: 'UI Designer & Visual Asset Creator',
+    avatarBg: 'bg-[#5B4436]',
+    quote: 'Harmonisasi palet warna Cream, Moss Green, dan Earth Brown memberikan kesan hangat dan ramah lingkungan.',
+    tasks: [
+      'Menyusun moodboard visual, typography styling, dan palet warna 60-30-10',
+      'Mendesain tata letak kartu interaktif Reduce, Reuse, dan Facts',
+      'Menyiapkan hierarki visual yang kontras dan nyaman di mata pengguna',
+    ],
+  },
+  {
+    name: 'Muhammad Antasari Aryansyah',
+    nim: '240806500046',
+    role: 'Content Writer & Usability Researcher',
+    avatarBg: 'bg-[#3A5A40]',
+    quote: 'Pesan edukasi harus ringkas, dekat dengan keseharian anak kos, dan berbasis data riil.',
+    tasks: [
+      'Riset dan kurasi data fakta sampah nasional 2025 & global',
+      'Menulis copywriting narasi edukatif 3R yang komunikatif untuk mahasiswa',
+      'Menyusun kuesioner survei Google Form (16 responden) dan wawancara mendalam',
+    ],
+  },
+  {
+    name: 'Muh. Fatur Idris',
+    nim: '240806501062',
+    role: 'Interactive Prototyper & Interaction Specialist',
+    avatarBg: 'bg-[#606C38]',
+    quote: 'Interaksi scrollytelling dan animasi sentuh membuat edukasi lingkungan terasa seru seperti bermain game.',
+    tasks: [
+      'Merancang mekanisme interaksi roda daur ulang 4 kuadran',
+      'Mengembangkan animasi buka-tutup tong sampah dan mini-game edukasi',
+      'Pengujian alur navigasi klik dan transisi flip card 3D',
+    ],
+  },
+  {
+    name: 'Fathimah Azzahrah',
+    nim: '240806501065',
+    role: 'Graphic Illustrator & Visual Stylist',
+    avatarBg: 'bg-[#BC6C25]',
+    quote: 'Ilustrasi hand-drawn memberikan karakter unik dan kedekatan emosional bagi pengguna.',
+    tasks: [
+      'Membuat ilustrasi asli ikon 3R (tumbler, totebag belanja, sedotan besi)',
+      'Mengolah aset visual foto before-after daur ulang botol, kardus, dan kain perca',
+      'Menyelaraskan gaya ilustrasi ramah lingkungan di seluruh halaman',
+    ],
+  },
+  {
+    name: 'Alfathir Awan Arillah',
+    nim: '2408060502034',
+    role: 'Front-End Implementer & Accessibility QA',
+    avatarBg: 'bg-[#2E3C18]',
+    quote: 'Performa web yang gesit dan responsivitas penuh di setiap layar HP adalah kunci aksesibilitas.',
+    tasks: [
+      'Mengimplementasikan layout responsif (1 kartu per layar di HP, grid di desktop)',
+      'Menyesuaikan ketinggian rumput agar proporsional dan fleksibel di segala device',
+      'Optimasi ukuran font, rasio kontras WCAG, dan kompatibilitas multi-browser',
+    ],
+  },
 ];
 
 export const LECTURERS = [
