@@ -18,6 +18,23 @@
    2. Subheading (Sub-judul & Label Tombol): Ellak, 20-24 px, SemiBold
    3. Body text (Teks Paragraf & Deskripsi): Oduda, 14-16 px, Regular
 */
+@font-face {
+  font-family: 'Ellak';
+  src: url('./assets/fonts/ellak.otf') format('opentype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Oduda';
+  src: url('./assets/fonts/oduda-bold.woff2') format('woff2'),
+       url('./assets/fonts/oduda-bold.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 .font-display,
 .font-heading,
 .font-ellak {
