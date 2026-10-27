@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+}
+
+section[id] {
+  scroll-margin-top: 5.5rem;
+}
+
 @layer base {
   :root {
     --color-cream: #FEFAE0;
@@ -10,6 +19,7 @@
   body {
     background-color: #FEFAE0;
     color: #283618;
+    font-family: 'Oduda', 'Comfortaa', 'Plus Jakarta Sans', system-ui, sans-serif;
   }
 }
 
@@ -20,24 +30,103 @@
 */
 @font-face {
   font-family: 'Ellak';
-  src: url('./assets/fonts/ellak.otf') format('opentype');
-  font-weight: 100 900;
+  src: local('Ellak'), local('Ellak Regular'), local('Ellak-Regular'),
+       url('./assets/fonts/ellak.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ellak';
+  src: local('Ellak'), local('Ellak Regular'), local('Ellak-Regular'),
+       url('./assets/fonts/ellak.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ellak';
+  src: local('Ellak'), local('Ellak Regular'), local('Ellak-Regular'),
+       url('./assets/fonts/ellak.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ellak';
+  src: local('Ellak'), local('Ellak Regular'), local('Ellak-Regular'),
+       url('./assets/fonts/ellak.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ellak';
+  src: local('Ellak'), local('Ellak Regular'), local('Ellak-Regular'),
+       url('./assets/fonts/ellak.otf') format('opentype');
+  font-weight: 900;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Oduda';
-  src: url('./assets/fonts/oduda-bold.woff2') format('woff2'),
+  src: local('Oduda'), local('Oduda Bold'), local('Oduda-Bold'),
+       url('./assets/fonts/oduda-bold.woff2') format('woff2'),
        url('./assets/fonts/oduda-bold.ttf') format('truetype');
-  font-weight: 100 900;
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Oduda';
+  src: local('Oduda'), local('Oduda Bold'), local('Oduda-Bold'),
+       url('./assets/fonts/oduda-bold.woff2') format('woff2'),
+       url('./assets/fonts/oduda-bold.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Oduda';
+  src: local('Oduda'), local('Oduda Bold'), local('Oduda-Bold'),
+       url('./assets/fonts/oduda-bold.woff2') format('woff2'),
+       url('./assets/fonts/oduda-bold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Oduda';
+  src: local('Oduda'), local('Oduda Bold'), local('Oduda-Bold'),
+       url('./assets/fonts/oduda-bold.woff2') format('woff2'),
+       url('./assets/fonts/oduda-bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Oduda';
+  src: local('Oduda'), local('Oduda Bold'), local('Oduda-Bold'),
+       url('./assets/fonts/oduda-bold.woff2') format('woff2'),
+       url('./assets/fonts/oduda-bold.ttf') format('truetype');
+  font-weight: 800;
   font-style: normal;
   font-display: swap;
 }
 
 .font-display,
 .font-heading,
-.font-ellak {
+.font-ellak,
+h1, h2, h3, h4, h5, h6 {
   font-family: 'Ellak', 'Fredoka', 'Titan One', 'Nunito', system-ui, -apple-system, sans-serif;
   letter-spacing: -0.01em;
 }
@@ -47,7 +136,8 @@
 }
 
 .font-body,
-.font-oduda {
+.font-oduda,
+body, p, span, li {
   font-family: 'Oduda', 'Comfortaa', 'Plus Jakarta Sans', 'Nunito', system-ui, -apple-system, sans-serif;
 }
 

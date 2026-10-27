@@ -47,29 +47,101 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <>
-      {/* Floating Top Bar with circular hamburger button & quick controls */}
-      <header className="sticky top-0 z-40 w-full px-4 py-3 flex items-center justify-between backdrop-blur-xs bg-[#FEFAE0]/90 transition-all border-b border-[#283618]/10">
-        {/* Top left clean text button without any icon */}
-        <button
-          onClick={() => {
-            sounds.playPop();
-            setIsOpen(true);
-          }}
-          aria-label="Buka Menu Navigasi"
-          className="px-4 py-2 rounded-full bg-[#283618] text-[#FEFAE0] font-display text-xs sm:text-sm font-bold shadow-md hover:bg-[#1e2a12] active:scale-95 transition cursor-pointer"
-        >
-          Menu
-        </button>
+      {/* Sticky Top Bar on Desktop & Mobile: Memungkinkan lompat antar section kapan saja tanpa scroll manual */}
+      <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-[#FEFAE0]/95 border-b border-[#283618]/15 shadow-sm transition-all">
+        <div className="w-full max-w-6xl mx-auto px-4 py-2.5 flex items-center justify-between gap-3">
+          {/* Brand Logo with secret 3-clicks trigger */}
+          <div
+            onClick={handleLogoClick}
+            className="flex items-center gap-2 cursor-pointer select-none group shrink-0"
+            title="Klik 3x untuk membuka Fitur Rahasia DKV"
+          >
+            <div className="w-8 h-8 rounded-full bg-[#283618] text-[#FEFAE0] flex items-center justify-center font-display font-black text-xs shadow-sm group-hover:scale-105 transition-transform">
+              3R
+            </div>
+            <span className="font-display text-[#283618] text-base sm:text-lg font-black tracking-wider group-hover:text-[#5B4436] transition-colors">
+              CRAFT4EARTH
+            </span>
+          </div>
 
-        {/* Center Title pill / indicator with secret 3-clicks trigger */}
-        <div
-          onClick={handleLogoClick}
-          className="flex items-center gap-2 cursor-pointer select-none group"
-          title="Klik 3x untuk membuka Fitur Rahasia DKV"
-        >
-          <span className="font-display text-[#283618] text-lg font-black tracking-wider group-hover:text-[#5B4436] transition-colors">
-            CRAFT4EARTH
-          </span>
+          {/* Desktop Direct Navigation: Tautan langsung lompat ke section */}
+          <nav className="hidden md:flex items-center gap-1 lg:gap-2">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => sounds.playPop()}
+                className="px-3 py-1.5 rounded-full font-display text-sm lg:text-[15px] font-semibold text-[#283618] hover:bg-[#283618] hover:text-[#FEFAE0] active:scale-95 transition-all cursor-pointer"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+
+          {/* Right Controls: Tombol Tim & Tugas, Sound Toggle, and Mobile Hamburger */}
+          <div className="flex items-center gap-2 shrink-0">
+            {onOpenReport && (
+              <button
+                type="button"
+                onClick={() => {
+                  sounds.playPop();
+                  onOpenReport();
+                }}
+                className="hidden sm:flex items-center gap-1 px-3 py-1.5 rounded-full bg-[#5B4436] text-[#FEFAE0] font-display text-xs font-bold shadow-xs hover:bg-[#433227] active:scale-95 transition cursor-pointer"
+                title="Buka Dokumen Riset & Pembagian Tugas Tim"
+              >
+                <span>Tim &amp; Tugas</span>
+              </button>
+            )}
+
+            {/* Audio Toggle */}
+            <button
+              onClick={toggleSound}
+              aria-label="Toggle Suara"
+              className="w-8 h-8 rounded-full bg-[#283618]/10 text-[#283618] hover:bg-[#283618]/20 flex items-center justify-center transition cursor-pointer"
+              title={isSoundActive ? 'Matikan Suara' : 'Nyalakan Suara'}
+            >
+              {isSoundActive ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4 text-[#283618]/50" />}
+            </button>
+
+            {/* Mobile Hamburger Menu Button */}
+            <button
+              onClick={() => {
+                sounds.playPop();
+                setIsOpen(true);
+              }}
+              aria-label="Buka Menu Navigasi"
+              className="md:hidden px-3 py-1.5 rounded-full bg-[#283618] text-[#FEFAE0] font-display text-xs font-bold shadow hover:bg-[#1e2a12] active:scale-95 transition cursor-pointer"
+            >
+              Menu
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Quick-Jump Chips Bar (Sticky di HP agar pengguna bisa langsung lompat ke section manapun tanpa scroll) */}
+        <div className="flex md:hidden items-center gap-1.5 overflow-x-auto no-scrollbar px-3 py-1.5 border-t border-[#283618]/10 bg-[#FEFAE0]/90">
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={() => sounds.playPop()}
+              className="shrink-0 px-2.5 py-1 rounded-full bg-[#283618]/10 text-[#283618] font-display text-[11px] font-bold hover:bg-[#283618] hover:text-[#FEFAE0] active:scale-95 transition-all"
+            >
+              {link.label.replace(/^\d+\.\s*/, '')}
+            </a>
+          ))}
+          {onOpenReport && (
+            <button
+              type="button"
+              onClick={() => {
+                sounds.playPop();
+                onOpenReport();
+              }}
+              className="shrink-0 px-2.5 py-1 rounded-full bg-[#5B4436]/15 text-[#5B4436] font-display text-[11px] font-bold hover:bg-[#5B4436] hover:text-[#FEFAE0] active:scale-95 transition-all"
+            >
+              Tim
+            </button>
+          )}
         </div>
       </header>
 

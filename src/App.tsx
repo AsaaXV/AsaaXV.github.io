@@ -71,8 +71,8 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen w-full overflow-x-hidden bg-[#FEFAE0] text-[#283618] font-body flex flex-col items-center">
-      {/* Top Navbar — Full Width */}
+    <div className="min-h-screen w-full overflow-x-clip bg-[#FEFAE0] text-[#283618] font-body flex flex-col items-center">
+      {/* Top Navbar — Sticky di Desktop maupun HP */}
       <Navbar
         onOpenReport={() => setIsReportOpen(true)}
         onOpenSecret={() => setIsSecretOpen(true)}
@@ -105,6 +105,14 @@ export default function App() {
       {/* Section 5: AJAKAN AKSI, RUMPUT & FOOTER — Memanjang Penuh 100% Layar Desktop (Edge-to-Edge) */}
       <div className="w-full mt-2">
         <ActionSection onOpenSecret={() => setIsSecretOpen(true)} />
+      </div>
+
+      {/* 1 Navigasi Rumput Fixed/Sticky di Bagian Paling Bawah yang Mengikuti saat Scroll — Dipendekkan khusus Desktop */}
+      <div className="fixed bottom-0 left-0 right-0 w-full z-30 pointer-events-none select-none overflow-hidden leading-none">
+        <GrassDivider
+          variant="bottom"
+          className="w-full text-[#283618] opacity-95 drop-shadow-md"
+        />
       </div>
 
       {/* Tombol Mengambang: Kembali ke Atas (Back to Top) */}
