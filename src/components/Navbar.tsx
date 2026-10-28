@@ -78,22 +78,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             ))}
           </nav>
 
-          {/* Right Controls: Tombol Tim & Tugas, Sound Toggle, and Mobile Hamburger */}
+          {/* Right Controls: Sound Toggle and Mobile Hamburger */}
           <div className="flex items-center gap-2 shrink-0">
-            {onOpenReport && (
-              <button
-                type="button"
-                onClick={() => {
-                  sounds.playPop();
-                  onOpenReport();
-                }}
-                className="hidden sm:flex items-center gap-1 px-3 py-1.5 rounded-full bg-[#5B4436] text-[#FEFAE0] font-display text-xs font-bold shadow-xs hover:bg-[#433227] active:scale-95 transition cursor-pointer"
-                title="Buka Dokumen Riset & Pembagian Tugas Tim"
-              >
-                <span>Tim &amp; Tugas</span>
-              </button>
-            )}
-
             {/* Audio Toggle */}
             <button
               onClick={toggleSound}
@@ -130,18 +116,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               {link.label.replace(/^\d+\.\s*/, '')}
             </a>
           ))}
-          {onOpenReport && (
-            <button
-              type="button"
-              onClick={() => {
-                sounds.playPop();
-                onOpenReport();
-              }}
-              className="shrink-0 px-2.5 py-1 rounded-full bg-[#5B4436]/15 text-[#5B4436] font-display text-[11px] font-bold hover:bg-[#5B4436] hover:text-[#FEFAE0] active:scale-95 transition-all"
-            >
-              Tim
-            </button>
-          )}
         </div>
       </header>
 
