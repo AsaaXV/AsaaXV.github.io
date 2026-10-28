@@ -130,8 +130,8 @@ export const FactsSection: React.FC = () => {
         </p>
       </div>
 
-      {/* Kartu Fakta Memanjang ke Bawah di HP & 3 Kolom di Layar Lebar */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-5 w-full max-w-sm sm:max-w-none mx-auto items-stretch">
+      {/* Kartu Fakta Memanjang ke Bawah di HP & Tablet & 3 Kolom di Layar Desktop */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-5 w-full max-w-md lg:max-w-none mx-auto items-stretch">
         {FACTS_DATA.map((fact, idx) => {
           const staggerClass =
             idx === 2

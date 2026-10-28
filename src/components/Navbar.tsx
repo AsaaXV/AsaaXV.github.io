@@ -65,7 +65,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Desktop Right Navigation: Links + Sound Toggle menyatu rapi di sisi kanan tanpa white space kosong */}
-          <div className="hidden md:flex items-center gap-1 lg:gap-2">
+          <div className="hidden lg:flex items-center gap-1 lg:gap-2">
             <nav className="flex items-center gap-1 lg:gap-2">
               {navLinks.map((link) => (
                 <a
@@ -91,7 +91,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Mobile Right Controls: Sound Toggle and Mobile Hamburger */}
-          <div className="flex md:hidden items-center gap-2 shrink-0">
+          <div className="flex lg:hidden items-center gap-2 shrink-0">
             {/* Audio Toggle */}
             <button
               onClick={toggleSound}
@@ -117,7 +117,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
 
         {/* Mobile Quick-Jump Chips Bar (Sticky di HP agar pengguna bisa langsung lompat ke section manapun tanpa scroll) */}
-        <div className="flex md:hidden items-center gap-1.5 overflow-x-auto no-scrollbar px-3 py-1.5 border-t border-[#283618]/10 bg-[#FEFAE0]/90">
+        <div className="flex lg:hidden items-center gap-1.5 overflow-x-auto no-scrollbar px-3 py-1.5 border-t border-[#283618]/10 bg-[#FEFAE0]/90">
           {navLinks.map((link) => (
             <a
               key={link.href}

@@ -13,7 +13,7 @@ export const GrassDivider: React.FC<GrassDividerProps> = ({
 }) => {
   const isHeightSpecified = fillHeight || /h-\[?\d+|h-full/.test(className);
   // Di HP: ukuran kemarin (~40-44px), di desktop: dipendekkan ramping & pendek (24-28px)
-  const svgHeightClass = isHeightSpecified ? 'h-full' : 'h-10 sm:h-11 md:h-6 lg:h-7';
+  const svgHeightClass = isHeightSpecified ? 'h-full' : 'h-10 sm:h-11 md:h-11 lg:h-7';
 
   if (variant === 'spiky') {
     return (

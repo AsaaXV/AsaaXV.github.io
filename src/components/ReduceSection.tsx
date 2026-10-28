@@ -44,8 +44,8 @@ export const ReduceSection: React.FC = () => {
         </p>
       </div>
 
-      {/* Kartu Memanjang ke Bawah di HP (1 kartu per layar saat di-scroll) & 3 Kolom di Layar Lebar */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-5 w-full max-w-sm sm:max-w-none mx-auto items-stretch">
+      {/* Kartu Memanjang ke Bawah di HP & Tablet (1 kartu per layar saat di-scroll) & 3 Kolom di Layar Desktop */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-5 w-full max-w-md lg:max-w-none mx-auto items-stretch">
         {REDUCE_CARDS.map((card, idx) => {
           const isFlipped = !!flippedCards[card.id];
           const staggerClass =
@@ -58,11 +58,11 @@ export const ReduceSection: React.FC = () => {
           return (
             <div
               key={card.id}
-              className={`perspective-1200 w-full min-h-[380px] sm:min-h-[365px] flex flex-col ${staggerClass}`}
+              className={`perspective-1200 w-full min-h-[380px] lg:min-h-[365px] flex flex-col ${staggerClass}`}
             >
               <div
                 onClick={() => handleToggleFlip(card.id)}
-                className="relative w-full flex-1 transform-style-3d flip-card-transition cursor-pointer select-none group min-h-[380px] sm:min-h-[365px]"
+                className="relative w-full flex-1 transform-style-3d flip-card-transition cursor-pointer select-none group min-h-[380px] lg:min-h-[365px]"
                 style={{
                   transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
                 }}
