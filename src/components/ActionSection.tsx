@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { FolderOpen, Share2, CheckCircle2, ChevronRight, X, ChevronLeft } from 'lucide-react';
 import { ACTION_FOLDERS } from '../data/content';
 import { ShareModal } from './ShareModal';
-import { GrassDivider } from './GrassDivider';
 import { sounds } from '../utils/audio';
 
 import tongsampahAtasImg from '../assets/tongsampah-atas.png';
@@ -350,11 +349,6 @@ export const ActionSection: React.FC<ActionSectionProps> = ({ onOpenSecret }) =>
             Yuk jaga bareng-bareng!
           </p>
         </div>
-      </div>
-
-      {/* Rumput fleksibel & pendek melintang panjang 100% di seluruh lebar layar desktop tanpa terpotong batas container */}
-      <div className="w-full min-w-full overflow-hidden select-none pointer-events-none leading-none -mb-1 relative z-10">
-        <GrassDivider variant="bottom" className="w-full min-w-full text-[#283618] opacity-95" />
       </div>
 
       {/* Footer Banner membentang penuh 100% lebar layar desktop */}
