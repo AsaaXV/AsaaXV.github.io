@@ -26,11 +26,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onStartExplore, onOpen
   };
 
   return (
-    <section id="hero" className="relative pt-6 pb-2 sm:pt-8 sm:pb-3 flex flex-col items-center text-center overflow-hidden">
+    <section id="hero" className="relative pt-3 pb-2 sm:pt-4 sm:pb-3 flex flex-col items-center text-center overflow-hidden">
       <div className="max-w-xl mx-auto px-4 flex flex-col items-center">
 
         {/* Planet + 3R — dengan animasi masuk */}
-        <div className="relative my-2 select-none flex items-center justify-center gap-4 sm:gap-6">
+        <div className="relative my-1 sm:my-2 select-none flex items-center justify-center gap-4 sm:gap-6">
 
           {/* Earth dengan floating + ring pulse */}
           <button

@@ -48,8 +48,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <>
       {/* Sticky Top Bar on Desktop & Mobile: Memungkinkan lompat antar section kapan saja tanpa scroll manual */}
-      <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-[#FEFAE0]/95 border-b border-[#283618]/15 shadow-sm transition-all">
-        <div className="w-full max-w-6xl mx-auto px-4 py-2.5 flex items-center justify-between gap-3">
+      <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-[#FEFAE0]/95 border-b border-[#283618]/15 shadow-xs transition-all">
+        <div className="w-full px-4 sm:px-6 lg:px-8 py-2.5 flex items-center justify-between gap-4">
           {/* Brand Logo with secret 3-clicks trigger */}
           <div
             onClick={handleLogoClick}
@@ -64,22 +64,34 @@ export const Navbar: React.FC<NavbarProps> = ({
             </span>
           </div>
 
-          {/* Desktop Direct Navigation: Tautan langsung lompat ke section */}
-          <nav className="hidden md:flex items-center gap-1 lg:gap-2">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => sounds.playPop()}
-                className="px-3 py-1.5 rounded-full font-display text-sm lg:text-[15px] font-semibold text-[#283618] hover:bg-[#283618] hover:text-[#FEFAE0] active:scale-95 transition-all cursor-pointer"
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
+          {/* Desktop Right Navigation: Links + Sound Toggle menyatu rapi di sisi kanan tanpa white space kosong */}
+          <div className="hidden md:flex items-center gap-1 lg:gap-2">
+            <nav className="flex items-center gap-1 lg:gap-2">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => sounds.playPop()}
+                  className="px-3 py-1.5 rounded-full font-display text-sm lg:text-[15px] font-semibold text-[#283618] hover:bg-[#283618] hover:text-[#FEFAE0] active:scale-95 transition-all cursor-pointer"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
 
-          {/* Right Controls: Sound Toggle and Mobile Hamburger */}
-          <div className="flex items-center gap-2 shrink-0">
+            {/* Audio Toggle rapi di ujung kanan menu */}
+            <button
+              onClick={toggleSound}
+              aria-label="Toggle Suara"
+              className="ml-2 w-8 h-8 rounded-full bg-[#283618]/10 text-[#283618] hover:bg-[#283618]/20 flex items-center justify-center transition cursor-pointer shrink-0"
+              title={isSoundActive ? 'Matikan Suara' : 'Nyalakan Suara'}
+            >
+              {isSoundActive ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4 text-[#283618]/50" />}
+            </button>
+          </div>
+
+          {/* Mobile Right Controls: Sound Toggle and Mobile Hamburger */}
+          <div className="flex md:hidden items-center gap-2 shrink-0">
             {/* Audio Toggle */}
             <button
               onClick={toggleSound}
@@ -97,7 +109,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 setIsOpen(true);
               }}
               aria-label="Buka Menu Navigasi"
-              className="md:hidden px-3 py-1.5 rounded-full bg-[#283618] text-[#FEFAE0] font-display text-xs font-bold shadow hover:bg-[#1e2a12] active:scale-95 transition cursor-pointer"
+              className="px-3 py-1.5 rounded-full bg-[#283618] text-[#FEFAE0] font-display text-xs font-bold shadow hover:bg-[#1e2a12] active:scale-95 transition cursor-pointer"
             >
               Menu
             </button>
