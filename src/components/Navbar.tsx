@@ -90,7 +90,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
           </div>
 
-          {/* Mobile Right Controls: Sound Toggle and Mobile Hamburger */}
+          {/* Mobile Right Controls: Sound Toggle */}
           <div className="flex lg:hidden items-center gap-2 shrink-0">
             {/* Audio Toggle */}
             <button
@@ -100,18 +100,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               title={isSoundActive ? 'Matikan Suara' : 'Nyalakan Suara'}
             >
               {isSoundActive ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4 text-[#283618]/50" />}
-            </button>
-
-            {/* Mobile Hamburger Menu Button */}
-            <button
-              onClick={() => {
-                sounds.playPop();
-                setIsOpen(true);
-              }}
-              aria-label="Buka Menu Navigasi"
-              className="px-3 py-1.5 rounded-full bg-[#283618] text-[#FEFAE0] font-display text-xs font-bold shadow hover:bg-[#1e2a12] active:scale-95 transition cursor-pointer"
-            >
-              Menu
             </button>
           </div>
         </div>
